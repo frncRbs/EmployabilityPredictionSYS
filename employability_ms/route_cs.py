@@ -248,10 +248,10 @@ def cs_dashboard():
             
             if auth_user.program == "Shiftee" or auth_user.program == "Transferee":
                 program = 1
-                return render_template("CS/CSinputs.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
+                return render_template("CS/CS_landing.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
             elif auth_user.program == "Regular":
                 program = 0
-                return render_template("CS/CSinputs.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
+                return render_template("CS/CS_landing.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
                 
         elif auth_user.user_type == 1 and auth_user.department == "Computer Science" and auth_user.sex == "Female":
             sex = 1
@@ -261,21 +261,21 @@ def cs_dashboard():
             
             if auth_user.program == "Shiftee" or auth_user.program == "Transferee":
                 program = 1
-                return render_template("CS/CSinputs.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
+                return render_template("CS/CS_landing.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
             elif auth_user.program == "Regular":
                 program = 0
-                return render_template("CS/CSinputs.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
+                return render_template("CS/CS_landing.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
         else:
             return redirect(url_for('_auth.index'))
         
-    return render_template("CS/CSinputs.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
+    return render_template("CS/CS_landing.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
     # return render_template("CS/CSinputs.html", auth_user=auth_user)
 
-@_route_cs.route("/CSinputs_", methods=['GET'])
-def predict_CS_():
+@_route_cs.route("/CS_result", methods=['GET'])
+def CS_result():
     auth_user=current_user
     if auth_user.user_type == 1:
-        return render_template("CS/CSinputs.html")
+        return render_template("CS/CS_result.html", auth_user=auth_user)
     else:
         return redirect(url_for('_auth.index'))
     
@@ -305,7 +305,7 @@ def predict_CS():
     
     if auth_user.predict_no <= 1:
         if request.method== 'GET':
-            return render_template("CS/CSinputs.html")
+            return render_template("CS/CS_landing.html")
         else:
             float_features = [float(x) for x in request.form.values()]
             features = [np.array(float_features)]
@@ -421,7 +421,7 @@ def predict_CS():
                 
                 db.session.commit()
                 
-                return render_template("/CS/CSPredRes.html", 
+                return render_template("/CS/CS_result.html", 
                                     prediction_text1 = "" if fetch1 == 0 or fetch1 == 0 and fetch2 == 0 and fetch3 == 0 and fetch4 == 0 or fetch2 <= 100 and fetch1 == 0 and fetch3 == 0 and fetch4 == 0 and fetchPred2 == "Administrative Assistant" or fetchPred1 == '0' else "{}".format(f"{prediction[K]} : {fetch1}%"), 
                                     prediction_text2 = "" if fetch2 == 0 or fetch1 == 0 and fetch2 == 0 and fetch3 == 0 and fetch4 == 0 or fetch2 <= 100 and fetch1 == 0 and fetch3 == 0 and fetch4 == 0 and fetchPred2 == "Administrative Assistant" or fetchPred2 == '0' else "{}".format(f"{prediction[K-1]} : {fetch2}%"),
                                     prediction_text3 = "" if fetch3 == 0 or fetch1 == 0 and fetch2 == 0 and fetch3 == 0 and fetch4 == 0 or fetch2 <= 100 and fetch1 == 0 and fetch3 == 0 and fetch4 == 0 and fetchPred2 == "Administrative Assistant" or fetchPred3 == '0' else "{}".format(f"{prediction[K-2]} : {fetch3}%"),

@@ -249,11 +249,11 @@ def it_dashboard():
             if auth_user.program == "Shiftee" or auth_user.program == "Transferee":
                 program = 1
                 
-                return render_template("IT/ITinputs.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
+                return render_template("IT/IT_landing.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
             elif auth_user.program == "Regular":
                 program = 0
                 
-                return render_template("IT/ITinputs.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
+                return render_template("IT/IT_landing.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
                   
         elif auth_user.user_type == 1 and auth_user.department == "Information Technology" and auth_user.sex == "Female":
             sex = 1
@@ -264,15 +264,15 @@ def it_dashboard():
             if auth_user.program == "Shiftee" or auth_user.program == "Transferee":
                 program = 1
                     
-                return render_template("IT/ITinputs.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
+                return render_template("IT/IT_landing.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
             elif auth_user.program == "Regular":
                 program = 0
                 
-                return render_template("IT/ITinputs.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
+                return render_template("IT/IT_landing.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
         else:
             return redirect(url_for('_auth.index'))
         
-    return render_template("IT/ITinputs.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
+    return render_template("IT/IT_landing.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
 
 @_route_it.route("/edit_profile_it", methods=['POST'])
 def edit_profile_it():
@@ -301,7 +301,7 @@ def predict_IT():
     
     if auth_user.predict_no <= 1:
         if request.method== 'GET':
-            return render_template("IT/ITinputs.html")
+            return render_template("IT/IT_landing.html")
         else:
             float_features = [float(x) for x in request.form.values()]
             features = [np.array(float_features)]
