@@ -193,7 +193,7 @@ def login_CS():
     auth_user=current_user
     if auth_user.is_authenticated:
         if auth_user.user_type == 1 and auth_user.department == "Computer Science":
-            return redirect(url_for('.cs_dashboard'))
+            return redirect(url_for('.cs_profile'))
         else:
             return redirect(url_for('_auth.index'))
     else:
@@ -203,7 +203,7 @@ def login_CS():
                 if user.is_approve == True:
                     if check_password_hash(user.password, request.form['password']):
                         login_user(user, remember=True)
-                        return redirect(url_for('.cs_dashboard'))
+                        return redirect(url_for('.cs_profile'))
                     else:
                         flash('Invalid or wrong password', category='error')
                 else:
@@ -271,13 +271,50 @@ def cs_dashboard():
     return render_template("CS/CS_landing.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
     # return render_template("CS/CSinputs.html", auth_user=auth_user)
 
-@_route_cs.route("/CS_result", methods=['GET'])
-def CS_result():
+@_route_cs.route("/cs_result", methods=['GET'])
+def cs_result():
     auth_user=current_user
     if auth_user.user_type == 1:
         return render_template("CS/CS_result.html", auth_user=auth_user)
     else:
         return redirect(url_for('_auth.index'))
+    
+@_route_cs.route("/cs_profile", methods=['GET'])
+def cs_profile():
+    auth_user=current_user
+    
+    if request.method == 'GET':
+        if auth_user.user_type == 1 and auth_user.department == "Computer Science" and auth_user.sex == "Male":
+            sex = 0
+            student_predictions = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', PredictionResult.user_id == int(auth_user.id)).group_by(PredictionResult.result_id).all()
+            predict_iter = User.query.filter_by(id=int(auth_user.id)).first()
+            remaining_attempt = int(predict_iter.predict_no)
+            
+            if auth_user.program == "Shiftee" or auth_user.program == "Transferee":
+                program = 1
+                return render_template("CS/CS_profile.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
+            elif auth_user.program == "Regular":
+                program = 0
+                return render_template("CS/CS_profile.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
+                
+        elif auth_user.user_type == 1 and auth_user.department == "Computer Science" and auth_user.sex == "Female":
+            sex = 1
+            student_predictions = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', PredictionResult.user_id == int(auth_user.id)).group_by(PredictionResult.result_id).all()
+            predict_iter = User.query.filter_by(id=int(auth_user.id)).first()
+            remaining_attempt = int(predict_iter.predict_no)
+            
+            if auth_user.program == "Shiftee" or auth_user.program == "Transferee":
+                program = 1
+                return render_template("CS/CS_profile.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
+            elif auth_user.program == "Regular":
+                program = 0
+                return render_template("CS/CS_profile.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
+        else:
+            return redirect(url_for('_auth.index'))
+    # if auth_user.user_type == 1:
+    #     return render_template("CS/CS_profile.html", auth_user=auth_user)
+    # else:
+    #     return redirect(url_for('_auth.index'))
     
 @_route_cs.route("/edit_profile_cs", methods=['POST'])
 def edit_profile_cs():
@@ -426,7 +463,7 @@ def predict_CS():
                                     prediction_text2 = "" if fetch2 == 0 or fetch1 == 0 and fetch2 == 0 and fetch3 == 0 and fetch4 == 0 or fetch2 <= 100 and fetch1 == 0 and fetch3 == 0 and fetch4 == 0 and fetchPred2 == "Administrative Assistant" or fetchPred2 == '0' else "{}".format(f"{prediction[K-1]} : {fetch2}%"),
                                     prediction_text3 = "" if fetch3 == 0 or fetch1 == 0 and fetch2 == 0 and fetch3 == 0 and fetch4 == 0 or fetch2 <= 100 and fetch1 == 0 and fetch3 == 0 and fetch4 == 0 and fetchPred2 == "Administrative Assistant" or fetchPred3 == '0' else "{}".format(f"{prediction[K-2]} : {fetch3}%"),
                                     prediction_text4 = "" if fetch4 == 0 or fetch1 == 0 and fetch2 == 0 and fetch3 == 0 and fetch4 == 0 or fetch2 <= 100 and fetch1 == 0 and fetch3 == 0 and fetch4 == 0 and fetchPred2 == "Administrative Assistant" or fetchPred4 == '0' else "{}".format(f"{prediction[K-3]} : {fetch4}%"),
-                                    prediction_label1 = "" if fetch2 == 0 or fetch1 == 0 and fetch2 == 0 and fetch3 == 0 and fetch4 == 0 or fetch2 == 1.0 and fetchPred2 == "Administrative Assistant" else "{}".format(f"{prediction[K-1]} is a more likely career path for you. Congratulations!"),
+                                    prediction_label1 = "" if fetch2 == 0 or fetch1 == 0 and fetch2 == 0 and fetch3 == 0 and fetch4 == 0 or fetch2 == 1.0 and fetchPred2 == "Administrative Assistant" else "{}".format(f"{prediction[K-1]} "),
                                     prediction_label3 = "{}".format(f"We apologize for the poor results caused by the anomaly our system discovered when performing the prediction....") if fetch1 == 0 and fetch2 == 0 and fetch3 == 0 and fetch4 == 0 else "",
                                     prediction_label4 = "- In addition to the possibilities mentioned above, there is still a significant chance that you will be hired for your first job in one or more of the positions listed on the left side." if fetch1 > 0 and fetchPred1 !="0" or fetch3 > 0 and fetchPred3 !="0" or fetch4 > 0 and fetchPred4 !="0" or fetchPred2 == "Administrative Assistant" else "",
                                     job_label1 = "{}".format(f"{prediction[K-1]} = {fetch2}%") if fetch2 <= 100 and fetch1 >= 0 and fetch3 >= 0 and fetch4 >= 0 and fetchPred2 == "Administrative Assistant" else "",

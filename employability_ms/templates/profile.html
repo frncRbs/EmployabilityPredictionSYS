@@ -18,7 +18,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/creativetimofficial/tailwind-starter-kit/compiled-tailwind.min.css"
     />
-    <title>Profile | Employability Management System</title>
+    <title>Profile | Tailwind Starter Kit by Creative Tim</title>
   </head>
   <body class="text-gray-800 antialiased">
     <nav
@@ -33,7 +33,7 @@
           <a
             class="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white"
             href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/presentation"
-            >Welcome | {{ auth_user.first_name }}</a
+            >Tailwind Starter Kit</a
           ><button
             class="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
             type="button"
@@ -89,6 +89,15 @@
                 ><span class="lg:hidden inline-block ml-2">Star</span></a
               >
             </li>
+            <li class="flex items-center">
+              <button
+                class="bg-white text-gray-800 active:bg-gray-100 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3"
+                type="button"
+                style="transition: all 0.15s ease 0s;"
+              >
+                <i class="fas fa-arrow-alt-circle-down"></i> Download
+              </button>
+            </li>
           </ul>
         </div>
       </div>
@@ -137,7 +146,7 @@
                   <div class="relative">
                     <img
                       alt="..."
-                      src="../../static/assets/img/team-2-800x800.jpg"
+                      src="./assets/img/team-2-800x800.jpg"
                       class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16"
                       style="max-width: 150px;"
                     />
@@ -151,9 +160,8 @@
                       class="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
                       type="button"
                       style="transition: all 0.15s ease 0s;"
-                      onclick="window.location='/cs_dashboard'"
                     >
-                      Start Prediction
+                      Connect
                     </button>
                   </div>
                 </div>
@@ -162,8 +170,20 @@
                     <div class="mr-4 p-3 text-center">
                       <span
                         class="text-xl font-bold block uppercase tracking-wide text-gray-700"
-                        >{{ auth_user.predict_no }}</span
-                      ><span class="text-sm text-gray-500">Prediction Attempt {{ auth_user.predict_no }} out of 2</span>
+                        >22</span
+                      ><span class="text-sm text-gray-500">Friends</span>
+                    </div>
+                    <div class="mr-4 p-3 text-center">
+                      <span
+                        class="text-xl font-bold block uppercase tracking-wide text-gray-700"
+                        >10</span
+                      ><span class="text-sm text-gray-500">Photos</span>
+                    </div>
+                    <div class="lg:mr-4 p-3 text-center">
+                      <span
+                        class="text-xl font-bold block uppercase tracking-wide text-gray-700"
+                        >89</span
+                      ><span class="text-sm text-gray-500">Comments</span>
                     </div>
                   </div>
                 </div>
@@ -172,7 +192,7 @@
                 <h3
                   class="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
                 >
-                {{ auth_user.first_name }} {{ auth_user.middle_name }} {{ auth_user.last_name }}
+                  Jenna Stones
                 </h3>
                 <div
                   class="text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase"
@@ -184,46 +204,24 @@
                 </div>
                 <div class="mb-2 text-gray-700 mt-10">
                   <i class="fas fa-briefcase mr-2 text-lg text-gray-500"></i
-                  >{{ auth_user.desired_career }} - Creative Tim Officer
+                  >Solution Manager - Creative Tim Officer
                 </div>
                 <div class="mb-2 text-gray-700">
                   <i class="fas fa-university mr-2 text-lg text-gray-500"></i
-                  >Western Mindanao State University - {{ auth_user.department }}
+                  >University of Computer Science
                 </div>
               </div>
               <div class="mt-10 py-10 border-t border-gray-300 text-center">
                 <div class="flex flex-wrap justify-center">
-                  <table style="font-size: 14px;">
-                    <thead>
-                      <tr>
-                        <th style="text-align: center">Desired Career</th>
-                        <th style="text-align: center">Predictions</th>
-                        <th style="text-align: center">Date Predicted</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {% if student_predictions %}
-                        {% for user, student_pred_res in student_predictions %}
-                          <tr>
-                            <td>
-                              <span>{{ student_pred_res.desired_job }}</span>
-                            </td>
-                            <td>
-                              <span style="margin: 5px; text-align: center">{{ student_pred_res.main_rank }}</span>
-                              <span style="margin: 5px; text-align: center">{{ student_pred_res.sub_rank1 }}</span>
-                              <span style="margin: 5px; text-align: center">{{ student_pred_res.sub_rank2 }}</span>
-                              <span style="margin: 5px; text-align: center">{{ student_pred_res.sub_rank3 }}</span>
-                            </td>
-                            <td>
-                              <span style="margin: 5px; text-align: center">{{ student_pred_res.date_created }}</span>
-                            </td>
-                          </tr>
-                        {% endfor %}
-                      {% endif %}
-                    </tbody>
-                  </table>
-                  <div class="mx-auto">
-                      <a href="#pablo" class="font-normal text-pink-500"
+                  <div class="w-full lg:w-9/12 px-4">
+                    <p class="mb-4 text-lg leading-relaxed text-gray-800">
+                      An artist of considerable range, Jenna the name taken by
+                      Melbourne-raised, Brooklyn-based Nick Murphy writes,
+                      performs and records all of his own music, giving it a
+                      warm, intimate feel with a solid groove structure. An
+                      artist of considerable range.
+                    </p>
+                    <a href="#pablo" class="font-normal text-pink-500"
                       >Show more</a
                     >
                   </div>
