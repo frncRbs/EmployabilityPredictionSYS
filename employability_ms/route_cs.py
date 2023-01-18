@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
 import datetime
 from datetime import datetime
+from sqlalchemy import delete, desc, asc
 
 _route_cs = Blueprint('_route_cs', __name__)
 
@@ -282,6 +283,9 @@ def cs_result():
 @_route_cs.route("/cs_profile", methods=['GET'])
 def cs_profile():
     auth_user=current_user
+    top_career = PredictionResult.query.filter_by(user_id=int(auth_user.id)).order_by(desc(PredictionResult.date_created)).first()
+    top_path = top_career.top_rank
+    job_desired = top_path
     
     if request.method == 'GET':
         if auth_user.user_type == 1 and auth_user.department == "Computer Science" and auth_user.sex == "Male":
@@ -292,10 +296,10 @@ def cs_profile():
             
             if auth_user.program == "Shiftee" or auth_user.program == "Transferee":
                 program = 1
-                return render_template("CS/CS_profile.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
+                return render_template("CS/CS_profile.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions, job_desired=job_desired)
             elif auth_user.program == "Regular":
                 program = 0
-                return render_template("CS/CS_profile.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
+                return render_template("CS/CS_profile.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions, job_desired=job_desired)
                 
         elif auth_user.user_type == 1 and auth_user.department == "Computer Science" and auth_user.sex == "Female":
             sex = 1
@@ -305,10 +309,10 @@ def cs_profile():
             
             if auth_user.program == "Shiftee" or auth_user.program == "Transferee":
                 program = 1
-                return render_template("CS/CS_profile.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
+                return render_template("CS/CS_profile.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions, job_desired=job_desired)
             elif auth_user.program == "Regular":
                 program = 0
-                return render_template("CS/CS_profile.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
+                return render_template("CS/CS_profile.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions, job_desired=job_desired)
         else:
             return redirect(url_for('_auth.index'))
     # if auth_user.user_type == 1:
@@ -318,6 +322,26 @@ def cs_profile():
     
 @_route_cs.route("/edit_profile_cs", methods=['POST'])
 def edit_profile_cs():
+    auth_user=current_user
+    if auth_user.user_type == 1 and auth_user.department == "Computer Science":
+        predict_iter = User.query.filter_by(id=int(auth_user.id)).first()
+        current_pred_no = predict_iter.predict_no
+        if current_pred_no < 2:
+            career = User.query.filter_by(id=int(auth_user.id)).first()
+            career.desired_career = request.form['desiredCareer']
+            
+            job = db.session.query(PredictionResult).filter(PredictionResult.result_id == int(auth_user.id))
+            job.desired_job = request.form['desiredCareer']
+            db.session.commit()
+            flash('Profile Successfully Modified', category='info')
+        else:
+            flash('Sorry there is no sense to change career, since you already met the prediction attempts', category='info')
+    else:
+        return redirect(url_for('_auth.index'))
+    return redirect(url_for('.cs_profile'))
+
+@_route_cs.route("/edit_profile_cs_dashboard", methods=['POST'])
+def edit_profile_cs_dashboard():
     auth_user=current_user
     if auth_user.user_type == 1 and auth_user.department == "Computer Science":
         predict_iter = User.query.filter_by(id=int(auth_user.id)).first()

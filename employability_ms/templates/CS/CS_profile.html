@@ -257,7 +257,9 @@
                       style="transition: all 0.15s ease 0s;"
                       data-popup-open="popupID"
                     >
-                      Edit Profile
+                    <i
+                    class="fas fa-user-edit mr-2 text-xs text-white"
+                    ></i> Edit Profile
                     </button>
                     <button
                       class="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
@@ -294,9 +296,69 @@
                   ></i>
                   Los Angeles, California
                 </div>
+                <div>
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                {% if category == 'success_register_cs' %}
+                                    <div class="">
+                                        <div class="">
+                                            <div class="">
+                                                <div style="padding: 2%; color: rgb(27, 202, 27); font-size: 25px; font-weight: 700">
+                                                    <center>
+                                                        {{ message }}
+                                                    </center>
+                                                    <script>
+                                                        window.setTimeout(function () {
+                                                            window.location.reload();
+                                                          }, 10000);
+                                                    </script>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% elif category == 'error' %}
+                                    <div class="">
+                                        <div class="">
+                                            <div class="">
+                                                <div style="padding: 2%; color: red; font-size: 25px; font-weight: 700">
+                                                    <center>
+                                                        {{ message }}
+                                                    </center>
+                                                    <script>
+                                                        window.setTimeout(function () {
+                                                            window.location.reload();
+                                                        }, 3000);
+                                                    </script>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% elif category == 'info' %}
+                                    <div class="">
+                                        <div class="">
+                                            <div class="">
+                                                <div style="padding: 2%; color: green; font-size: 25px; font-weight: 700">
+                                                    <center>
+                                                        {{ message }}
+                                                    </center>
+                                                    <script>
+                                                        window.setTimeout(function () {
+                                                            window.location.reload();
+                                                        }, 3000);
+                                                    </script>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
                 <div class="mb-2 text-gray-700 mt-10">
                   <i class="fas fa-briefcase mr-2 text-lg text-gray-500"></i
-                  >{{ auth_user.desired_career }}
+                  >{{ auth_user.desired_career }} - {{ job_desired }}
                 </div>
                 <div class="mb-2 text-gray-700">
                   <i class="fas fa-university mr-2 text-lg text-gray-500"></i
@@ -358,52 +420,62 @@
                                 <button class="hybridBtn" style="margin: 10px; width: 90%" onclick="window.location='/logout'" type="submit">Sign Out</button>
                               </div>
                             </div> -->
-                            <div class="h-full">
+                            <div class="relative h-full">
  
-                              <div class="border-b-2 block md:flex">
+                              <div class="relative border-b-2 block md:flex">
                             
-                                <div class="w-full md:w-2/5 p-4 sm:p-6 lg:p-8 bg-white shadow-md">
-                                  <div class="flex justify-between">
-                                    <span class="text-xl font-semibold block">Student Profile</span>
-                                    <a href="#" class="-mt-2 text-md font-bold text-white bg-gray-700 rounded-full px-5 py-2 hover:bg-gray-800">Edit</a>
-                                  </div>
-                            
-                                  <span class="text-gray-600">This information is secret so be careful</span>
-                                  <div class="w-full p-8 mx-2 flex justify-center">
-                                    <img id="showImage" class="max-w-xs w-32 items-center border" src="https://images.unsplash.com/photo-1477118476589-bff2c5c4cfbb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=200" alt="">                          
+                                <div class="w-full md:w-2/5 p-4 sm:p-6 lg:p-8 bg-white shadow-md mt-3">
+                                  <div class="pb-6">
+                                    <div class="flex justify-between">
+                                      <span class="text-xl font-semibold block">Student Profile</span>
+                                      <!-- <a href="#" class="-mt-2 text-md font-bold text-white bg-pink-500 rounded-full px-5 py-2 hover:bg-gray-800" type="submit">Save</a> -->
                                     </div>
+                              
+                                    <div class="mb-2 text-gray-700 mt-2">
+                                      <i class="fas fa-briefcase mr-2 text-lg text-gray-500"></i
+                                      >{{ auth_user.desired_career }}
+                                    </div>
+                                    <div class="w-full p-8 mx-2 flex justify-center">
+                                      <img id="showImage" class="object-scale-down max-w-xs w-32 items-center border" src="https://images.unsplash.com/photo-1477118476589-bff2c5c4cfbb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=200" alt="">                          
+                                    </div>
+                                    <div class="mb-2 text-gray-700">
+                                      <i class="fas fa-user-circle mr-2 text-lg text-gray-500"></i
+                                      >{{ auth_user.first_name }} {{ auth_user.middle_name }} {{ auth_user.last_name }}
+                                    </div>
+                                  </div>
                                 </div>
                                 
                                 <div class="w-full md:w-3/5 p-8 bg-white lg:ml-4 shadow-md">
-                                  <div class="rounded  shadow p-6">
+                                  <div class="rounded shadow p-6">
                                     <div class="pb-6">
                                       <form action="/edit_profile_cs" method="POST">
-                                        <p style="font-size: 20px">Desired Career:
-                                          <select style="border-radius: 0;
-                                                        border-top-left-radius: 3px;
-                                                        border-top-right-radius: 3px;
-                                                        background:
-                                            linear-gradient(90deg, green, green) center bottom/0 0.30em no-repeat,
-                                            linear-gradient(90deg, #ccc, #ccc) left bottom/100% 0.30em no-repeat,
-                                            linear-gradient(90deg, #fafafa, #fafafa) left bottom/100% no-repeat;
-                                          transition: background-size 0.3s ease;
-                                          padding: 5px" type="text" name="desiredCareer" id="drop-down" placeholder="Select career" required="">
-                                            <option value="{{ auth_user.desired_career }}">{{ auth_user.desired_career }}</option>
-                                            <option value="Software Engineer / Programmer">Software Engineer / Programmer</option>
-                                            <option value="Technical Support Specialist">Technical Support Specialist</option>
-                                            <option value="Academician">Academician</option>
-                                            <option value="Administrative Assistant">Administrative Assistant</option>
-                                          </select>
-                                        </p>
+                                        <label class="block mb-2 text-m font-medium text-gray-900 dark:text-white" for="file_input">Change Desired Career</label>
+                                        <select
+                                        class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                        style="transition: all 0.15s ease 0s;"
+                                          type="text" name="desiredCareer" id="drop-down" placeholder="Select career" required="">
+                                          <option value="{{ auth_user.desired_career }}">{{ auth_user.desired_career }}</option>
+                                          <option value="Software Engineer / Programmer">Software Engineer / Programmer</option>
+                                          <option value="Technical Support Specialist">Technical Support Specialist</option>
+                                          <option value="Academician">Academician</option>
+                                          <option value="Administrative Assistant">Administrative Assistant</option>
+                                        </select>                        
                                     </div>
                                     <div class="pb-4">
-                                      <label for="about" class="font-semibold text-gray-700 block pb-1">Email</label>
-                                      <input disabled id="email" class="border-1  rounded-r px-4 py-2 w-full" type="email" value="example@example.com" />
-                                      <span class="text-gray-600 pt-4 block opacity-70">Personal login information of your account</span>
+                                      <label class="block mb-2 text-m font-medium text-gray-900 dark:text-white" for="file_input">Upload Profile Photo</label>
+                                      <input class="block w-full text-m text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file">
                                     </div>
+                                    <button
+                                          class="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-5 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
+                                          style="transition: all 0.15s ease 0s;"
+                                          type="submit"
+                                          >
+                                        Save
+                                    </button>
+                                  </form>
                                   </div>
                                 </div>
-                            
+                                
                               </div>
                              
                             </div>
@@ -416,119 +488,49 @@
               </div>
              </div>
 
-              <!-- <div id="myModal" class="modal">
-                <div class="modal-content">
-                  <span class="close">&times;</span>
-                  <center><h1><div style="color: green; display: inline; font-size: 40px">Student Profile</div></h1></center>
-                    <div class="wrap" style="text-align: justify; margin-left: 40px; color: black;">
-                      <div class="user-left">	
-                          <p style="font-size: 20px">Name: {{ auth_user.first_name }} {{ auth_user.middle_name }} {{ auth_user.last_name }}</p> 
-                      </div>
-                      <div class="user-right">
-                          <p style="font-size: 20px">Prediction Attempt : {{ remaining_attempt }} out of 2</p>
-                          <p style="font-size: 20px">Sex: {{ auth_user.sex }}</p>
-                          <p style="font-size: 20px">Email: {{ auth_user.email }}</p>
-                          <p style="font-size: 20px">Contact Number: {{ auth_user.contact_number }}</p>
-                          <p style="font-size: 20px">Program: {{ auth_user.program }}</p>
-                          <p style="font-size: 20px">Department: {{ auth_user.department }}</p>
-                          <form action="/edit_profile_cs" method="POST">
-                          <p style="font-size: 20px">Desired Career:
-                            <select style="border-radius: 0;
-                                          border-top-left-radius: 3px;
-                                          border-top-right-radius: 3px;
-                                          background:
-                              linear-gradient(90deg, green, green) center bottom/0 0.30em no-repeat,
-                              linear-gradient(90deg, #ccc, #ccc) left bottom/100% 0.30em no-repeat,
-                              linear-gradient(90deg, #fafafa, #fafafa) left bottom/100% no-repeat;
-                            transition: background-size 0.3s ease;
-                            padding: 5px" type="text" name="desiredCareer" id="drop-down" placeholder="Select career" required="">
-                              <option value="{{ auth_user.desired_career }}">{{ auth_user.desired_career }}</option>
-                              <option value="Software Engineer / Programmer">Software Engineer / Programmer</option>
-                              <option value="Technical Support Specialist">Technical Support Specialist</option>
-                              <option value="Academician">Academician</option>
-                              <option value="Administrative Assistant">Administrative Assistant</option>
-                            </select>
-                          </p>
-                      </div>
-                    </div>
-                    <table style="font-size: 14px;">
-                      <thead>
-                        <tr>
-                          <th style="text-align: center">Desired Career</th>
-                          <th style="text-align: center">Predictions</th>
-                          <th style="text-align: center">Date Predicted</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {% if student_predictions %}
-                          {% for user, student_pred_res in student_predictions %}
-                            <tr>
-                              <td>
-                                <span>{{ student_pred_res.desired_job }}</span>
-                              </td>
-                              <td>
-                                <span style="margin: 5px; text-align: center">{{ student_pred_res.main_rank }}</span>
-                                <span style="margin: 5px; text-align: center">{{ student_pred_res.sub_rank1 }}</span>
-                                <span style="margin: 5px; text-align: center">{{ student_pred_res.sub_rank2 }}</span>
-                                <span style="margin: 5px; text-align: center">{{ student_pred_res.sub_rank3 }}</span>
-                              </td>
-                              <td>
-                                <span style="margin: 5px; text-align: center">{{ student_pred_res.date_created }}</span>
-                              </td>
-                            </tr>
-                          {% endfor %}
-                        {% endif %}
-                      </tbody>
-                    </table>
-                  <center><button class="hybridBtn" style="margin: 10px; width: 90%" type="submit">Save</button></center>
-                </form>
-                <center><button class="hybridBtn" style="margin: 10px; width: 90%" onclick="window.location='/logout'" type="submit">Sign Out</button></center>
-                </div>
-              </div> -->
-
               <div class="mt-10 py-10 border-t border-gray-300 text-center">
                 <h3
-                  class="text-3xl font-semibold leading-normal mb-2 text-gray-800 mb-2 uppercase"
+                  class="text-3xl font-semibold leading-normal mb-2 text-gray-500 mb-2"
                   >
                   <i class="fas fa-search text-3xl text-gray-500"></i> Predictions
                 </h3>
                 <div class="flex flex-wrap justify-center">
-                  
-                  <table class="min-w-full leading-normal">
-                    <thead>
-                      <tr>
-                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Desired Career</th>
-                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Predictions</th>
-                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Date Predicted</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {% if student_predictions %}
-                        {% for user, student_pred_res in student_predictions %}
-                          <tr>
-                            <td>
-                              <span class="text-s font-semibold leading-normal mb-2 text-gray-800 mr-5">{{ student_pred_res.desired_job }}</span>
-                            </td>
-                            <td>
-                              <span class="text-s font-semibold leading-normal mb-2 text-gray-800">{{ student_pred_res.main_rank }}</span>
-                              <span class="text-s font-semibold leading-normal mb-2 text-gray-800">{{ student_pred_res.sub_rank1 }}</span>
-                              <span class="text-s font-semibold leading-normal mb-2 text-gray-800">{{ student_pred_res.sub_rank2 }}</span>
-                              <span class="text-s font-semibold leading-normal mb-2 text-gray-800 mr-5">{{ student_pred_res.sub_rank3 }}</span>
-                            </td>
-                            <td>
-                              <span style="margin: 5px; text-align: center">{{ student_pred_res.date_created }}</span>
-                            </td>
-                          </tr>
-                        {% endfor %}
-                      {% endif %}
-                    </tbody>
-                  </table>
-                </div>
-                <div class="mx-auto">
-                      <a href="#pablo" class="font-normal text-pink-500"
-                      >Show more</a
-                    >
+                  <div class="-m-1.5 overflow-x-auto">
+                    <div class="p-1.5 min-w-full inline-block align-middle">
+                      <div class="border rounded-lg shadow overflow-hidden dark:border-gray-700 dark:shadow-gray-900">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                          <thead>
+                            <tr class="divide-x divide-gray-200 dark:divide-gray-700">
+                              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Desired Career</th>
+                              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Predictions</th>
+                              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date Predicted</th>
+                            </tr>
+                          </thead>
+                          <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                            {% if student_predictions %}
+                              {% for user, student_pred_res in student_predictions %}
+                                <tr>
+                                  <td>
+                                    <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">{{ student_pred_res.desired_job }}</span>
+                                  </td>
+                                  <td>
+                                    <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">{{ student_pred_res.main_rank }}</span>
+                                    <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">{{ student_pred_res.sub_rank1 }}</span>
+                                    <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">{{ student_pred_res.sub_rank2 }}</span>
+                                    <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">{{ student_pred_res.sub_rank3 }}</span>
+                                  </td>
+                                  <td>
+                                    <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">{{ student_pred_res.date_created }}</span>
+                                  </td>
+                                </tr>
+                              {% endfor %}
+                            {% endif %}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
                   </div>
+                </div>
               </div>
             </div>
           </div>
