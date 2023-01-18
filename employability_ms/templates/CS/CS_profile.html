@@ -1,0 +1,772 @@
+<style>
+  /*PopUp Start*/
+#wrapper {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    min-height: 100vh;
+  }
+  #wrapper main {
+    margin: auto;
+    text-align: center;
+  }
+  
+  .page-content {
+    max-width: 30rem;
+    margin: 10rem auto 0;
+    color: #ddd;
+    text-align: left;
+  }
+  
+  .form {
+    position: fixed;
+    width: 100%;
+    max-width: 30rem;
+    padding: 2rem;
+    border-radius: 10px;
+    background: linear-gradient(to bottom, #3e7417, #3d632b, #2a3e24);
+    box-shadow: rgba(0, 0, 0, 0.8) 0px 13px 27px -5px, rgba(0, 0, 0, 0.7) 0px 8px 16px -8px;
+    color: #eee;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(50px);
+  }
+  .popup--show .form {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: all 0.3s ease-in-out;
+  }
+  .form h2 {
+    text-align: center;
+  }
+  
+  .popup {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    overflow: hidden auto;
+  }
+  .popup--show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: initial;
+  }
+  .popup__inner {
+    width: inherit;
+    height: inherit;
+  }
+  .popup__container {
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 85%;
+  }
+  .popup__content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+  .popup__close {
+    text-align: right;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+  
+  .popup-close {
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.3s ease-in-out;
+  }
+  .popup-close:hover {
+    opacity: 1;
+  }
+  
+  .popup-active {
+    overflow: hidden;
+  }
+  @media (any-hover: hover) {
+    .popup-active {
+      padding-right: var(--scroll-width);
+    }
+  }
+/*PopUp End*/
+</style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="shortcut icon" href="./assets/img/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="76x76"
+      href="./assets/img/apple-icon.png"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/creativetimofficial/tailwind-starter-kit/compiled-tailwind.min.css"
+    />
+    <title>Profile | Employability Management System</title>
+  </head>
+  <body class="text-gray-800 antialiased">
+    <nav
+      class="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 "
+    >
+      <div
+        class="container px-4 mx-auto flex flex-wrap items-center justify-between"
+      >
+        <div
+          class="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start"
+        >
+          <a
+            class="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white"
+            href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/presentation"
+            >Welcome | {{ auth_user.first_name }}</a
+          ><button
+            class="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
+            type="button"
+            onclick="toggleNavbar('example-collapse-navbar')"
+          >
+            <i class="text-white fas fa-bars"></i>
+          </button>
+        </div>
+        <div
+          class="lg:flex flex-grow items-center bg-white lg:bg-transparent lg:shadow-none hidden"
+          id="example-collapse-navbar"
+        >
+          <ul class="flex flex-col lg:flex-row list-none mr-auto">
+            <li class="flex items-center">
+              <a
+                class="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+                href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/profile"
+                ><i
+                  class="lg:text-gray-300 text-gray-500 far fa-file-alt text-lg leading-lg mr-2"
+                ></i>
+                Docs</a
+              >
+            </li>
+          </ul>
+          <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
+            <li class="flex items-center">
+              <a
+                class="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+                href="#pablo"
+                ><i
+                  class="lg:text-gray-300 text-gray-500 fab fa-facebook text-lg leading-lg "
+                ></i
+                ><span class="lg:hidden inline-block ml-2">Share</span></a
+              >
+            </li>
+            <li class="flex items-center">
+              <a
+                class="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+                href="#pablo"
+                ><i
+                  class="lg:text-gray-300 text-gray-500 fab fa-twitter text-lg leading-lg "
+                ></i
+                ><span class="lg:hidden inline-block ml-2">Tweet</span></a
+              >
+            </li>
+            <li class="flex items-center">
+              <a
+                class="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+                href="#pablo"
+                ><i
+                  class="lg:text-gray-300 text-gray-500 fab fa-github text-lg leading-lg "
+                ></i
+                ><span class="lg:hidden inline-block ml-2">Star</span></a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <main class="profile-page">
+      <section class="relative block" style="height: 500px;">
+        <div
+          class="absolute top-0 w-full h-full bg-center bg-cover"
+          style='background-image: url("https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2710&amp;q=80");'
+        >
+          <span
+            id="blackOverlay"
+            class="w-full h-full absolute opacity-50 bg-black"
+          ></span>
+        </div>
+        <div
+          class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden"
+          style="height: 70px;"
+        >
+          <svg
+            class="absolute bottom-0 overflow-hidden"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="none"
+            version="1.1"
+            viewBox="0 0 2560 100"
+            x="0"
+            y="0"
+          >
+            <polygon
+              class="text-gray-300 fill-current"
+              points="2560 0 2560 100 0 100"
+            ></polygon>
+          </svg>
+        </div>
+      </section>
+
+      <section class="relative py-16 bg-gray-300">
+        <div class="container mx-auto px-4">
+          <div
+            class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64"
+          >
+            <div class="px-6">
+              <div class="flex flex-wrap justify-center">
+                <div
+                  class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center"
+                >
+                  <div class="relative">
+                    <img
+                      alt="..."
+                      src="../../static/assets/img/team-2-800x800.jpg"
+                      class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16"
+                      style="max-width: 150px;"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center"
+                >
+                  <div class="py-6 px-3 mt-32 sm:mt-0">
+                    <button
+                      class="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
+                      style="transition: all 0.15s ease 0s;"
+                      data-popup-open="popupID"
+                    >
+                      Edit Profile
+                    </button>
+                    <button
+                      class="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
+                      type="button"
+                      style="transition: all 0.15s ease 0s;"
+                      onclick="window.location='/cs_dashboard'"
+                    >
+                      Start Prediction
+                    </button>
+                  </div>
+                </div>
+                <div class="w-full lg:w-4/12 px-4 lg:order-1">
+                  <div class="flex justify-center py-4 lg:pt-4 pt-8">
+                    <div class="mr-4 p-3 text-center">
+                      <span
+                        class="text-xl font-bold block uppercase tracking-wide text-gray-700"
+                        >{{ auth_user.predict_no }}</span
+                      ><span class="text-sm text-gray-500">Prediction Attempt {{ auth_user.predict_no }} out of 2</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center mt-12">
+                <h3
+                  class="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
+                >
+                {{ auth_user.first_name }} {{ auth_user.middle_name }} {{ auth_user.last_name }}
+                </h3>
+                <div
+                  class="text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase"
+                >
+                  <i
+                    class="fas fa-map-marker-alt mr-2 text-lg text-gray-500"
+                  ></i>
+                  Los Angeles, California
+                </div>
+                <div class="mb-2 text-gray-700 mt-10">
+                  <i class="fas fa-briefcase mr-2 text-lg text-gray-500"></i
+                  >{{ auth_user.desired_career }}
+                </div>
+                <div class="mb-2 text-gray-700">
+                  <i class="fas fa-university mr-2 text-lg text-gray-500"></i
+                  >Western Mindanao State University - {{ auth_user.department }}
+                </div>
+              </div>
+              
+              <div class="popup" id="popupID">
+                <div class="popup__inner">
+                  <div class="popup__container">
+                    <!-- <div style="position: relative; right: 520px; top: 140px; z-index: 1" class="popup__close popup-close" data-popup-close>
+                      <div class="svg-icon">&#10006;</div>
+                    </div> -->
+                    <div class="popup__content">
+                      <!-- your content -->
+                      <!-- <div>
+                        <center>
+                          <img style="position: relative; width: 150px; height: auto; z-index: 1; left: 250px; bottom: 115px"src="https://i.ibb.co/hVNnnCf/312968052-2476337182505210-5876316929227327673-n.png" alt="278471092-1030717754212581-5567044845078025126-n-removebg-preview" border="0"></center>
+                      </div> -->
+                      <div class="pt-6 w-full md:w-6/12 px-4 text-center">
+                        <div
+                          class="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg"
+                        >
+                          <div class="px-4 py-5 flex-auto">
+                            <div>
+                            <!-- <i class="fas fa-award"></i> -->
+                          </div>
+                            <!-- <div class="wrap" style="text-align: justify; margin-left: 40px; color: black;">
+                              <div class="user-left">	
+                                  <p style="font-size: 20px">Name: {{ auth_user.first_name }} {{ auth_user.middle_name }} {{ auth_user.last_name }}</p> 
+                              </div>
+                              <div class="user-right">
+                                  <p style="font-size: 20px">Prediction Attempt : {{ remaining_attempt }} out of 2</p>
+                                  <p style="font-size: 20px">Sex: {{ auth_user.sex }}</p>
+                                  <p style="font-size: 20px">Email: {{ auth_user.email }}</p>
+                                  <p style="font-size: 20px">Contact Number: {{ auth_user.contact_number }}</p>
+                                  <p style="font-size: 20px">Program: {{ auth_user.program }}</p>
+                                  <p style="font-size: 20px">Department: {{ auth_user.department }}</p>
+                                  <form action="/edit_profile_cs" method="POST">
+                                  <p style="font-size: 20px">Desired Career:
+                                    <select style="border-radius: 0;
+                                                  border-top-left-radius: 3px;
+                                                  border-top-right-radius: 3px;
+                                                  background:
+                                      linear-gradient(90deg, green, green) center bottom/0 0.30em no-repeat,
+                                      linear-gradient(90deg, #ccc, #ccc) left bottom/100% 0.30em no-repeat,
+                                      linear-gradient(90deg, #fafafa, #fafafa) left bottom/100% no-repeat;
+                                    transition: background-size 0.3s ease;
+                                    padding: 5px" type="text" name="desiredCareer" id="drop-down" placeholder="Select career" required="">
+                                      <option value="{{ auth_user.desired_career }}">{{ auth_user.desired_career }}</option>
+                                      <option value="Software Engineer / Programmer">Software Engineer / Programmer</option>
+                                      <option value="Technical Support Specialist">Technical Support Specialist</option>
+                                      <option value="Academician">Academician</option>
+                                      <option value="Administrative Assistant">Administrative Assistant</option>
+                                    </select>
+                                  </p>
+                                  <button class="hybridBtn" style="margin: 10px; width: 90%" type="submit">Save</button>
+                                </form>
+                                <button class="hybridBtn" style="margin: 10px; width: 90%" onclick="window.location='/logout'" type="submit">Sign Out</button>
+                              </div>
+                            </div> -->
+                            <div class="h-full">
+ 
+                              <div class="border-b-2 block md:flex">
+                            
+                                <div class="w-full md:w-2/5 p-4 sm:p-6 lg:p-8 bg-white shadow-md">
+                                  <div class="flex justify-between">
+                                    <span class="text-xl font-semibold block">Student Profile</span>
+                                    <a href="#" class="-mt-2 text-md font-bold text-white bg-gray-700 rounded-full px-5 py-2 hover:bg-gray-800">Edit</a>
+                                  </div>
+                            
+                                  <span class="text-gray-600">This information is secret so be careful</span>
+                                  <div class="w-full p-8 mx-2 flex justify-center">
+                                    <img id="showImage" class="max-w-xs w-32 items-center border" src="https://images.unsplash.com/photo-1477118476589-bff2c5c4cfbb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=200" alt="">                          
+                                    </div>
+                                </div>
+                                
+                                <div class="w-full md:w-3/5 p-8 bg-white lg:ml-4 shadow-md">
+                                  <div class="rounded  shadow p-6">
+                                    <div class="pb-6">
+                                      <form action="/edit_profile_cs" method="POST">
+                                        <p style="font-size: 20px">Desired Career:
+                                          <select style="border-radius: 0;
+                                                        border-top-left-radius: 3px;
+                                                        border-top-right-radius: 3px;
+                                                        background:
+                                            linear-gradient(90deg, green, green) center bottom/0 0.30em no-repeat,
+                                            linear-gradient(90deg, #ccc, #ccc) left bottom/100% 0.30em no-repeat,
+                                            linear-gradient(90deg, #fafafa, #fafafa) left bottom/100% no-repeat;
+                                          transition: background-size 0.3s ease;
+                                          padding: 5px" type="text" name="desiredCareer" id="drop-down" placeholder="Select career" required="">
+                                            <option value="{{ auth_user.desired_career }}">{{ auth_user.desired_career }}</option>
+                                            <option value="Software Engineer / Programmer">Software Engineer / Programmer</option>
+                                            <option value="Technical Support Specialist">Technical Support Specialist</option>
+                                            <option value="Academician">Academician</option>
+                                            <option value="Administrative Assistant">Administrative Assistant</option>
+                                          </select>
+                                        </p>
+                                    </div>
+                                    <div class="pb-4">
+                                      <label for="about" class="font-semibold text-gray-700 block pb-1">Email</label>
+                                      <input disabled id="email" class="border-1  rounded-r px-4 py-2 w-full" type="email" value="example@example.com" />
+                                      <span class="text-gray-600 pt-4 block opacity-70">Personal login information of your account</span>
+                                    </div>
+                                  </div>
+                                </div>
+                            
+                              </div>
+                             
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+             </div>
+
+              <!-- <div id="myModal" class="modal">
+                <div class="modal-content">
+                  <span class="close">&times;</span>
+                  <center><h1><div style="color: green; display: inline; font-size: 40px">Student Profile</div></h1></center>
+                    <div class="wrap" style="text-align: justify; margin-left: 40px; color: black;">
+                      <div class="user-left">	
+                          <p style="font-size: 20px">Name: {{ auth_user.first_name }} {{ auth_user.middle_name }} {{ auth_user.last_name }}</p> 
+                      </div>
+                      <div class="user-right">
+                          <p style="font-size: 20px">Prediction Attempt : {{ remaining_attempt }} out of 2</p>
+                          <p style="font-size: 20px">Sex: {{ auth_user.sex }}</p>
+                          <p style="font-size: 20px">Email: {{ auth_user.email }}</p>
+                          <p style="font-size: 20px">Contact Number: {{ auth_user.contact_number }}</p>
+                          <p style="font-size: 20px">Program: {{ auth_user.program }}</p>
+                          <p style="font-size: 20px">Department: {{ auth_user.department }}</p>
+                          <form action="/edit_profile_cs" method="POST">
+                          <p style="font-size: 20px">Desired Career:
+                            <select style="border-radius: 0;
+                                          border-top-left-radius: 3px;
+                                          border-top-right-radius: 3px;
+                                          background:
+                              linear-gradient(90deg, green, green) center bottom/0 0.30em no-repeat,
+                              linear-gradient(90deg, #ccc, #ccc) left bottom/100% 0.30em no-repeat,
+                              linear-gradient(90deg, #fafafa, #fafafa) left bottom/100% no-repeat;
+                            transition: background-size 0.3s ease;
+                            padding: 5px" type="text" name="desiredCareer" id="drop-down" placeholder="Select career" required="">
+                              <option value="{{ auth_user.desired_career }}">{{ auth_user.desired_career }}</option>
+                              <option value="Software Engineer / Programmer">Software Engineer / Programmer</option>
+                              <option value="Technical Support Specialist">Technical Support Specialist</option>
+                              <option value="Academician">Academician</option>
+                              <option value="Administrative Assistant">Administrative Assistant</option>
+                            </select>
+                          </p>
+                      </div>
+                    </div>
+                    <table style="font-size: 14px;">
+                      <thead>
+                        <tr>
+                          <th style="text-align: center">Desired Career</th>
+                          <th style="text-align: center">Predictions</th>
+                          <th style="text-align: center">Date Predicted</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% if student_predictions %}
+                          {% for user, student_pred_res in student_predictions %}
+                            <tr>
+                              <td>
+                                <span>{{ student_pred_res.desired_job }}</span>
+                              </td>
+                              <td>
+                                <span style="margin: 5px; text-align: center">{{ student_pred_res.main_rank }}</span>
+                                <span style="margin: 5px; text-align: center">{{ student_pred_res.sub_rank1 }}</span>
+                                <span style="margin: 5px; text-align: center">{{ student_pred_res.sub_rank2 }}</span>
+                                <span style="margin: 5px; text-align: center">{{ student_pred_res.sub_rank3 }}</span>
+                              </td>
+                              <td>
+                                <span style="margin: 5px; text-align: center">{{ student_pred_res.date_created }}</span>
+                              </td>
+                            </tr>
+                          {% endfor %}
+                        {% endif %}
+                      </tbody>
+                    </table>
+                  <center><button class="hybridBtn" style="margin: 10px; width: 90%" type="submit">Save</button></center>
+                </form>
+                <center><button class="hybridBtn" style="margin: 10px; width: 90%" onclick="window.location='/logout'" type="submit">Sign Out</button></center>
+                </div>
+              </div> -->
+
+              <div class="mt-10 py-10 border-t border-gray-300 text-center">
+                <h3
+                  class="text-3xl font-semibold leading-normal mb-2 text-gray-800 mb-2 uppercase"
+                  >
+                  <i class="fas fa-search text-3xl text-gray-500"></i> Predictions
+                </h3>
+                <div class="flex flex-wrap justify-center">
+                  
+                  <table class="min-w-full leading-normal">
+                    <thead>
+                      <tr>
+                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Desired Career</th>
+                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Predictions</th>
+                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Date Predicted</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% if student_predictions %}
+                        {% for user, student_pred_res in student_predictions %}
+                          <tr>
+                            <td>
+                              <span class="text-s font-semibold leading-normal mb-2 text-gray-800 mr-5">{{ student_pred_res.desired_job }}</span>
+                            </td>
+                            <td>
+                              <span class="text-s font-semibold leading-normal mb-2 text-gray-800">{{ student_pred_res.main_rank }}</span>
+                              <span class="text-s font-semibold leading-normal mb-2 text-gray-800">{{ student_pred_res.sub_rank1 }}</span>
+                              <span class="text-s font-semibold leading-normal mb-2 text-gray-800">{{ student_pred_res.sub_rank2 }}</span>
+                              <span class="text-s font-semibold leading-normal mb-2 text-gray-800 mr-5">{{ student_pred_res.sub_rank3 }}</span>
+                            </td>
+                            <td>
+                              <span style="margin: 5px; text-align: center">{{ student_pred_res.date_created }}</span>
+                            </td>
+                          </tr>
+                        {% endfor %}
+                      {% endif %}
+                    </tbody>
+                  </table>
+                </div>
+                <div class="mx-auto">
+                      <a href="#pablo" class="font-normal text-pink-500"
+                      >Show more</a
+                    >
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="relative bg-gray-300 pt-8 pb-6">
+      <div
+        class="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20"
+        style="height: 80px;"
+      >
+        <svg
+          class="absolute bottom-0 overflow-hidden"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="none"
+          version="1.1"
+          viewBox="0 0 2560 100"
+          x="0"
+          y="0"
+        >
+          <polygon
+            class="text-gray-300 fill-current"
+            points="2560 0 2560 100 0 100"
+          ></polygon>
+        </svg>
+      </div>
+      <div class="container mx-auto px-4">
+        <div class="flex flex-wrap">
+          <div class="w-full lg:w-6/12 px-4">
+            <h4 class="text-3xl font-semibold">Let's keep in touch!</h4>
+            <h5 class="text-lg mt-0 mb-2 text-gray-700">
+              Find us on any of these platforms, we respond 1-2 business days.
+            </h5>
+            <div class="mt-6">
+              <button
+                class="bg-white text-blue-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2 p-3"
+                type="button"
+              >
+                <i class="flex fab fa-twitter"></i></button
+              ><button
+                class="bg-white text-blue-600 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2 p-3"
+                type="button"
+              >
+                <i class="flex fab fa-facebook-square"></i></button
+              ><button
+                class="bg-white text-pink-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2 p-3"
+                type="button"
+              >
+                <i class="flex fab fa-dribbble"></i></button
+              ><button
+                class="bg-white text-gray-900 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2 p-3"
+                type="button"
+              >
+                <i class="flex fab fa-github"></i>
+              </button>
+            </div>
+          </div>
+          <div class="w-full lg:w-6/12 px-4">
+            <div class="flex flex-wrap items-top mb-6">
+              <div class="w-full lg:w-4/12 px-4 ml-auto">
+                <span
+                  class="block uppercase text-gray-600 text-sm font-semibold mb-2"
+                  >Useful Links</span
+                >
+                <ul class="list-unstyled">
+                  <li>
+                    <a
+                      class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
+                      href="https://www.creative-tim.com/presentation"
+                      >About Us</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
+                      href="https://blog.creative-tim.com"
+                      >Blog</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
+                      href="https://www.github.com/creativetimofficial"
+                      >Github</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
+                      href="https://www.creative-tim.com/bootstrap-themes/free"
+                      >Free Products</a
+                    >
+                  </li>
+                </ul>
+              </div>
+              <div class="w-full lg:w-4/12 px-4">
+                <span
+                  class="block uppercase text-gray-600 text-sm font-semibold mb-2"
+                  >Other Resources</span
+                >
+                <ul class="list-unstyled">
+                  <li>
+                    <a
+                      class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
+                      href="https://github.com/creativetimofficial/argon-design-system/blob/master/LICENSE.md"
+                      >MIT License</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
+                      href="https://creative-tim.com/terms"
+                      >Terms &amp; Conditions</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
+                      href="https://creative-tim.com/privacy"
+                      >Privacy Policy</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
+                      href="https://creative-tim.com/contact-us"
+                      >Contact Us</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr class="my-6 border-gray-400" />
+        <div
+          class="flex flex-wrap items-center md:justify-between justify-center"
+        >
+          <div class="w-full md:w-4/12 px-4 mx-auto text-center">
+            <div class="text-sm text-gray-600 font-semibold py-1">
+              Copyright © 2019 Tailwind Starter Kit by
+              <a
+                href="https://www.creative-tim.com"
+                class="text-gray-600 hover:text-gray-900"
+                >Creative Tim</a
+              >.
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+  <script>
+    class Popup {
+      classPopupShow =  'popup--show';
+      classForBody = 'popup-active';
+      popup = null;
+      closeOnClickOverlay = false;
+  
+      constructor(options = {}) {
+  
+          this.closeOnClickOverlay = options?.closeOnClickOverlay || false;
+      
+          // check if page has vertical scroll
+          this.scrollWidthInit();
+  
+          document.addEventListener('click', e => {
+          
+          // open
+          if (e.target.dataset.popupOpen) {
+              e.preventDefault();
+              this.popup = document.getElementById(e.target.dataset.popupOpen);
+              this.show();
+          }
+  
+          // close
+          if (e.target.hasAttribute('data-popup-close') ||
+              (e.target.closest('.popup__close') && e.target.closest('.popup__close').hasAttribute('data-popup-close')) ||
+              (this.closeOnClickOverlay && e.target.classList.contains('popup__content'))
+          ){
+              e.preventDefault();
+              this.hide();
+          }
+          })
+      }
+  
+      scrollWidthInit() {
+  
+          function existVerticalScroll() {
+          let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0),
+              sh =  document.body.scrollHeight;
+  
+          return sh > vh ? true : false;
+          }
+  
+          let div = document.createElement('div');
+      
+          div.style.overflowY = 'scroll';
+          div.style.width = '50px';
+          div.style.height = '50px';
+      
+          document.body.append(div);
+      
+          let scrollWidth = div.offsetWidth - div.clientWidth;
+      
+          div.remove();
+  
+          if (existVerticalScroll()) {
+          document.documentElement.style.setProperty('--scroll-width', scrollWidth + 'px');
+          }
+      }
+  
+      show() {
+          
+          if (this.popup) {
+          this.popup.classList.add(this.classPopupShow);
+          }
+  
+          document.body.classList.add(this.classForBody);
+      }
+  
+      hide() {
+  
+          if (this.popup) {
+          this.popup.classList.remove(this.classPopupShow);
+          }
+  
+          document.body.classList.remove(this.classForBody);
+      }
+      }
+  
+      new Popup({
+      closeOnClickOverlay: true, // if you want popup to be closed after click on overlay (default: false)
+      });
+
+    function toggleNavbar(collapseID) {
+      document.getElementById(collapseID).classList.toggle("hidden");
+      document.getElementById(collapseID).classList.toggle("block");
+    }
+  </script>
+</html>

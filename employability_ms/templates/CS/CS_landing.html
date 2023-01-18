@@ -1,0 +1,1762 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="shortcut icon" href="../../static/assets/img/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="76x76"
+      href="../../static/assets/img/apple-icon.png"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/creativetimofficial/tailwind-starter-kit/compiled-tailwind.min.css"
+    />
+    <title>Predict | Employability Management System</title>
+  </head>
+  <body class="text-blueGray-700 antialiased">
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root">
+      <nav
+        class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
+      >
+        <div
+          class="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto"
+        >
+          <button
+            class="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
+            type="button"
+            onclick="toggleNavbar('example-collapse-sidebar')"
+          >
+            <i class="fas fa-bars"></i></button
+          >
+          <a
+            class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
+            href="javascript:void(0)"
+          >
+          <h2>Welcome {{ auth_user.first_name }}!</h2>
+          </a>
+          <ul class="md:hidden items-center flex flex-wrap list-none">
+            <li class="inline-block relative">
+              <a
+                class="text-blueGray-500 block py-1 px-3"
+                onclick="openDropdown(event,'notification-dropdown')"
+                ><i class="fas fa-bell"></i
+              ></a>
+              <div
+                class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
+                style="min-width: 12rem;"
+                id="notification-dropdown"
+              >
+                <a
+                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                >Profile</a
+                ><a
+                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                >Settings</a
+                >
+                <div class="h-0 my-2 border border-solid border-blueGray-100"></div>
+                <a
+                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                >Logout</a
+                >
+              </div>
+            </li>
+            <li class="inline-block relative">
+              <a
+                class="text-blueGray-500 block"
+                onclick="openDropdown(event,'user-responsive-dropdown')"
+                ><div class="items-center flex">
+                  <span
+                    class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
+                    ><img
+                      alt="..."
+                      class="w-full rounded-full align-middle border-none shadow-lg"
+                      src="../../static/assets/img/team-1-800x800.jpg"
+                  /></span></div
+              ></a>
+              <div
+                class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
+                style="min-width: 12rem;"
+                id="user-responsive-dropdown"
+              >
+                <a
+
+                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                  >Profile</a
+                ><a
+
+                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                  >Settings</a
+                >
+                <div class="h-0 my-2 border border-solid border-blueGray-100"></div>
+                <a
+
+                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                  >Logout</a
+                >
+              </div>
+            </li>
+          </ul>
+          <div
+            class="md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded hidden"
+            id="example-collapse-sidebar"
+          >
+            <div
+              class="md:min-w-full md:hidden block pb-4 mb-4 border-b border-solid border-blueGray-200"
+            >
+              <div class="flex flex-wrap">
+                <div class="w-6/12">
+                  <a
+                    class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
+                    href="javascript:void(0)"
+                  >
+                    Tailwind Starter Kit
+                  </a>
+                </div>
+                <div class="w-6/12 flex justify-end">
+                  <button
+                    type="button"
+                    class="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
+                    onclick="toggleNavbar('example-collapse-sidebar')"
+                  >
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <form class="mt-6 mb-4 md:hidden">
+              <div class="mb-3 pt-0">
+                <input
+                  type="text"
+                  placeholder="Search"
+                  class="border-0 px-3 py-2 h-12 border border-solid  border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal"
+                />
+              </div>
+            </form>
+            <ul class="md:flex-col md:min-w-full flex flex-col list-none">
+              <li class="items-center">
+                <a
+                  class="text-pink-500 hover:text-pink-600 text-xs uppercase py-3 font-bold block"
+                  href="#/predict"
+                  ><i class="fas fa-newspaper text-pink-500 mr-2 text-sm"></i>
+                  Predict</a
+                >
+              </li>
+              <li class="items-center">
+                <a
+                  class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                  href="/cs_profile"
+                  ><i class="fas fa-user-circle text-blueGray-400 mr-2 text-sm"></i>
+                  Profile Page</a
+                >
+              </li>
+              <li class="items-center">
+                <a
+                  class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                  href="#/login"
+                  ><i class="fas fa-fingerprint text-blueGray-400 mr-2 text-sm"></i>
+                  Login</a
+                >
+              </li>
+            </ul>
+            <hr class="my-4 md:min-w-full" />
+
+          </div>
+        </div>
+      </nav>
+      <div class="relative md:ml-64 bg-blueGray-50">
+        <nav
+          class="absolute top-0 left-0 w-full z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start flex items-center p-4"
+        >
+          <div
+            class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4"
+          >
+            <a
+              class="text-white-600 font-bold leading-normal text-xl leading-normal text-center"
+              href="#"
+              ></a
+            >
+            <ul
+              class="flex-col md:flex-row list-none items-center hidden md:flex"
+            >
+              <a class="text-blueGray-500 block" href="#" onclick="openDropdown(event,'user-dropdown')">
+                <div class="items-center flex">
+                  <span
+                    class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
+                    ><img
+                      alt="..."
+                      class="w-full rounded-full align-middle border-none shadow-lg"
+                      src="../../static/assets/img/team-1-800x800.jpg"
+                  /></span>
+                </div>
+              </a>
+              <div
+                class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
+                style="min-width: 12rem;"
+                id="user-dropdown"
+              >
+                <a
+                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                >Profile</a
+                ><a
+                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                >Settings</a
+                >
+                <div class="h-0 my-2 border border-solid border-blueGray-100"></div>
+                <a
+                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                href="/logout"
+                >Logout</a>
+                
+              </div>
+            </ul>
+          </div>
+        </nav>
+        <!-- Header -->
+        
+        <div class="relative bg-green-400 md:pt-25 pb-32 pt-12"
+          style="background-image: url(../../static/assets/img/register_bg_2.png); background-size: 100%; background-repeat: no-repeat;"
+          >
+          <div class="text-center mb-3">
+            <h3 class="text-white font-bold leading-normal text-3xl leading-normal uppercase">
+              Start Prediction
+            </h3>
+          </div>
+          <hr class="text-gray-700 mb-2">
+          <div class="px-4 md:px-10 mx-auto w-full">
+            
+            <div class="container mx-auto px-10 h-full">
+              <div class="flex content-center items-center justify-center h-full">
+                <div class="w-full lg:w-10/20 px-10">
+                  <div
+                    class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-green-200 border-0"
+                  >
+                    <div class="flex-auto px-4 lg:px-10 py-10 pt-0 mt-5">
+                        <div class="text-center mb-3">
+                            <h3 class="text-gray-600 font-bold leading-normal text-xl leading-normal text-justify">
+                              General Information
+                            </h3>
+                        </div>
+                        <hr class="mt-6 border-b-1 border-gray-400 mb-8" />
+                    <form action="{{ url_for('_route_cs.predict_CS')}}" method="post">
+                      <div class="ml-3 mr-3 pl-3 pr-3 pt-3 pb-3 shadow-lg rounded-lg bg-gray-100 border-3">
+                        <div class="relative flex flex-row ">
+                          <div class="relative w-full mb-3 mr-1">
+                              <label
+                                  class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                  for="Sex"
+                                  >Sex</label
+                              >
+                              <select type="text" name="Sex" id="drop-down" placeholder="Select Sex" required="" autocomplete="off"
+                              class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                              style="transition: all 0.15s ease 0s;"
+                              >
+                                  <option value="{{ sex }}">{{ auth_user.sex }}</option>
+                              </select>
+                          </div>
+                          <div class="relative w-full mb-3 ml-1">
+                              <label
+                                  class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                  for="Shiftee"
+                                  >Program</label
+                              >
+                              <select type="text" name="Shiftee" id="drop-down" placeholder="Select Program" required="" autocomplete="off"
+                              class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                              style="transition: all 0.15s ease 0s;"
+                              >
+                                  <option value="{{ program }}">{{ auth_user.program }}</option>
+                              </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="text-center mb-3 mt-5">
+                        <h3 class="text-gray-600 font-bold leading-normal text-xl leading-normal text-justify">
+                          IT/CS Courses
+                        </h3>
+                      </div>
+                      <div>
+                          {% with messages = get_flashed_messages(with_categories=true) %}
+                              {% if messages %}
+                                  {% for category, message in messages %}
+                                      {% if category == 'success_register_cs' %}
+                                          <div class="">
+                                              <div class="">
+                                                  <div class="">
+                                                      <div style="padding: 2%; color: rgb(27, 202, 27); font-size: 25px; font-weight: 700">
+                                                          <center>
+                                                              {{ message }}
+                                                          </center>
+                                                          <script>
+                                                              window.setTimeout(function () {
+                                                                  window.location.reload();
+                                                                }, 10000);
+                                                          </script>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      {% elif category == 'error' %}
+                                          <div class="">
+                                              <div class="">
+                                                  <div class="">
+                                                      <div style="padding: 2%; color: red; font-size: 25px; font-weight: 700">
+                                                          <center>
+                                                              {{ message }}
+                                                          </center>
+                                                          <script>
+                                                              window.setTimeout(function () {
+                                                                  window.location.reload();
+                                                              }, 3000);
+                                                          </script>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      {% elif category == 'info' %}
+                                          <div class="">
+                                              <div class="">
+                                                  <div class="">
+                                                      <div style="padding: 2%; color: green; font-size: 25px; font-weight: 700">
+                                                          <center>
+                                                              {{ message }}
+                                                          </center>
+                                                          <script>
+                                                              window.setTimeout(function () {
+                                                                  window.location.reload();
+                                                              }, 3000);
+                                                          </script>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      {% endif %}
+                                  {% endfor %}
+                              {% endif %}
+                          {% endwith %}
+                      </div>
+                      <hr class="mt-6 border-b-1 border-gray-400 mb-8" />
+                      <div class="mt-3 ml-3 mr-3 pl-3 pr-3 pt-3 pb-3 shadow-lg rounded-lg bg-gray-100 border-3">
+                        <div class="relative flex flex-row ">
+                            <div class="relative w-6/12 mb-3 mr-1">
+                              <label
+                                  class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                  for="ComProg_1_1st"
+                                  >Computer Programming 1</label
+                              >
+                              <select type="text" name="ComProg_1_1st" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                              class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                              style="transition: all 0.15s ease 0s;"
+                              >
+                                  <option value="0">0</option>
+                                  <option value="0">INC</option>
+                                  <option value="5">DRP</option>
+                                  <option value="1">1</option>
+                                  <option value="1.25">1.25</option>
+                                  <option value="1.5">1.50</option>
+                                  <option value="1.75">1.75</option>
+                                  <option value="2">2</option>
+                                  <option value="2.25">2.25</option>
+                                  <option value="2.5">2.50</option>
+                                  <option value="2.75">2.75</option>
+                                  <option value="3">3</option>
+                              </select>
+                            </div>
+                            <div class="relative mb-3 mr-2">
+                              <label
+                                  class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                  for="ComProg_1_2nd"
+                                  >2ndTry</label
+                              >
+                              <select type="text" name="ComProg_1_2nd" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                              class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                              style="transition: all 0.15s ease 0s;"
+                              >
+                                  <option value="0">0</option>
+                                  <option value="0">INC</option>
+                                  <option value="5">DRP</option>
+                                  <option value="1">1</option>
+                                  <option value="1.25">1.25</option>
+                                  <option value="1.5">1.50</option>
+                                  <option value="1.75">1.75</option>
+                                  <option value="2">2</option>
+                                  <option value="2.25">2.25</option>
+                                  <option value="2.5">2.50</option>
+                                  <option value="2.75">2.75</option>
+                                  <option value="3">3</option>
+                              </select>
+                            </div>
+                            <div class="relative w-6/12 mb-3 ml-2">
+                              <label
+                                  class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                  for="ComProg_2_1st"
+                                  >Computer Programming 2</label
+                              >
+                              <select type="text" name="ComProg_2_1st" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                              class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                              style="transition: all 0.15s ease 0s;"
+                              >
+                                  <option value="0">0</option>
+                                  <option value="0">INC</option>
+                                  <option value="5">DRP</option>
+                                  <option value="1">1</option>
+                                  <option value="1.25">1.25</option>
+                                  <option value="1.5">1.50</option>
+                                  <option value="1.75">1.75</option>
+                                  <option value="2">2</option>
+                                  <option value="2.25">2.25</option>
+                                  <option value="2.5">2.50</option>
+                                  <option value="2.75">2.75</option>
+                                  <option value="3">3</option>
+                              </select>
+                            </div>
+                            <div class="relative mb-3 ml-1">
+                              <label
+                                  class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                  for="ComProg_2_2nd"
+                                  >2ndTry</label
+                              >
+                              <select type="text" name="ComProg_2_2nd" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                              class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                              style="transition: all 0.15s ease 0s;"
+                              >
+                                  <option value="0">0</option>
+                                  <option value="0">INC</option>
+                                  <option value="5">DRP</option>
+                                  <option value="1">1</option>
+                                  <option value="1.25">1.25</option>
+                                  <option value="1.5">1.50</option>
+                                  <option value="1.75">1.75</option>
+                                  <option value="2">2</option>
+                                  <option value="2.25">2.25</option>
+                                  <option value="2.5">2.50</option>
+                                  <option value="2.75">2.75</option>
+                                  <option value="3">3</option>
+                              </select>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="mt-3 ml-3 mr-3 pl-3 pr-3 pt-3 pb-3 shadow-lg rounded-lg bg-gray-100 border-3">
+                          <div class="relative flex flex-row">
+                            <div class="relative w-6/12 mb-3 mr-1">
+                              <label
+                                  class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                  for="Intro_to_Computing_1st"
+                                  >Intro to Computing</label
+                              >
+                              <select type="text" name="Intro_to_Computing_1st" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                              class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                              style="transition: all 0.15s ease 0s;"
+                              >
+                                <option value="0">0</option>
+                                <option value="0">INC</option>
+                                <option value="5">DRP</option>
+                                <option value="1">1</option>
+                                <option value="1.25">1.25</option>
+                                <option value="1.5">1.50</option>
+                                <option value="1.75">1.75</option>
+                                <option value="2">2</option>
+                                <option value="2.25">2.25</option>
+                                <option value="2.5">2.50</option>
+                                <option value="2.75">2.75</option>
+                                <option value="3">3</option>
+                              </select>
+                            </div>
+                            <div class="relative mb-3 mr-2">
+                              <label
+                                  class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                  for="Intro_to_Computing_2nd"
+                                  >2ndTry</label
+                              >
+                              <select type="text" name="Intro_to_Computing_2nd" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                              class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                              style="transition: all 0.15s ease 0s;"
+                              >
+                                <option value="0">0</option>
+                                <option value="0">INC</option>
+                                <option value="5">DRP</option>
+                                <option value="1">1</option>
+                                <option value="1.25">1.25</option>
+                                <option value="1.5">1.50</option>
+                                <option value="1.75">1.75</option>
+                                <option value="2">2</option>
+                                <option value="2.25">2.25</option>
+                                <option value="2.5">2.50</option>
+                                <option value="2.75">2.75</option>
+                                <option value="3">3</option>
+                              </select>
+                            </div>
+                            <div class="relative w-6/12 mb-3 ml-2">
+                              <label
+                                  class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                  for="Info_Management_1st"
+                                  >Info Management</label
+                              >
+                              <select type="text" name="Info_Management_1st" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                              class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                              style="transition: all 0.15s ease 0s;"
+                              >
+                                  <option value="0">0</option>
+                                  <option value="0">INC</option>
+                                  <option value="5">DRP</option>
+                                  <option value="1">1</option>
+                                  <option value="1.25">1.25</option>
+                                  <option value="1.5">1.50</option>
+                                  <option value="1.75">1.75</option>
+                                  <option value="2">2</option>
+                                  <option value="2.25">2.25</option>
+                                  <option value="2.5">2.50</option>
+                                  <option value="2.75">2.75</option>
+                                  <option value="3">3</option>
+                              </select>
+                            </div>
+                            <div class="relative mb-3 ml-1">
+                              <label
+                                  class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                  for="Info_Management_2nd"
+                                  >2ndTry</label
+                              >
+                              <select type="text" name="Info_Management_2nd" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                              class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                              style="transition: all 0.15s ease 0s;"
+                              >
+                                <option value="0">0</option>
+                                <option value="0">INC</option>
+                                <option value="5">DRP</option>
+                                <option value="1">1</option>
+                                <option value="1.25">1.25</option>
+                                <option value="1.5">1.50</option>
+                                <option value="1.75">1.75</option>
+                                <option value="2">2</option>
+                                <option value="2.25">2.25</option>
+                                <option value="2.5">2.50</option>
+                                <option value="2.75">2.75</option>
+                                <option value="3">3</option>
+                              </select>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="mt-3 ml-3 mr-3 pl-3 pr-3 pt-3 pb-3 shadow-lg rounded-lg bg-gray-100 border-3">
+                          <div class="relative flex flex-row ">
+                              <div class="relative w-6/12 mb-3 mr-1">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Operating_System_1st"
+                                    >Operating System</label
+                                >
+                                <select type="text" name="Operating_System_1st" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                  <option value="0">0</option>
+                                  <option value="0">INC</option>
+                                  <option value="5">DRP</option>
+                                  <option value="1">1</option>
+                                  <option value="1.25">1.25</option>
+                                  <option value="1.5">1.50</option>
+                                  <option value="1.75">1.75</option>
+                                  <option value="2">2</option>
+                                  <option value="2.25">2.25</option>
+                                  <option value="2.5">2.50</option>
+                                  <option value="2.75">2.75</option>
+                                  <option value="3">3</option>
+                                </select>
+                              </div>
+                              <div class="relative mb-3 mr-2">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Operating_System_2nd"
+                                    >2ndTry</label
+                                >
+                                <select type="text" name="Operating_System_2nd" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                    <option value="0">0</option>
+                                    <option value="0">INC</option>
+                                    <option value="5">DRP</option>
+                                    <option value="1">1</option>
+                                    <option value="1.25">1.25</option>
+                                    <option value="1.5">1.50</option>
+                                    <option value="1.75">1.75</option>
+                                    <option value="2">2</option>
+                                    <option value="2.25">2.25</option>
+                                    <option value="2.5">2.50</option>
+                                    <option value="2.75">2.75</option>
+                                    <option value="3">3</option>
+                                </select>
+                              </div>
+                              <div class="relative w-6/12 mb-3 ml-2">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Elective_1_1st"
+                                    >Elective 1</label
+                                >
+                                <select type="text" name="Elective_1_1st" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                    <option value="0">0</option>
+                                    <option value="0">INC</option>
+                                    <option value="5">DRP</option>
+                                    <option value="1">1</option>
+                                    <option value="1.25">1.25</option>
+                                    <option value="1.5">1.50</option>
+                                    <option value="1.75">1.75</option>
+                                    <option value="2">2</option>
+                                    <option value="2.25">2.25</option>
+                                    <option value="2.5">2.50</option>
+                                    <option value="2.75">2.75</option>
+                                    <option value="3">3</option>
+                                </select>
+                              </div>
+                              <div class="relative mb-3 ml-1">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Elective_1_2nd"
+                                    >2ndTry</label
+                                >
+                                <select type="text" name="Elective_1_2nd" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                    <option value="0">0</option>
+                                    <option value="0">INC</option>
+                                    <option value="5">DRP</option>
+                                    <option value="1">1</option>
+                                    <option value="1.25">1.25</option>
+                                    <option value="1.5">1.50</option>
+                                    <option value="1.75">1.75</option>
+                                    <option value="2">2</option>
+                                    <option value="2.25">2.25</option>
+                                    <option value="2.5">2.50</option>
+                                    <option value="2.75">2.75</option>
+                                    <option value="3">3</option>
+                                </select>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="mt-3 ml-3 mr-3 pl-3 pr-3 pt-3 pb-3 shadow-lg rounded-lg bg-gray-100 border-3">
+                          <div class="relative flex flex-row ">
+                              <div class="relative w-6/12 mb-3 mr-1">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Elective_2_1st"
+                                    >Elective 2</label
+                                >
+                                <select type="text" name="Elective_2_1st" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                  <option value="0">0</option>
+                                  <option value="0">INC</option>
+                                  <option value="5">DRP</option>
+                                  <option value="1">1</option>
+                                  <option value="1.25">1.25</option>
+                                  <option value="1.5">1.50</option>
+                                  <option value="1.75">1.75</option>
+                                  <option value="2">2</option>
+                                  <option value="2.25">2.25</option>
+                                  <option value="2.5">2.50</option>
+                                  <option value="2.75">2.75</option>
+                                  <option value="3">3</option>
+                                </select>
+                              </div>
+                              <div class="relative mb-3 mr-2">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Elective_2_2nd"
+                                    >2ndTry</label
+                                >
+                                <select type="text" name="Elective_2_2nd" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                    <option value="0">0</option>
+                                    <option value="0">INC</option>
+                                    <option value="5">DRP</option>
+                                    <option value="1">1</option>
+                                    <option value="1.25">1.25</option>
+                                    <option value="1.5">1.50</option>
+                                    <option value="1.75">1.75</option>
+                                    <option value="2">2</option>
+                                    <option value="2.25">2.25</option>
+                                    <option value="2.5">2.50</option>
+                                    <option value="2.75">2.75</option>
+                                    <option value="3">3</option>
+                                </select>
+                              </div>
+                              <div class="relative w-6/12 mb-3 ml-2">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Elective_3_1st"
+                                    >Elective 3</label
+                                >
+                                <select type="text" name="Elective_3_1st" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                    <option value="0">0</option>
+                                    <option value="0">INC</option>
+                                    <option value="5">DRP</option>
+                                    <option value="1">1</option>
+                                    <option value="1.25">1.25</option>
+                                    <option value="1.5">1.50</option>
+                                    <option value="1.75">1.75</option>
+                                    <option value="2">2</option>
+                                    <option value="2.25">2.25</option>
+                                    <option value="2.5">2.50</option>
+                                    <option value="2.75">2.75</option>
+                                    <option value="3">3</option>
+                                </select>
+                              </div>
+                              <div class="relative mb-3 ml-1">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Elective_3_2nd"
+                                    >2ndTry</label
+                                >
+                                <select type="text" name="Elective_3_2nd" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                    <option value="0">0</option>
+                                    <option value="0">INC</option>
+                                    <option value="5">DRP</option>
+                                    <option value="1">1</option>
+                                    <option value="1.25">1.25</option>
+                                    <option value="1.5">1.50</option>
+                                    <option value="1.75">1.75</option>
+                                    <option value="2">2</option>
+                                    <option value="2.25">2.25</option>
+                                    <option value="2.5">2.50</option>
+                                    <option value="2.75">2.75</option>
+                                    <option value="3">3</option>
+                                </select>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="mt-3 ml-3 mr-3 pl-3 pr-3 pt-3 pb-3 shadow-lg rounded-lg bg-gray-100 border-3">
+                          <div class="relative flex flex-row ">
+                              <div class="relative w-6/12 mb-3 mr-1">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Data_Structures_1st"
+                                    >Data Structures</label
+                                >
+                                <select type="text" name="Data_Structures_1st" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                  <option value="0">0</option>
+                                  <option value="0">INC</option>
+                                  <option value="5">DRP</option>
+                                  <option value="1">1</option>
+                                  <option value="1.25">1.25</option>
+                                  <option value="1.5">1.50</option>
+                                  <option value="1.75">1.75</option>
+                                  <option value="2">2</option>
+                                  <option value="2.25">2.25</option>
+                                  <option value="2.5">2.50</option>
+                                  <option value="2.75">2.75</option>
+                                  <option value="3">3</option>
+                                </select>
+                              </div>
+                              <div class="relative mb-3 mr-2">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Data_Structures_2nd"
+                                    >2ndTry</label
+                                >
+                                <select type="text" name="Data_Structures_2nd" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                    <option value="0">0</option>
+                                    <option value="0">INC</option>
+                                    <option value="5">DRP</option>
+                                    <option value="1">1</option>
+                                    <option value="1.25">1.25</option>
+                                    <option value="1.5">1.50</option>
+                                    <option value="1.75">1.75</option>
+                                    <option value="2">2</option>
+                                    <option value="2.25">2.25</option>
+                                    <option value="2.5">2.50</option>
+                                    <option value="2.75">2.75</option>
+                                    <option value="3">3</option>
+                                </select>
+                              </div>
+                              <div class="relative w-6/12 mb-3 ml-2">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Application_Dev_and_Emerging_Tech_1st"
+                                    >Application Dev and Emerging Tech</label
+                                >
+                                <select type="text" name="Application_Dev_and_Emerging_Tech_1st" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                    <option value="0">0</option>
+                                    <option value="0">INC</option>
+                                    <option value="5">DRP</option>
+                                    <option value="1">1</option>
+                                    <option value="1.25">1.25</option>
+                                    <option value="1.5">1.50</option>
+                                    <option value="1.75">1.75</option>
+                                    <option value="2">2</option>
+                                    <option value="2.25">2.25</option>
+                                    <option value="2.5">2.50</option>
+                                    <option value="2.75">2.75</option>
+                                    <option value="3">3</option>
+                                </select>
+                              </div>
+                              <div class="relative mb-3 ml-1">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Application_Dev_and_Emerging_Tech_2nd"
+                                    >2ndTry</label
+                                >
+                                <select type="text" name="Application_Dev_and_Emerging_Tech_2nd" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                    <option value="0">0</option>
+                                    <option value="0">INC</option>
+                                    <option value="5">DRP</option>
+                                    <option value="1">1</option>
+                                    <option value="1.25">1.25</option>
+                                    <option value="1.5">1.50</option>
+                                    <option value="1.75">1.75</option>
+                                    <option value="2">2</option>
+                                    <option value="2.25">2.25</option>
+                                    <option value="2.5">2.50</option>
+                                    <option value="2.75">2.75</option>
+                                    <option value="3">3</option>
+                                </select>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="mt-3 ml-3 mr-3 pl-3 pr-3 pt-3 pb-3 shadow-lg rounded-lg bg-gray-100 border-3">
+                          <div class="relative flex flex-row ">
+                              <div class="relative w-6/12 mb-3 mr-1">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Human_and_Computer_Integration_1st"
+                                    >Human and Computer Integration</label
+                                >
+                                <select type="text" name="Human_and_Computer_Integration_1st" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                  <option value="0">0</option>
+                                  <option value="0">INC</option>
+                                  <option value="5">DRP</option>
+                                  <option value="1">1</option>
+                                  <option value="1.25">1.25</option>
+                                  <option value="1.5">1.50</option>
+                                  <option value="1.75">1.75</option>
+                                  <option value="2">2</option>
+                                  <option value="2.25">2.25</option>
+                                  <option value="2.5">2.50</option>
+                                  <option value="2.75">2.75</option>
+                                  <option value="3">3</option>
+                                </select>
+                              </div>
+                              <div class="relative mb-3 mr-2">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Human_and_Computer_Integration_2nd"
+                                    >2ndTry</label
+                                >
+                                <select type="text" name="Human_and_Computer_Integration_2nd" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                    <option value="0">0</option>
+                                    <option value="0">INC</option>
+                                    <option value="5">DRP</option>
+                                    <option value="1">1</option>
+                                    <option value="1.25">1.25</option>
+                                    <option value="1.5">1.50</option>
+                                    <option value="1.75">1.75</option>
+                                    <option value="2">2</option>
+                                    <option value="2.25">2.25</option>
+                                    <option value="2.5">2.50</option>
+                                    <option value="2.75">2.75</option>
+                                    <option value="3">3</option>
+                                </select>
+                              </div>
+                              <div class="relative w-6/12 mb-3 ml-2">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Practicum_Industry_Immersion_1st"
+                                    >Practicum Industry Immersion</label
+                                >
+                                <select type="text" name="Practicum_Industry_Immersion_1st" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                    <option value="0">0</option>
+                                    <option value="0">INC</option>
+                                    <option value="5">DRP</option>
+                                    <option value="1">1</option>
+                                    <option value="1.25">1.25</option>
+                                    <option value="1.5">1.50</option>
+                                    <option value="1.75">1.75</option>
+                                    <option value="2">2</option>
+                                    <option value="2.25">2.25</option>
+                                    <option value="2.5">2.50</option>
+                                    <option value="2.75">2.75</option>
+                                    <option value="3">3</option>
+                                </select>
+                              </div>
+                              <div class="relative mb-3 ml-1">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Practicum_Industry_Immersion_2nd"
+                                    >2ndTry</label
+                                >
+                                <select type="text" name="Practicum_Industry_Immersion_2nd" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                    <option value="0">0</option>
+                                    <option value="0">INC</option>
+                                    <option value="5">DRP</option>
+                                    <option value="1">1</option>
+                                    <option value="1.25">1.25</option>
+                                    <option value="1.5">1.50</option>
+                                    <option value="1.75">1.75</option>
+                                    <option value="2">2</option>
+                                    <option value="2.25">2.25</option>
+                                    <option value="2.5">2.50</option>
+                                    <option value="2.75">2.75</option>
+                                    <option value="3">3</option>
+                                </select>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="text-center mb-3 mt-6">
+                          <h3 class="text-gray-600 font-bold leading-normal text-xl leading-normal text-justify">
+                              Exclusive Computer Science Courses
+                          </h3>
+                        </div>
+                        <hr class="mt-6 border-b-1 border-gray-400 mb-8" />
+                        <div class="mt-3 ml-3 mr-3 pl-3 pr-3 pt-3 pb-3 shadow-lg rounded-lg bg-gray-100 border-3">
+                          <div class="relative flex flex-row ">
+                              <div class="relative w-6/12 mb-3 mr-1">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Digital_Design_1st"
+                                    >Digital Design</label
+                                >
+                                <select type="text" name="Digital_Design_1st" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                  <option value="0">0</option>
+                                  <option value="0">INC</option>
+                                  <option value="5">DRP</option>
+                                  <option value="1">1</option>
+                                  <option value="1.25">1.25</option>
+                                  <option value="1.5">1.50</option>
+                                  <option value="1.75">1.75</option>
+                                  <option value="2">2</option>
+                                  <option value="2.25">2.25</option>
+                                  <option value="2.5">2.50</option>
+                                  <option value="2.75">2.75</option>
+                                  <option value="3">3</option>
+                                </select>
+                              </div>
+                              <div class="relative mb-3 mr-2">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Digital_Design_2nd"
+                                    >2ndTry</label
+                                >
+                                <select type="text" name="Digital_Design_2nd" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                    <option value="0">0</option>
+                                    <option value="0">INC</option>
+                                    <option value="5">DRP</option>
+                                    <option value="1">1</option>
+                                    <option value="1.25">1.25</option>
+                                    <option value="1.5">1.50</option>
+                                    <option value="1.75">1.75</option>
+                                    <option value="2">2</option>
+                                    <option value="2.25">2.25</option>
+                                    <option value="2.5">2.50</option>
+                                    <option value="2.75">2.75</option>
+                                    <option value="3">3</option>
+                                </select>
+                              </div>
+                              <div class="relative w-6/12 mb-3 ml-2">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Architecture_and_Organization_1st"
+                                    >Architecture and Organization</label
+                                >
+                                <select type="text" name="Architecture_and_Organization_1st" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                    <option value="0">0</option>
+                                    <option value="0">INC</option>
+                                    <option value="5">DRP</option>
+                                    <option value="1">1</option>
+                                    <option value="1.25">1.25</option>
+                                    <option value="1.5">1.50</option>
+                                    <option value="1.75">1.75</option>
+                                    <option value="2">2</option>
+                                    <option value="2.25">2.25</option>
+                                    <option value="2.5">2.50</option>
+                                    <option value="2.75">2.75</option>
+                                    <option value="3">3</option>
+                                </select>
+                              </div>
+                              <div class="relative mb-3 ml-1">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Architecture_and_Organization_2nd"
+                                    >2ndTry</label
+                                >
+                                <select type="text" name="Architecture_and_Organization_2nd" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                    <option value="0">0</option>
+                                    <option value="0">INC</option>
+                                    <option value="5">DRP</option>
+                                    <option value="1">1</option>
+                                    <option value="1.25">1.25</option>
+                                    <option value="1.5">1.50</option>
+                                    <option value="1.75">1.75</option>
+                                    <option value="2">2</option>
+                                    <option value="2.25">2.25</option>
+                                    <option value="2.5">2.50</option>
+                                    <option value="2.75">2.75</option>
+                                    <option value="3">3</option>
+                                </select>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="mt-3 ml-3 mr-3 pl-3 pr-3 pt-3 pb-3 shadow-lg rounded-lg bg-gray-100 border-3">
+                          <div class="relative flex flex-row ">
+                              <div class="relative w-6/12 mb-3 mr-1">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Programming_Languages_1st"
+                                    >Programming Languages</label
+                                >
+                                <select type="text" name="Programming_Languages_1st" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                  <option value="0">0</option>
+                                  <option value="0">INC</option>
+                                  <option value="5">DRP</option>
+                                  <option value="1">1</option>
+                                  <option value="1.25">1.25</option>
+                                  <option value="1.5">1.50</option>
+                                  <option value="1.75">1.75</option>
+                                  <option value="2">2</option>
+                                  <option value="2.25">2.25</option>
+                                  <option value="2.5">2.50</option>
+                                  <option value="2.75">2.75</option>
+                                  <option value="3">3</option>
+                                </select>
+                              </div>
+                              <div class="relative mb-3 mr-2">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Programming_Languages_2nd"
+                                    >2ndTry</label
+                                >
+                                <select type="text" name="Programming_Languages_2nd" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                    <option value="0">0</option>
+                                    <option value="0">INC</option>
+                                    <option value="5">DRP</option>
+                                    <option value="1">1</option>
+                                    <option value="1.25">1.25</option>
+                                    <option value="1.5">1.50</option>
+                                    <option value="1.75">1.75</option>
+                                    <option value="2">2</option>
+                                    <option value="2.25">2.25</option>
+                                    <option value="2.5">2.50</option>
+                                    <option value="2.75">2.75</option>
+                                    <option value="3">3</option>
+                                </select>
+                              </div>
+                              <div class="relative w-6/12 mb-3 ml-2">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Modelling_and_Simulation_1st"
+                                    >Modelling and Simulation</label
+                                >
+                                <select type="text" name="Modelling_and_Simulation_1st" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                    <option value="0">0</option>
+                                    <option value="0">INC</option>
+                                    <option value="5">DRP</option>
+                                    <option value="1">1</option>
+                                    <option value="1.25">1.25</option>
+                                    <option value="1.5">1.50</option>
+                                    <option value="1.75">1.75</option>
+                                    <option value="2">2</option>
+                                    <option value="2.25">2.25</option>
+                                    <option value="2.5">2.50</option>
+                                    <option value="2.75">2.75</option>
+                                    <option value="3">3</option>
+                                </select>
+                              </div>
+                              <div class="relative mb-3 ml-1">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Modelling_and_Simulation_2nd"
+                                    >2ndTry</label
+                                >
+                                <select type="text" name="Modelling_and_Simulation_2nd" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                    <option value="0">0</option>
+                                    <option value="0">INC</option>
+                                    <option value="5">DRP</option>
+                                    <option value="1">1</option>
+                                    <option value="1.25">1.25</option>
+                                    <option value="1.5">1.50</option>
+                                    <option value="1.75">1.75</option>
+                                    <option value="2">2</option>
+                                    <option value="2.25">2.25</option>
+                                    <option value="2.5">2.50</option>
+                                    <option value="2.75">2.75</option>
+                                    <option value="3">3</option>
+                                </select>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="mt-3 ml-3 mr-3 pl-3 pr-3 pt-3 pb-3 shadow-lg rounded-lg bg-gray-100 border-3">
+                          <div class="relative flex flex-row ">
+                              <div class="relative w-6/12 mb-3 mr-1">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Information_Assurance_and_Security_1st"
+                                    >Information Assurance and Security</label
+                                >
+                                <select type="text" name="Information_Assurance_and_Security_1st" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                  <option value="0">0</option>
+                                  <option value="0">INC</option>
+                                  <option value="5">DRP</option>
+                                  <option value="1">1</option>
+                                  <option value="1.25">1.25</option>
+                                  <option value="1.5">1.50</option>
+                                  <option value="1.75">1.75</option>
+                                  <option value="2">2</option>
+                                  <option value="2.25">2.25</option>
+                                  <option value="2.5">2.50</option>
+                                  <option value="2.75">2.75</option>
+                                  <option value="3">3</option>
+                                </select>
+                              </div>
+                              <div class="relative mb-3 mr-2">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Information_Assurance_and_Security_1_2nd"
+                                    >2ndTry</label
+                                >
+                                <select type="text" name="Information_Assurance_and_Security_1_2nd" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                    <option value="0">0</option>
+                                    <option value="0">INC</option>
+                                    <option value="5">DRP</option>
+                                    <option value="1">1</option>
+                                    <option value="1.25">1.25</option>
+                                    <option value="1.5">1.50</option>
+                                    <option value="1.75">1.75</option>
+                                    <option value="2">2</option>
+                                    <option value="2.25">2.25</option>
+                                    <option value="2.5">2.50</option>
+                                    <option value="2.75">2.75</option>
+                                    <option value="3">3</option>
+                                </select>
+                              </div>
+                              <div class="relative w-6/12 mb-3 ml-2">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Software_Engineering_1_1st"
+                                    >Software Engineering 1</label
+                                >
+                                <select type="text" name="Software_Engineering_1_1st" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                    <option value="0">0</option>
+                                    <option value="0">INC</option>
+                                    <option value="5">DRP</option>
+                                    <option value="1">1</option>
+                                    <option value="1.25">1.25</option>
+                                    <option value="1.5">1.50</option>
+                                    <option value="1.75">1.75</option>
+                                    <option value="2">2</option>
+                                    <option value="2.25">2.25</option>
+                                    <option value="2.5">2.50</option>
+                                    <option value="2.75">2.75</option>
+                                    <option value="3">3</option>
+                                </select>
+                              </div>
+                              <div class="relative mb-3 ml-1">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Software_Engineering_1_2nd"
+                                    >2ndTry</label
+                                >
+                                <select type="text" name="Software_Engineering_1_2nd" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                    <option value="0">0</option>
+                                    <option value="0">INC</option>
+                                    <option value="5">DRP</option>
+                                    <option value="1">1</option>
+                                    <option value="1.25">1.25</option>
+                                    <option value="1.5">1.50</option>
+                                    <option value="1.75">1.75</option>
+                                    <option value="2">2</option>
+                                    <option value="2.25">2.25</option>
+                                    <option value="2.5">2.50</option>
+                                    <option value="2.75">2.75</option>
+                                    <option value="3">3</option>
+                                </select>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="mt-3 ml-3 mr-3 pl-3 pr-3 pt-3 pb-3 shadow-lg rounded-lg bg-gray-100 border-3">
+                          <div class="relative flex flex-row ">
+                              <div class="relative w-6/12 mb-3 mr-1">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Software_Engineering_2_1st"
+                                    >Software Engineering 2</label
+                                >
+                                <select type="text" name="Software_Engineering_2_1st" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                  <option value="0">0</option>
+                                  <option value="0">INC</option>
+                                  <option value="5">DRP</option>
+                                  <option value="1">1</option>
+                                  <option value="1.25">1.25</option>
+                                  <option value="1.5">1.50</option>
+                                  <option value="1.75">1.75</option>
+                                  <option value="2">2</option>
+                                  <option value="2.25">2.25</option>
+                                  <option value="2.5">2.50</option>
+                                  <option value="2.75">2.75</option>
+                                  <option value="3">3</option>
+                                </select>
+                              </div>
+                              <div class="relative mb-3 mr-2">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Software_Engineering_2_2nd"
+                                    >2ndTry</label
+                                >
+                                <select type="text" name="Software_Engineering_2_2nd" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                    <option value="0">0</option>
+                                    <option value="0">INC</option>
+                                    <option value="5">DRP</option>
+                                    <option value="1">1</option>
+                                    <option value="1.25">1.25</option>
+                                    <option value="1.5">1.50</option>
+                                    <option value="1.75">1.75</option>
+                                    <option value="2">2</option>
+                                    <option value="2.25">2.25</option>
+                                    <option value="2.5">2.50</option>
+                                    <option value="2.75">2.75</option>
+                                    <option value="3">3</option>
+                                </select>
+                              </div>
+                              <div class="relative w-6/12 mb-3 ml-2">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Network_Management_1st"
+                                    >Network Management</label
+                                >
+                                <select type="text" name="Network_Management_1st" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                    <option value="0">0</option>
+                                    <option value="0">INC</option>
+                                    <option value="5">DRP</option>
+                                    <option value="1">1</option>
+                                    <option value="1.25">1.25</option>
+                                    <option value="1.5">1.50</option>
+                                    <option value="1.75">1.75</option>
+                                    <option value="2">2</option>
+                                    <option value="2.25">2.25</option>
+                                    <option value="2.5">2.50</option>
+                                    <option value="2.75">2.75</option>
+                                    <option value="3">3</option>
+                                </select>
+                              </div>
+                              <div class="relative mb-3 ml-1">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Network_Management_2nd"
+                                    >2ndTry</label
+                                >
+                                <select type="text" name="Network_Management_2nd" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                    <option value="0">0</option>
+                                    <option value="0">INC</option>
+                                    <option value="5">DRP</option>
+                                    <option value="1">1</option>
+                                    <option value="1.25">1.25</option>
+                                    <option value="1.5">1.50</option>
+                                    <option value="1.75">1.75</option>
+                                    <option value="2">2</option>
+                                    <option value="2.25">2.25</option>
+                                    <option value="2.5">2.50</option>
+                                    <option value="2.75">2.75</option>
+                                    <option value="3">3</option>
+                                </select>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="mt-3 ml-3 mr-3 pl-3 pr-3 pt-3 pb-3 shadow-lg rounded-lg bg-gray-100 border-3">
+                          <div class="relative flex flex-row ">
+                              <div class="relative w-6/12 mb-3 mr-1">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Advance_Database_1st"
+                                    >Advance Database</label
+                                >
+                                <select type="text" name="Advance_Database_1st" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                  <option value="0">0</option>
+                                  <option value="0">INC</option>
+                                  <option value="5">DRP</option>
+                                  <option value="1">1</option>
+                                  <option value="1.25">1.25</option>
+                                  <option value="1.5">1.50</option>
+                                  <option value="1.75">1.75</option>
+                                  <option value="2">2</option>
+                                  <option value="2.25">2.25</option>
+                                  <option value="2.5">2.50</option>
+                                  <option value="2.75">2.75</option>
+                                  <option value="3">3</option>
+                                </select>
+                              </div>
+                              <div class="relative mb-3 mr-2">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="Advance_Database_2nd"
+                                    >2ndTry</label
+                                >
+                                <select type="text" name="Advance_Database_2nd" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                    <option value="0">0</option>
+                                    <option value="0">INC</option>
+                                    <option value="5">DRP</option>
+                                    <option value="1">1</option>
+                                    <option value="1.25">1.25</option>
+                                    <option value="1.5">1.50</option>
+                                    <option value="1.75">1.75</option>
+                                    <option value="2">2</option>
+                                    <option value="2.25">2.25</option>
+                                    <option value="2.5">2.50</option>
+                                    <option value="2.75">2.75</option>
+                                    <option value="3">3</option>
+                                </select>
+                              </div>
+                              <div class="relative w-6/12 mb-3 ml-2">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="WebProg_1st"
+                                    >Web Programming</label
+                                >
+                                <select type="text" name="WebProg_1st" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                    <option value="0">0</option>
+                                    <option value="0">INC</option>
+                                    <option value="5">DRP</option>
+                                    <option value="1">1</option>
+                                    <option value="1.25">1.25</option>
+                                    <option value="1.5">1.50</option>
+                                    <option value="1.75">1.75</option>
+                                    <option value="2">2</option>
+                                    <option value="2.25">2.25</option>
+                                    <option value="2.5">2.50</option>
+                                    <option value="2.75">2.75</option>
+                                    <option value="3">3</option>
+                                </select>
+                              </div>
+                              <div class="relative mb-3 ml-1">
+                                <label
+                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                    for="WebProg_2nd"
+                                    >2ndTry</label
+                                >
+                                <select type="text" name="WebProg_2nd" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                style="transition: all 0.15s ease 0s;"
+                                >
+                                    <option value="0">0</option>
+                                    <option value="0">INC</option>
+                                    <option value="5">DRP</option>
+                                    <option value="1">1</option>
+                                    <option value="1.25">1.25</option>
+                                    <option value="1.5">1.50</option>
+                                    <option value="1.75">1.75</option>
+                                    <option value="2">2</option>
+                                    <option value="2.25">2.25</option>
+                                    <option value="2.5">2.50</option>
+                                    <option value="2.75">2.75</option>
+                                    <option value="3">3</option>
+                                </select>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="text-center mt-6">
+                          <button
+                            class="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
+                            style="transition: all 0.15s ease 0s;"
+                            type="submit"
+                          >
+                            Predict
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+          <footer class="block py-4">
+            <div class="container mx-auto px-4">
+              <hr class="mb-4 border-b-1 border-blueGray-200" />
+              <div class="flex flex-wrap items-center md:justify-between justify-center">
+                <div class="w-full md:w-4/12 px-4">
+                  <div class="text-sm text-blueGray-500 font-semibold py-1">
+                    Copyright © <span id="javascript-date"></span>
+                    <a
+                      href="https://www.creative-tim.com"
+                      class="text-blueGray-500 hover:text-blueGray-700 text-sm font-semibold py-1"
+                    >
+                      Creative Tim
+                    </a>
+                  </div>
+                </div>
+                <div class="w-full md:w-8/12 px-4">
+                  <ul class="flex flex-wrap list-none md:justify-end  justify-center">
+                    <li>
+                      <a
+                        href="https://www.creative-tim.com"
+                        class="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
+                      >
+                        Creative Tim
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="https://www.creative-tim.com/presentation"
+                        class="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
+                      >
+                        About Us
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="http://blog.creative-tim.com"
+                        class="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
+                      >
+                        Blog
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="https://github.com/creativetimofficial/tailwind-starter-kit/blob/main/LICENSE.md"
+                        class="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
+                      >
+                        MIT License
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </footer>
+      </div>
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
+      charset="utf-8"
+    ></script>
+    <script src="https://unpkg.com/@popperjs/core@2.9.1/dist/umd/popper.min.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      /* Sidebar - Side navigation menu on mobile/responsive mode */
+      function toggleNavbar(collapseID) {
+        document.getElementById(collapseID).classList.toggle("hidden");
+        document.getElementById(collapseID).classList.toggle("bg-white");
+        document.getElementById(collapseID).classList.toggle("m-2");
+        document.getElementById(collapseID).classList.toggle("py-3");
+        document.getElementById(collapseID).classList.toggle("px-6");
+      }
+      /* Function for dropdowns */
+      function openDropdown(event, dropdownID) {
+        let element = event.target;
+        while (element.nodeName !== "A") {
+          element = element.parentNode;
+        }
+        var popper = Popper.createPopper(element, document.getElementById(dropdownID), {
+          placement: "bottom-end"
+        });
+        document.getElementById(dropdownID).classList.toggle("hidden");
+        document.getElementById(dropdownID).classList.toggle("block");
+      }
+
+
+      (function() {
+        /* Add current date to the footer */
+        document.getElementById("javascript-date").innerHTML = new Date().getFullYear();
+        /* Chart initialisations */
+        /* Line Chart */
+        var config = {
+          type: "line",
+          data: {
+            labels: [
+              "January",
+              "February",
+              "March",
+              "April",
+              "May",
+              "June",
+              "July"
+            ],
+            datasets: [
+              {
+                label: new Date().getFullYear(),
+                backgroundColor: "#4c51bf",
+                borderColor: "#4c51bf",
+                data: [65, 78, 66, 44, 56, 67, 75],
+                fill: false
+              },
+              {
+                label: new Date().getFullYear() - 1,
+                fill: false,
+                backgroundColor: "#ed64a6",
+                borderColor: "#ed64a6",
+                data: [40, 68, 86, 74, 56, 60, 87]
+              }
+            ]
+          },
+          options: {
+            maintainAspectRatio: false,
+            responsive: true,
+            title: {
+              display: false,
+              text: "Sales Charts",
+              fontColor: "white"
+            },
+            legend: {
+              labels: {
+                fontColor: "white"
+              },
+              align: "end",
+              position: "bottom"
+            },
+            tooltips: {
+              mode: "index",
+              intersect: false
+            },
+            hover: {
+              mode: "nearest",
+              intersect: true
+            },
+            scales: {
+              xAxes: [
+                {
+                  ticks: {
+                    fontColor: "rgba(255,255,255,.7)"
+                  },
+                  display: true,
+                  scaleLabel: {
+                    display: false,
+                    labelString: "Month",
+                    fontColor: "white"
+                  },
+                  gridLines: {
+                    display: false,
+                    borderDash: [2],
+                    borderDashOffset: [2],
+                    color: "rgba(33, 37, 41, 0.3)",
+                    zeroLineColor: "rgba(0, 0, 0, 0)",
+                    zeroLineBorderDash: [2],
+                    zeroLineBorderDashOffset: [2]
+                  }
+                }
+              ],
+              yAxes: [
+                {
+                  ticks: {
+                    fontColor: "rgba(255,255,255,.7)"
+                  },
+                  display: true,
+                  scaleLabel: {
+                    display: false,
+                    labelString: "Value",
+                    fontColor: "white"
+                  },
+                  gridLines: {
+                    borderDash: [3],
+                    borderDashOffset: [3],
+                    drawBorder: false,
+                    color: "rgba(255, 255, 255, 0.15)",
+                    zeroLineColor: "rgba(33, 37, 41, 0)",
+                    zeroLineBorderDash: [2],
+                    zeroLineBorderDashOffset: [2]
+                  }
+                }
+              ]
+            }
+          }
+        };
+        var ctx = document.getElementById("line-chart").getContext("2d");
+        window.myLine = new Chart(ctx, config);
+
+        /* Bar Chart */
+        config = {
+          type: "bar",
+          data: {
+            labels: [
+              "January",
+              "February",
+              "March",
+              "April",
+              "May",
+              "June",
+              "July"
+            ],
+            datasets: [
+              {
+                label: new Date().getFullYear(),
+                backgroundColor: "#ed64a6",
+                borderColor: "#ed64a6",
+                data: [30, 78, 56, 34, 100, 45, 13],
+                fill: false,
+                barThickness: 8
+              },
+              {
+                label: new Date().getFullYear() - 1,
+                fill: false,
+                backgroundColor: "#4c51bf",
+                borderColor: "#4c51bf",
+                data: [27, 68, 86, 74, 10, 4, 87],
+                barThickness: 8
+              }
+            ]
+          },
+          options: {
+            maintainAspectRatio: false,
+            responsive: true,
+            title: {
+              display: false,
+              text: "Orders Chart"
+            },
+            tooltips: {
+              mode: "index",
+              intersect: false
+            },
+            hover: {
+              mode: "nearest",
+              intersect: true
+            },
+            legend: {
+              labels: {
+                fontColor: "rgba(0,0,0,.4)"
+              },
+              align: "end",
+              position: "bottom"
+            },
+            scales: {
+              xAxes: [
+                {
+                  display: false,
+                  scaleLabel: {
+                    display: true,
+                    labelString: "Month"
+                  },
+                  gridLines: {
+                    borderDash: [2],
+                    borderDashOffset: [2],
+                    color: "rgba(33, 37, 41, 0.3)",
+                    zeroLineColor: "rgba(33, 37, 41, 0.3)",
+                    zeroLineBorderDash: [2],
+                    zeroLineBorderDashOffset: [2]
+                  }
+                }
+              ],
+              yAxes: [
+                {
+                  display: true,
+                  scaleLabel: {
+                    display: false,
+                    labelString: "Value"
+                  },
+                  gridLines: {
+                    borderDash: [2],
+                    drawBorder: false,
+                    borderDashOffset: [2],
+                    color: "rgba(33, 37, 41, 0.2)",
+                    zeroLineColor: "rgba(33, 37, 41, 0.15)",
+                    zeroLineBorderDash: [2],
+                    zeroLineBorderDashOffset: [2]
+                  }
+                }
+              ]
+            }
+          }
+        };
+        ctx = document.getElementById("bar-chart").getContext("2d");
+        window.myBar = new Chart(ctx, config);
+      })();
+    </script>
+  </body>
+</html>
