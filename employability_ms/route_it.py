@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
 import datetime
 from datetime import datetime
+from sqlalchemy import delete, desc, asc
 
 _route_it = Blueprint('_route_it', __name__)
 
@@ -182,7 +183,7 @@ def register_IT():
     auth_user=current_user
     curriculum_input = db.session.query(CurriculumResult).all()
     if auth_user.is_authenticated:
-        if auth_user.user_type == 1 and auth_user.department == "Computer Science":
+        if auth_user.user_type == 1 and auth_user.department == "Information Technology":
             return redirect(url_for('.it_dashboard'))
         else:
             return redirect(url_for('_auth.index'))
@@ -233,7 +234,7 @@ def signupIT():
         flash('Invalid Email. Outside WMSU email is not allowed', category='error')
         
     return redirect(url_for('.register_IT'))
-    
+
 @_route_it.route('/it_dashboard', methods=['GET'])
 @login_required
 def it_dashboard():
@@ -274,6 +275,50 @@ def it_dashboard():
         
     return render_template("IT/IT_landing.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
 
+@_route_it.route("/it_result", methods=['GET'])
+def it_result():
+    auth_user=current_user
+    if auth_user.user_type == 1:
+        return render_template("IT/IT_result.html", auth_user=auth_user)
+    else:
+        return redirect(url_for('_auth.index'))
+    
+@_route_it.route("/it_profile", methods=['GET'])
+def it_profile():
+    auth_user=current_user
+    top_career = PredictionResult.query.filter_by(user_id=int(auth_user.id)).order_by(desc(PredictionResult.date_created)).first()
+    top_path = top_career.top_rank
+    job_desired = top_path
+    
+    if request.method == 'GET':
+        if auth_user.user_type == 1 and auth_user.department == "Information Technology" and auth_user.sex == "Male":
+            sex = 0
+            student_predictions = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', PredictionResult.user_id == int(auth_user.id)).group_by(PredictionResult.result_id).all()
+            predict_iter = User.query.filter_by(id=int(auth_user.id)).first()
+            remaining_attempt = int(predict_iter.predict_no)
+            
+            if auth_user.program == "Shiftee" or auth_user.program == "Transferee":
+                program = 1
+                return render_template("IT/IT_profile.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions, job_desired=job_desired)
+            elif auth_user.program == "Regular":
+                program = 0
+                return render_template("IT/IT_profile.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions, job_desired=job_desired)
+                
+        elif auth_user.user_type == 1 and auth_user.department == "Information Technology" and auth_user.sex == "Female":
+            sex = 1
+            student_predictions = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', PredictionResult.user_id == int(auth_user.id)).group_by(PredictionResult.result_id).all()
+            predict_iter = User.query.filter_by(id=int(auth_user.id)).first()
+            remaining_attempt = int(predict_iter.predict_no)
+            
+            if auth_user.program == "Shiftee" or auth_user.program == "Transferee":
+                program = 1
+                return render_template("IT/IT_profile.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions, job_desired=job_desired)
+            elif auth_user.program == "Regular":
+                program = 0
+                return render_template("IT/IT_profile.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions, job_desired=job_desired)
+        else:
+            return redirect(url_for('_auth.index'))
+
 @_route_it.route("/edit_profile_it", methods=['POST'])
 def edit_profile_it():
     auth_user=current_user
@@ -292,7 +337,27 @@ def edit_profile_it():
             flash('Sorry there is no sense to change career, since you already met the prediction attempts', category='info')
     else:
         return redirect(url_for('_auth.index'))
-    
+
+    return redirect(url_for('.it_profile'))
+
+@_route_it.route("/edit_profile_it_dashboard", methods=['POST'])
+def edit_profile_it_dashboard():
+    auth_user=current_user
+    if auth_user.user_type == 1 and auth_user.department == "Information Technology":
+        predict_iter = User.query.filter_by(id=int(auth_user.id)).first()
+        current_pred_no = predict_iter.predict_no
+        if current_pred_no < 2:
+            career = User.query.filter_by(id=int(auth_user.id)).first()
+            career.desired_career = request.form['desiredCareer']
+            
+            job = db.session.query(PredictionResult).filter(PredictionResult.result_id == int(auth_user.id))
+            job.desired_job = request.form['desiredCareer']
+            db.session.commit()
+            flash('Profile Successfully Modified', category='info')
+        else:
+            flash('Sorry there is no sense to change career, since you already met the prediction attempts', category='info')
+    else:
+        return redirect(url_for('_auth.index'))
     return redirect(url_for('.it_dashboard'))
 
 @_route_it.route("/predict_IT", methods=["GET", "POST"])
