@@ -194,7 +194,7 @@ def login_IT():
     auth_user=current_user
     if auth_user.is_authenticated:
         if auth_user.user_type == 1 and auth_user.department == "Information Technology":
-            return redirect(url_for('.it_dashboard'))
+            return redirect(url_for('.it_profile'))
         else:
             return redirect(url_for('_auth.index'))
     else:
@@ -204,7 +204,7 @@ def login_IT():
                 if user.is_approve == True:
                     if check_password_hash(user.password, request.form['password']):
                         login_user(user, remember=True)
-                        return redirect(url_for('.it_dashboard'))
+                        return redirect(url_for('.it_profile'))
                     else:
                         flash('Invalid or wrong password', category='error')
                 else:
@@ -482,7 +482,7 @@ def predict_IT():
                 
                 db.session.commit()
                     
-                return render_template("/IT/ITPredRes.html", 
+                return render_template("/IT/IT_result.html", 
                                     prediction_text1 = "" if fetch1 == 0 or fetch1 == 0 and fetch2 == 0 and fetch3 == 0 and fetch4 == 0 or fetch2 <= 100 and fetch1 == 0 and fetch3 == 0 and fetch4 == 0 and fetchPred2 == "Administrative Assistant" or fetchPred1 == '0' else "{}".format(f"{prediction[K]} : {fetch1}%"), 
                                     prediction_text2 = "" if fetch2 == 0 or fetch1 == 0 and fetch2 == 0 and fetch3 == 0 and fetch4 == 0 or fetch2 <= 100 and fetch1 == 0 and fetch3 == 0 and fetch4 == 0 and fetchPred2 == "Administrative Assistant" or fetchPred2 == '0' else "{}".format(f"{prediction[K-1]} : {fetch2}%"),
                                     prediction_text3 = "" if fetch3 == 0 or fetch1 == 0 and fetch2 == 0 and fetch3 == 0 and fetch4 == 0 or fetch2 <= 100 and fetch1 == 0 and fetch3 == 0 and fetch4 == 0 and fetchPred2 == "Administrative Assistant" or fetchPred3 == '0' else "{}".format(f"{prediction[K-2]} : {fetch3}%"),
