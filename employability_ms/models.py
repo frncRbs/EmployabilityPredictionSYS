@@ -83,3 +83,12 @@ class CurriculumResult(db.Model):
         self.curriculum_year = curriculum_year
         self.created_by = created_by
         self.date_created = date_created
+        
+class TestUpload(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), nullable=False)
+    email = db.Column(db.String(120), nullable=False)
+    
+    def __init__(self, username, email):
+        self.username = username
+        self.email = email

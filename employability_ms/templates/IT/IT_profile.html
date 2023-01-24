@@ -279,6 +279,12 @@
                           >{{ auth_user.predict_no }}</span
                         ><span class="text-sm text-gray-500">Prediction Attempt {{ auth_user.predict_no }} out of 2</span>
                       </div>
+                      <div class="mr-4 p-3 text-center">
+                        <form method='POST' action="/upload_csv" enctype='multipart/form-data'>
+                          Upload a csv file: <input type='file' name='file'>
+                          <input type='submit' value='Upload'>
+                        </form>
+                      </div>
                     </div>
                   </div>
                 </div>

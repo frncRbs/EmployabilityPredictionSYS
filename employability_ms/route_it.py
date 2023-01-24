@@ -6,15 +6,8 @@ from flask_login import login_user, login_required, logout_user, current_user
 import datetime
 from datetime import datetime
 from sqlalchemy import delete, desc, asc
-
-_route_it = Blueprint('_route_it', __name__)
-
-@_route_it.route('/index')
-@login_required
-def dashboard():
-    return '1'
-    
-    
+from io import TextIOWrapper
+import csv
 import numpy as np
 import pandas as pd
 import pickle
@@ -33,6 +26,13 @@ import math
 from os import path
 import os
 
+_route_it = Blueprint('_route_it', __name__)
+
+@_route_it.route('/index')
+@login_required
+def dashboard():
+    return '1'
+    
 csv_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),"model/Institute-of-Computer-Studies-Graduate-Tracer-Study-2021-2022-Responses(ALTERED).csv")
 
 model_IT_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),"model/ProjectModel_IT.pkl")
@@ -286,11 +286,11 @@ def it_result():
 @_route_it.route("/it_profile", methods=['GET'])
 def it_profile():
     auth_user=current_user
-    top_career = PredictionResult.query.filter_by(user_id=int(auth_user.id)).order_by(desc(PredictionResult.date_created)).first()
-    top_path = top_career.top_rank
-    job_desired = top_path
     
     if request.method == 'GET':
+        top_career = PredictionResult.query.filter_by(user_id=int(auth_user.id)).order_by(desc(PredictionResult.date_created)).first()
+        top_path = top_career.top_rank
+        job_desired = top_path
         if auth_user.user_type == 1 and auth_user.department == "Information Technology" and auth_user.sex == "Male":
             sex = 0
             student_predictions = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', PredictionResult.user_id == int(auth_user.id)).group_by(PredictionResult.result_id).all()
@@ -359,6 +359,22 @@ def edit_profile_it_dashboard():
     else:
         return redirect(url_for('_auth.index'))
     return redirect(url_for('.it_dashboard'))
+
+@_route_it.route("/upload_csv", methods=['GET', 'POST'])
+def upload_csv():
+    if request.method == 'POST':
+        csv_file = request.files['file']
+        csv_file = TextIOWrapper(csv_file, encoding='utf-8')
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        try:
+            for row in csv_reader:
+                upload = TestUpload(username=row[0], email=row[1])
+                db.session.add(upload)
+                db.session.commit()
+            flash('File Succesfully Uploaded ', category='info')
+        except:
+            flash('Invalid Format', category='error')
+    return redirect(url_for('.it_profile'))
 
 @_route_it.route("/predict_IT", methods=["GET", "POST"])
 def predict_IT():
