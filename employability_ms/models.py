@@ -27,6 +27,7 @@ class User(db.Model, UserMixin):
     user_type = db.Column(db.SmallInteger, nullable=False, default=1) # -1 Superadmin(Built-in), 0 - Admin, 1 - Personnel
     date_created = db.Column(db.DateTime(timezone=True), default=func.now())
     pred_results = db.relationship('PredictionResult', backref='user', uselist=False)
+    img_uploads = db.relationship('Img', backref='user', uselist=False)
 
     def __init__(self, first_name, middle_name, last_name, sex, curriculum_year, contact_number, email, desired_career, department, program, password, is_approve, predict_no, user_type):
         self.first_name = first_name
@@ -83,12 +84,27 @@ class CurriculumResult(db.Model):
         self.curriculum_year = curriculum_year
         self.created_by = created_by
         self.date_created = date_created
-        
-class TestUpload(db.Model):
+
+class Img(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), nullable=False)
-    email = db.Column(db.String(120), nullable=False)
+    img = db.Column(db.Text, unique=True, nullable=True)
+    name = db.Column(db.Text, nullable=True)
+    mimetype = db.Column(db.Text, nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    date_created = db.Column(db.DateTime(timezone=True), default=func.now())
     
-    def __init__(self, username, email):
-        self.username = username
-        self.email = email
+    def __init__(self, img, name, mimetype, user_id, date_created):
+        self.img = img
+        self.name = name
+        self.mimetype = mimetype
+        self.user_id = user_id
+        self.date_created = date_created
+
+# class TestUpload(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     username = db.Column(db.String(80), nullable=False)
+#     email = db.Column(db.String(120), nullable=False)
+    
+#     def __init__(self, username, email):
+#         self.username = username
+#         self.email = email

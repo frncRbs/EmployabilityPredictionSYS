@@ -283,42 +283,40 @@ def cs_result():
 @_route_cs.route("/cs_profile", methods=['GET'])
 def cs_profile():
     auth_user=current_user
-    top_career = PredictionResult.query.filter_by(user_id=int(auth_user.id)).order_by(desc(PredictionResult.date_created)).first()
-    top_path = top_career.top_rank
-    job_desired = top_path
     
-    if request.method == 'GET':
-        if auth_user.user_type == 1 and auth_user.department == "Computer Science" and auth_user.sex == "Male":
-            sex = 0
-            student_predictions = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', PredictionResult.user_id == int(auth_user.id)).group_by(PredictionResult.result_id).all()
-            predict_iter = User.query.filter_by(id=int(auth_user.id)).first()
-            remaining_attempt = int(predict_iter.predict_no)
+    try:
+        if request.method == 'GET':
+            top_career = PredictionResult.query.filter_by(user_id=int(auth_user.id)).order_by(desc(PredictionResult.date_created)).first()
+            top_path = top_career.top_rank
+            job_desired = top_path
             
-            if auth_user.program == "Shiftee" or auth_user.program == "Transferee":
-                program = 1
-                return render_template("CS/CS_profile.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions, job_desired=job_desired)
-            elif auth_user.program == "Regular":
-                program = 0
-                return render_template("CS/CS_profile.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions, job_desired=job_desired)
+            if auth_user.user_type == 1 and auth_user.department == "Computer Science" and auth_user.sex == "Male":
+                sex = 0
+                student_predictions = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', PredictionResult.user_id == int(auth_user.id)).group_by(PredictionResult.result_id).all()
+                predict_iter = User.query.filter_by(id=int(auth_user.id)).first()
+                remaining_attempt = int(predict_iter.predict_no)
                 
-        elif auth_user.user_type == 1 and auth_user.department == "Computer Science" and auth_user.sex == "Female":
-            sex = 1
-            student_predictions = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', PredictionResult.user_id == int(auth_user.id)).group_by(PredictionResult.result_id).all()
-            predict_iter = User.query.filter_by(id=int(auth_user.id)).first()
-            remaining_attempt = int(predict_iter.predict_no)
+                if auth_user.program == "Shiftee" or auth_user.program == "Transferee":
+                    program = 1
+                elif auth_user.program == "Regular":
+                    program = 0
+            elif auth_user.user_type == 1 and auth_user.department == "Computer Science" and auth_user.sex == "Female":
+                sex = 1
+                student_predictions = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', PredictionResult.user_id == int(auth_user.id)).group_by(PredictionResult.result_id).all()
+                predict_iter = User.query.filter_by(id=int(auth_user.id)).first()
+                remaining_attempt = int(predict_iter.predict_no)
+                
+                if auth_user.program == "Shiftee" or auth_user.program == "Transferee":
+                    program = 1    
+                elif auth_user.program == "Regular":
+                    program = 0
+            else:
+                return redirect(url_for('_auth.index'))
             
-            if auth_user.program == "Shiftee" or auth_user.program == "Transferee":
-                program = 1
-                return render_template("CS/CS_profile.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions, job_desired=job_desired)
-            elif auth_user.program == "Regular":
-                program = 0
-                return render_template("CS/CS_profile.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions, job_desired=job_desired)
-        else:
-            return redirect(url_for('_auth.index'))
-    # if auth_user.user_type == 1:
-    #     return render_template("CS/CS_profile.html", auth_user=auth_user)
-    # else:
-    #     return redirect(url_for('_auth.index'))
+        return render_template("CS/CS_profile.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions, job_desired=job_desired)
+    except:
+        return redirect(url_for('.cs_dashboard'))
+
     
 @_route_cs.route("/edit_profile_cs", methods=['POST'])
 def edit_profile_cs():
