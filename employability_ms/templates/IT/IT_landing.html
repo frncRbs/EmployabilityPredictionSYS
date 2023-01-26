@@ -153,7 +153,7 @@
                 <a
                   class="text-pink-500 hover:text-pink-600 text-xs uppercase py-3 font-bold block"
                   href="#/predict"
-                  ><i class="fas fa-newspaper text-pink-500 mr-2 text-sm"></i>
+                  ><i class="fab fa-hubspot text-pink-500 mr-2 text-sm"></i>
                   Predict</a
                 >
               </li>
@@ -1470,28 +1470,32 @@
                             <form action="/edit_profile_it_dashboard" method="POST">
                               <label class="block mb-2 text-m font-medium text-gray-900 dark:text-white" for="file_input">Change Desired Career</label>
                               <select
-                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                                style="transition: all 0.15s ease 0s;"
+                              class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                              style="transition: all 0.15s ease 0s;"
                                 type="text" name="desiredCareer" id="drop-down" placeholder="Select career" required="">
                                 <option value="{{ auth_user.desired_career }}">{{ auth_user.desired_career }}</option>
                                 <option value="Software Engineer / Programmer">Software Engineer / Programmer</option>
                                 <option value="Technical Support Specialist">Technical Support Specialist</option>
                                 <option value="Academician">Academician</option>
                                 <option value="Administrative Assistant">Administrative Assistant</option>
-                              </select>                        
-                          </div>
-                          <div class="pb-4">
-                            <label class="block mb-2 text-m font-medium text-gray-900 dark:text-white" for="file_input">Upload Profile Photo</label>
-                            <input class="block w-full text-m text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file">
-                          </div>
-                          <button
-                                class="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-5 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
+                              </select>   
+                              <button
+                                class="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-5 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 mt-1"
                                 style="transition: all 0.15s ease 0s;"
                                 type="submit"
                                 >
-                              Save
-                          </button>
+                                Update Career
+                              </button>
+                            </form>                     
+                          </div>
+                          <div class="pb-4">
+                            <label class="block mb-2 text-m font-medium text-gray-900 dark:text-white" for="pic_input">Upload Profile Photo</label>
+                            <form method='POST' action="/upload_pic" enctype='multipart/form-data'>
+                              <input class="block w-full text-m text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" 
+                              type="file" name="pic_input"><input class="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-5 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 mt-1" 
+                              type='submit' value='Update Image'>
                             </form>
+                          </div>
                         </div>
                       </div>
                     </div>

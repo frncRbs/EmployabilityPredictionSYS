@@ -2,6 +2,7 @@ from flask import Flask, session
 from flask_sqlalchemy import SQLAlchemy
 from .system_settings import DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASENAME, DB_PORT, SECRET_KEY
 from os import path
+import os
 from flask_login import LoginManager
 from flask_marshmallow import Marshmallow
 from datetime import timedelta
@@ -29,6 +30,7 @@ def create_app():
     app.config['MAIL_PASSWORD'] = 'superadmin2022'
     app.config['MAIL_USE_TLS'] = False
     app.config['MAIL_USE_SSL'] = True
+    app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, 'static/assets/img')
 
     # db = SQLAlchemy(app)
     db.init_app(app)

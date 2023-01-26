@@ -1,8 +1,8 @@
 from sqlalchemy.sql import func
 from sqlalchemy import column, func
+# from sqlalchemy_file import File, FileField
 from . import db, marsh, app
 from flask_login import UserMixin
-
 from marshmallow import Schema, fields
 
 class UserSchema(marsh.Schema):
@@ -87,9 +87,9 @@ class CurriculumResult(db.Model):
 
 class Img(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    img = db.Column(db.Text, unique=True, nullable=True)
-    name = db.Column(db.Text, nullable=True)
-    mimetype = db.Column(db.Text, nullable=True)
+    img = db.Column(db.String(150), unique=True, nullable=True)
+    name = db.Column(db.String(150), nullable=True)
+    mimetype = db.Column(db.String(150), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     date_created = db.Column(db.DateTime(timezone=True), default=func.now())
     

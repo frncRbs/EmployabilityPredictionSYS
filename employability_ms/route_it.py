@@ -302,9 +302,9 @@ def it_profile():
     data3 = location_data.get("region")
     data4 = location_data.get("country")
     
-    # img = Img.query.filter_by(user_id=int(auth_user.id)).order_by(desc(Img.date_created)).first()
-    # img_path = img.img
-    # image = img_path
+    img = Img.query.filter_by(user_id=int(auth_user.id)).order_by(desc(Img.date_created)).first()
+    img_path = img.img
+    image = img_path
         
     try:
         top_career = PredictionResult.query.filter_by(user_id=int(auth_user.id)).order_by(desc(PredictionResult.date_created)).first()
@@ -337,7 +337,7 @@ def it_profile():
                 return redirect(url_for('_auth.index'))
             
         return render_template("IT/IT_profile.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions, job_desired=job_desired, data2=data2, 
-                               data3=data3, data4=data4)
+                               data3=data3, data4=data4, image=image)
     except:
         return redirect(url_for('.it_dashboard'))
 
@@ -395,6 +395,7 @@ def upload_pic():
         else: 
             filename = secure_filename(pic.filename)
             mimetype = pic.mimetype
+            # pic.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             img = Img(img=pic.read(), mimetype=mimetype, name=filename, user_id=int(auth_user.id), date_created=date_added)
             db.session.add(img)
             db.session.commit()
