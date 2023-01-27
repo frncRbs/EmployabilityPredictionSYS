@@ -150,47 +150,25 @@
             class="lg:flex flex-grow items-center bg-white lg:bg-transparent lg:shadow-none hidden"
             id="example-collapse-navbar"
           >
-            <ul class="flex flex-col lg:flex-row list-none mr-auto">
-              <li class="flex items-center">
-                <a
-                  class="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/profile"
-                  ><i
-                    class="lg:text-gray-300 text-gray-500 far fa-file-alt text-lg leading-lg mr-2"
-                  ></i>
-                  Docs</a
-                >
-              </li>
-            </ul>
             <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
               <li class="flex items-center">
                 <a
                   class="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  href="#pablo"
+                  href="/it_dashboard"
                   ><i
-                    class="lg:text-gray-300 text-gray-500 fab fa-facebook text-lg leading-lg "
+                    class="lg:text-gray-300 text-gray-500 fab fa-hubspot text-lg leading-lg "
                   ></i
-                  ><span class="lg:hidden inline-block ml-2">Share</span></a
+                  ><span class="lg:hidden inline-block ml-2">Predict</span></a
                 >
               </li>
               <li class="flex items-center">
                 <a
                   class="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  href="#pablo"
+                  href="/logout"
                   ><i
-                    class="lg:text-gray-300 text-gray-500 fab fa-twitter text-lg leading-lg "
+                    class="lg:text-gray-300 text-gray-500 fas fa-sign-out-alt text-lg leading-lg "
                   ></i
-                  ><span class="lg:hidden inline-block ml-2">Tweet</span></a
-                >
-              </li>
-              <li class="flex items-center">
-                <a
-                  class="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  href="#pablo"
-                  ><i
-                    class="lg:text-gray-300 text-gray-500 fab fa-github text-lg leading-lg "
-                  ></i
-                  ><span class="lg:hidden inline-block ml-2">Star</span></a
+                  ><span class="lg:hidden inline-block ml-2">Sign Out</span></a
                 >
               </li>
             </ul>
@@ -480,7 +458,8 @@
                                         >{{ auth_user.desired_career }}
                                       </div>
                                       <div class="w-full p-8 mx-2 flex justify-center">
-                                        <img id="showImage" class="object-scale-down max-w-xs w-32 items-center border" src="https://images.unsplash.com/photo-1477118476589-bff2c5c4cfbb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=200" alt="">                          
+                                        <img id="showImage" class="object-scale-down max-w-xs w-32 items-center border" 
+                                        src="/static/images/{{auth_user.img}}" style="max-width: 150px;">                  
                                       </div>
                                       <div class="mb-2 text-gray-700">
                                         <i class="fas fa-user-circle mr-2 text-lg text-gray-500"></i

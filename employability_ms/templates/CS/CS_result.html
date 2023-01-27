@@ -137,7 +137,7 @@
                   <div class="relative">
                     <img
                       alt="..."
-                      src="../../static/assets/img/team-2-800x800.jpg"
+                      src="/static/images/{{auth_user.img}}"
                       class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16"
                       style="max-width: 150px;"
                     />
@@ -163,7 +163,7 @@
                       <span
                         class="text-xl font-bold block uppercase tracking-wide text-gray-700"
                         >{{ auth_user.predict_no }}</span
-                      ><span class="text-sm text-gray-500">Prediction Remaining Attempt</span>
+                      ><span class="text-sm text-gray-500">Prediction Attempt {{ auth_user.predict_no }} out of 2</span>
                     </div>
                   </div>
                 </div>
@@ -176,7 +176,7 @@
                           <h3
                             class="text-3xl font-bold leading-normal mb-2 text-gray-800 mb-2"
                           >
-                          <i class="fas fa-search text-3xl text-gray-500"></i> Based on our system calculations
+                          <i class="fab fa-hubspot text-3xl text-gray-500"></i> Based on our system calculations
                           </h3>
                           <hr class="text-gray-700 mb-2">
                           <h3 class="text-gray-700 mb-2 text-justify">Your desired career is <div class="font-bold leading-normal inline-block">{{ auth_user.desired_career }}</div></h3>
@@ -218,7 +218,7 @@
                         class="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
                         type="button"
                         style="transition: all 0.15s ease 0s;"
-                        onclick="window.location='/cs_dashboard'"
+                        onclick="window.location='/it_dashboard'"
                       >
                       <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>   
                       Predict Again
@@ -384,73 +384,3 @@
     }
   </script>
 </html>
-
-<div class="popup" id="popupID">
-  <div class="popup__inner">
-    <div class="popup__container">
-      <div class="popup__content">
-        <div class="pt-6 w-full md:w-6/12 px-4 text-center">
-          <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-            <div class="px-4 py-5 flex-auto">
-              <div>
-              </div>
-              <div class="relative h-full">
-                <div class="relative border-b-2 block md:flex">
-                  <div class="w-full md:w-2/5 p-4 sm:p-6 lg:p-8 bg-white shadow-md mt-3">
-                    <div class="pb-6">
-                      <div class="flex justify-between">
-                        <span class="text-xl font-semibold block">Student Profile</span>
-                      </div>
-                      <div class="mb-2 text-gray-700 mt-2">
-                        <i class="fas fa-briefcase mr-2 text-lg text-gray-500"></i>
-                        {{ auth_user.desired_career }}
-                      </div>
-                      <div class="w-full p-8 mx-2 flex justify-center">
-                        <img id="showImage" class="max-w-xs w-32 items-center border" src="https://images.unsplash.com/photo-1477118476589-bff2c5c4cfbb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=200" alt="">                          
-                      </div>
-                      <div class="mb-2 text-gray-700">
-                        <i class="fas fa-user-circle mr-2 text-lg text-gray-500"></i>
-                        {{ auth_user.first_name }} {{ auth_user.middle_name }} {{ auth_user.last_name }}
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="w-full md:w-3/5 p-8 bg-white lg:ml-4 shadow-md">
-                    <div class="rounded shadow p-6">
-                      <div class="pb-6">
-                        <form action="/edit_profile_cs" method="POST">
-                          <label class="block mb-2 text-m font-medium text-gray-900 dark:text-white" for="file_input">Change Desired Career</label>
-                          <select
-                            class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                            style="transition: all 0.15s ease 0s;"
-                            type="text" name="desiredCareer" id="drop-down" placeholder="Select career" required="">
-                            <option value="{{ auth_user.desired_career }}">{{ auth_user.desired_career }}</option>
-                            <option value="Software Engineer / Programmer">Software Engineer / Programmer</option>
-                            <option value="Technical Support Specialist">Technical Support Specialist</option>
-                            <option value="Academician">Academician</option>
-                            <option value="Administrative Assistant">Administrative Assistant</option>
-                          </select>                        
-                      </div>
-                      <div class="pb-4">
-                        <label class="block mb-2 text-m font-medium text-gray-900 dark:text-white" for="file_input">Upload Profile Photo</label>
-                        <input class="block w-full text-m text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file">
-                      </div>
-                      <button
-                            class="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-5 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
-                            style="transition: all 0.15s ease 0s;"
-                            type="submit"
-                            >
-                          Save
-                      </button>
-                        </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>

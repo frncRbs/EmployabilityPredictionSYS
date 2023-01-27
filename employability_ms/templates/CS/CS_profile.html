@@ -150,47 +150,25 @@
           class="lg:flex flex-grow items-center bg-white lg:bg-transparent lg:shadow-none hidden"
           id="example-collapse-navbar"
         >
-          <ul class="flex flex-col lg:flex-row list-none mr-auto">
-            <li class="flex items-center">
-              <a
-                class="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/profile"
-                ><i
-                  class="lg:text-gray-300 text-gray-500 far fa-file-alt text-lg leading-lg mr-2"
-                ></i>
-                Docs</a
-              >
-            </li>
-          </ul>
           <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
             <li class="flex items-center">
               <a
                 class="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                href="#pablo"
+                href="/cs_dashboard"
                 ><i
-                  class="lg:text-gray-300 text-gray-500 fab fa-facebook text-lg leading-lg "
+                  class="lg:text-gray-300 text-gray-500 fab fa-hubspot text-lg leading-lg "
                 ></i
-                ><span class="lg:hidden inline-block ml-2">Share</span></a
+                ><span class="lg:hidden inline-block ml-2">Predict</span></a
               >
             </li>
             <li class="flex items-center">
               <a
                 class="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                href="#pablo"
+                href="/logout"
                 ><i
-                  class="lg:text-gray-300 text-gray-500 fab fa-twitter text-lg leading-lg "
+                  class="lg:text-gray-300 text-gray-500 fas fa-sign-out-alt text-lg leading-lg "
                 ></i
-                ><span class="lg:hidden inline-block ml-2">Tweet</span></a
-              >
-            </li>
-            <li class="flex items-center">
-              <a
-                class="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                href="#pablo"
-                ><i
-                  class="lg:text-gray-300 text-gray-500 fab fa-github text-lg leading-lg "
-                ></i
-                ><span class="lg:hidden inline-block ml-2">Star</span></a
+                ><span class="lg:hidden inline-block ml-2">Sign Out</span></a
               >
             </li>
           </ul>
@@ -240,12 +218,15 @@
                   class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center"
                 >
                   <div class="relative">
-                    <img
+                    <!-- <img
                       alt="..."
                       src="../../static/assets/img/team-2-800x800.jpg"
                       class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16"
                       style="max-width: 150px;"
-                    />
+                    /> -->
+                    <img class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16"
+                    style="max-width: 150px;"
+                    src="/static/images/{{auth_user.img}}"/>
                   </div>
                 </div>
                 <div
@@ -267,6 +248,7 @@
                       style="transition: all 0.15s ease 0s;"
                       onclick="window.location='/cs_dashboard'"
                     >
+                    <i class="fab fa-hubspot mr-2 text-xs text-white"></i>
                       Start Prediction
                     </button>
                   </div>
@@ -279,6 +261,12 @@
                         >{{ auth_user.predict_no }}</span
                       ><span class="text-sm text-gray-500">Prediction Attempt {{ auth_user.predict_no }} out of 2</span>
                     </div>
+                    <!-- <div class="mr-4 p-3 text-center">
+                      <form method='POST' action="/upload_csv" enctype='multipart/form-data'>
+                        Upload a csv file: <input type='file' name='file'>
+                        <input type='submit' value='Upload'>
+                      </form>
+                    </div> -->
                   </div>
                 </div>
               </div>
@@ -294,8 +282,8 @@
                   <i
                     class="fas fa-map-marker-alt mr-2 text-lg text-gray-500"
                   ></i>
-                  Los Angeles, California
-                </div>
+                  {{ data2 }} {{ data3 }} {{ data4 }}
+                </div>  
                 <div>
                     {% with messages = get_flashed_messages(with_categories=true) %}
                         {% if messages %}
@@ -351,6 +339,40 @@
                                             </div>
                                         </div>
                                     </div>
+                                {% elif category == 'upload_successfully' %}
+                                  <div class="">
+                                      <div class="">
+                                          <div class="">
+                                              <div style="padding: 2%; color: green; font-size: 25px; font-weight: 700">
+                                                  <center>
+                                                      {{ message }}
+                                                  </center>
+                                                  <script>
+                                                      window.setTimeout(function () {
+                                                          window.location.reload();
+                                                      }, 3000);
+                                                  </script>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                {% elif category == 'upload_error' %}
+                                  <div class="">
+                                      <div class="">
+                                          <div class="">
+                                              <div style="padding: 2%; color: red; font-size: 25px; font-weight: 700">
+                                                  <center>
+                                                      {{ message }}
+                                                  </center>
+                                                  <script>
+                                                      window.setTimeout(function () {
+                                                          window.location.reload();
+                                                      }, 3000);
+                                                  </script>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
                                 {% endif %}
                             {% endfor %}
                         {% endif %}
@@ -362,7 +384,7 @@
                 </div>
                 <div class="mb-2 text-gray-700">
                   <i class="fas fa-university mr-2 text-lg text-gray-500"></i
-                  >Western Mindanao State University - {{ auth_user.department }}
+                  >Western Mindanao State University - Bachelor of Science in {{ auth_user.department }}
                 </div>
               </div>
               
@@ -424,7 +446,8 @@
  
                               <div class="relative border-b-2 block md:flex">
                             
-                                <div class="w-full md:w-2/5 p-4 sm:p-6 lg:p-8 bg-white shadow-md mt-3">
+                                <div class="w-full md:w-2/5 p-4 sm:p-6 lg:p-8 bg-white shadow-md mt-3"
+                                  style="background-image: url(../../static/assets/img/register_bg_2.png); background-size: 100%; background-repeat: no-repeat;">
                                   <div class="pb-6">
                                     <div class="flex justify-between">
                                       <span class="text-xl font-semibold block">Student Profile</span>
@@ -436,7 +459,8 @@
                                       >{{ auth_user.desired_career }}
                                     </div>
                                     <div class="w-full p-8 mx-2 flex justify-center">
-                                      <img id="showImage" class="object-scale-down max-w-xs w-32 items-center border" src="https://images.unsplash.com/photo-1477118476589-bff2c5c4cfbb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=200" alt="">                          
+                                      <img id="showImage" class="object-scale-down max-w-xs w-32 items-center border" 
+                                      src="/static/images/{{auth_user.img}}" style="max-width: 150px;">                  
                                     </div>
                                     <div class="mb-2 text-gray-700">
                                       <i class="fas fa-user-circle mr-2 text-lg text-gray-500"></i
@@ -459,20 +483,31 @@
                                           <option value="Technical Support Specialist">Technical Support Specialist</option>
                                           <option value="Academician">Academician</option>
                                           <option value="Administrative Assistant">Administrative Assistant</option>
-                                        </select>                        
-                                    </div>
-                                    <div class="pb-4">
-                                      <label class="block mb-2 text-m font-medium text-gray-900 dark:text-white" for="file_input">Upload Profile Photo</label>
-                                      <input class="block w-full text-m text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file">
-                                    </div>
-                                    <button
-                                          class="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-5 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
+                                        </select>   
+                                        <button
+                                          class="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-5 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 mt-1"
                                           style="transition: all 0.15s ease 0s;"
                                           type="submit"
                                           >
-                                        Save
-                                    </button>
-                                  </form>
+                                          Update Career
+                                        </button>
+                                      </form>                     
+                                    </div>
+                                    <div class="pb-4">
+                                      <label class="block mb-2 text-m font-medium text-gray-900 dark:text-white" for="pic_input">Upload Profile Photo</label>
+                                      <!-- <form method='POST' action="/upload_pic" enctype='multipart/form-data'>
+                                        <input class="block w-full text-m text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" 
+                                        type="file" name="pic_input"><input class="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-5 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 mt-1" 
+                                        type='submit' value='Update Image'>
+                                      </form> -->
+                                      <form method="POST" action="/cs_profile" enctype='multipart/form-data'>
+                                        {{ form_upload.file(class="block w-full text-m text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400") }}
+                                        <button class="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-5 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 mt-1" 
+                                          type='submit'>
+                                          Update Image
+                                        </button>
+                                      </form>
+                                    </div>
                                   </div>
                                 </div>
                                 
@@ -492,7 +527,7 @@
                 <h3
                   class="text-3xl font-semibold leading-normal mb-2 text-gray-500 mb-2"
                   >
-                  <i class="fas fa-search text-3xl text-gray-500"></i> Predictions
+                  <i class="fab fa-hubspot text-3xl text-gray-500"></i> Predictions
                 </h3>
                 <div class="flex flex-wrap justify-center">
                   <div class="-m-1.5 overflow-x-auto">

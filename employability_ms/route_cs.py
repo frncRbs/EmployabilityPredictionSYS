@@ -6,15 +6,8 @@ from flask_login import login_user, login_required, logout_user, current_user
 import datetime
 from datetime import datetime
 from sqlalchemy import delete, desc, asc
-
-_route_cs = Blueprint('_route_cs', __name__)
-
-@_route_cs.route('/index')
-@login_required
-def dashboard():
-    return '1'
-    
-    
+# from io import TextIOWrapper
+import csv
 import numpy as np
 import pandas as pd
 import pickle
@@ -24,14 +17,21 @@ from flask import Flask, request, jsonify, render_template
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import OrdinalEncoder
 from scipy.stats import spearmanr
-# import matplotlib.pyplot as plt
+from werkzeug.utils import secure_filename
 import json
-# import plotly
-# import plotly.express as px
 import random
 import math
 from os import path
 import os
+import requests
+from .classes import UploadCSV
+
+_route_cs = Blueprint('_route_cs', __name__)
+
+@_route_cs.route('/index')
+@login_required
+def dashboard():
+    return '1'
 
 csv_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),"model/Institute-of-Computer-Studies-Graduate-Tracer-Study-2021-2022-Responses(ALTERED).csv")
 
@@ -160,6 +160,10 @@ model_CSsuggest = pickle.load(open(model_CSsuggest_path, "rb"))
 
 @flask_app.route("/")
 
+def get_ip():
+    response = requests.get('https://api64.ipify.org?format=json').json()
+    return response["ip"]
+
 def Home():
     return render_template("index.html")
 
@@ -235,42 +239,70 @@ def signupCS():
     
     return redirect(url_for('.register_CS'))
 
-@_route_cs.route('/cs_dashboard', methods=['GET'])
+@_route_cs.route('/cs_dashboard', methods=['GET', 'POST'])
 @login_required
 def cs_dashboard():
     auth_user=current_user
+    form_upload = UploadCSV()
     
-    if request.method == 'GET':
-        if auth_user.user_type == 1 and auth_user.department == "Computer Science" and auth_user.sex == "Male":
-            sex = 0
-            student_predictions = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', PredictionResult.user_id == int(auth_user.id)).group_by(PredictionResult.result_id).all()
-            predict_iter = User.query.filter_by(id=int(auth_user.id)).first()
-            remaining_attempt = int(predict_iter.predict_no)
+    if(request.method == 'GET'):
+        try:
+            if auth_user.user_type == 1 and auth_user.department == "Computer Science" and auth_user.sex == "Male":
+                sex = 0
+                student_predictions = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', PredictionResult.user_id == int(auth_user.id)).group_by(PredictionResult.result_id).all()
+                predict_iter = User.query.filter_by(id=int(auth_user.id)).first()
+                remaining_attempt = int(predict_iter.predict_no)
             
-            if auth_user.program == "Shiftee" or auth_user.program == "Transferee":
-                program = 1
-                return render_template("CS/CS_landing.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
-            elif auth_user.program == "Regular":
-                program = 0
-                return render_template("CS/CS_landing.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
+                if auth_user.program == "Shiftee" or auth_user.program == "Transferee":
+                    program = 1
+
+                elif auth_user.program == "Regular":
+                    program = 0
+                    
+            elif auth_user.user_type == 1 and auth_user.department == "Computer Science" and auth_user.sex == "Female":
+                sex = 1
+                student_predictions = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', PredictionResult.user_id == int(auth_user.id)).group_by(PredictionResult.result_id).all()
+                predict_iter = User.query.filter_by(id=int(auth_user.id)).first()
+                remaining_attempt = int(predict_iter.predict_no)
                 
-        elif auth_user.user_type == 1 and auth_user.department == "Computer Science" and auth_user.sex == "Female":
-            sex = 1
-            student_predictions = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', PredictionResult.user_id == int(auth_user.id)).group_by(PredictionResult.result_id).all()
-            predict_iter = User.query.filter_by(id=int(auth_user.id)).first()
-            remaining_attempt = int(predict_iter.predict_no)
+                if auth_user.program == "Shiftee" or auth_user.program == "Transferee":
+                    program = 1
+
+                elif auth_user.program == "Regular":
+                    program = 0
+
+            else:
+                return redirect(url_for('_auth.index'))
             
-            if auth_user.program == "Shiftee" or auth_user.program == "Transferee":
-                program = 1
-                return render_template("CS/CS_landing.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
-            elif auth_user.program == "Regular":
-                program = 0
-                return render_template("CS/CS_landing.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
-        else:
-            return redirect(url_for('_auth.index'))
+            return render_template("CS/CS_landing.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions, form_upload=form_upload)
         
-    return render_template("CS/CS_landing.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
-    # return render_template("CS/CSinputs.html", auth_user=auth_user)
+        except:
+            return redirect(url_for('/logout'))
+        
+    else:
+         # get uploaded file from thr form
+        file = form_upload.file.data
+        # create a file path and concatenate the file name
+        file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),'static/images',secure_filename(file.filename))
+        # save the file based on the file path
+        # file.filename
+        ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png', 'gif'}
+
+        def allowed_file(filename):
+            return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+        
+        if file and allowed_file(file.filename):
+            image = User.query.filter_by(id=int(auth_user.id)).first()
+            image.img = file.filename
+            db.session.commit()
+            file.save(file_path)
+            flash('Photo successfully added', category='upload_successfully')
+        elif not file:
+            flash('No photo uploaded!', category='upload_error')
+        else:
+            flash('Invalid format!', category='upload_error')
+        
+        return redirect(url_for('.cs_dashboard'))
 
 @_route_cs.route("/cs_result", methods=['GET'])
 def cs_result():
@@ -280,42 +312,85 @@ def cs_result():
     else:
         return redirect(url_for('_auth.index'))
     
-@_route_cs.route("/cs_profile", methods=['GET'])
+@_route_cs.route("/cs_profile", methods=['GET', 'POST'])
 def cs_profile():
+    form_upload = UploadCSV()
     auth_user=current_user
+    ip_address = get_ip()
+    response = requests.get(f'https://ipapi.co/{ip_address}/json/').json()
+    location_data = {
+        "ip": ip_address,
+        "city": response.get("city"),
+        "region": response.get("region"),
+        "country": response.get("country_name")
+    }
+    data1 = location_data.get("ip")
+    data2 = location_data.get("city")
+    data3 = location_data.get("region")
+    data4 = location_data.get("country")
     
-    try:
-        if request.method == 'GET':
+    # img = User.query.filter_by(id=int(auth_user.id)).order_by(desc(User.date_created)).first()
+    # img_path = img.img
+    # image = img_path
+    if(request.method == 'GET'):  
+        try:
             top_career = PredictionResult.query.filter_by(user_id=int(auth_user.id)).order_by(desc(PredictionResult.date_created)).first()
             top_path = top_career.top_rank
             job_desired = top_path
-            
-            if auth_user.user_type == 1 and auth_user.department == "Computer Science" and auth_user.sex == "Male":
-                sex = 0
-                student_predictions = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', PredictionResult.user_id == int(auth_user.id)).group_by(PredictionResult.result_id).all()
-                predict_iter = User.query.filter_by(id=int(auth_user.id)).first()
-                remaining_attempt = int(predict_iter.predict_no)
+
+            if request.method == 'GET':
                 
-                if auth_user.program == "Shiftee" or auth_user.program == "Transferee":
-                    program = 1
-                elif auth_user.program == "Regular":
-                    program = 0
-            elif auth_user.user_type == 1 and auth_user.department == "Computer Science" and auth_user.sex == "Female":
-                sex = 1
-                student_predictions = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', PredictionResult.user_id == int(auth_user.id)).group_by(PredictionResult.result_id).all()
-                predict_iter = User.query.filter_by(id=int(auth_user.id)).first()
-                remaining_attempt = int(predict_iter.predict_no)
+                if auth_user.user_type == 1 and auth_user.department == "Computer Science" and auth_user.sex == "Male":
+                    sex = 0
+                    student_predictions = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', PredictionResult.user_id == int(auth_user.id)).group_by(PredictionResult.result_id).all()
+                    predict_iter = User.query.filter_by(id=int(auth_user.id)).first()
+                    remaining_attempt = int(predict_iter.predict_no)
+                    
+                    if auth_user.program == "Shiftee" or auth_user.program == "Transferee":
+                        program = 1
+                    elif auth_user.program == "Regular":
+                        program = 0
+                elif auth_user.user_type == 1 and auth_user.department == "Computer Science" and auth_user.sex == "Female":
+                    sex = 1
+                    student_predictions = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', PredictionResult.user_id == int(auth_user.id)).group_by(PredictionResult.result_id).all()
+                    predict_iter = User.query.filter_by(id=int(auth_user.id)).first()
+                    remaining_attempt = int(predict_iter.predict_no)
+                    
+                    if auth_user.program == "Shiftee" or auth_user.program == "Transferee":
+                        program = 1
+                    elif auth_user.program == "Regular":
+                        program = 0
+                else:
+                    return redirect(url_for('_auth.index'))
                 
-                if auth_user.program == "Shiftee" or auth_user.program == "Transferee":
-                    program = 1    
-                elif auth_user.program == "Regular":
-                    program = 0
-            else:
-                return redirect(url_for('_auth.index'))
-            
-        return render_template("CS/CS_profile.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions, job_desired=job_desired)
-    except:
-        return redirect(url_for('.cs_dashboard'))
+            return render_template("CS/CS_profile.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions, job_desired=job_desired, data2=data2, 
+                                data3=data3, data4=data4, form_upload=form_upload)
+        except:
+            return redirect(url_for('.cs_dashboard'))
+    else:
+        # get uploaded file from thr form
+        file = form_upload.file.data
+        # create a file path and concatenate the file name
+        file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),'static/images',secure_filename(file.filename))
+        # save the file based on the file path
+        # file.filename
+        ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png', 'gif'}
+
+        def allowed_file(filename):
+            return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+        
+        if file and allowed_file(file.filename):
+            image = User.query.filter_by(id=int(auth_user.id)).first()
+            image.img = file.filename
+            db.session.commit()
+            file.save(file_path)
+            flash('Photo successfully added', category='upload_successfully')
+        elif not file:
+            flash('No photo uploaded!', category='upload_error')
+        else:
+            flash('Invalid format!', category='upload_error')
+        
+        return redirect(url_for('.cs_profile'))
 
     
 @_route_cs.route("/edit_profile_cs", methods=['POST'])

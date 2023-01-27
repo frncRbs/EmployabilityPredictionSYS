@@ -86,7 +86,7 @@
                     ><img
                       alt="..."
                       class="w-full rounded-full align-middle border-none shadow-lg"
-                      src="../../static/assets/img/team-1-800x800.jpg"
+                      src="/static/images/{{auth_user.img}}"
                   /></span></div
               ></a>
               <div
@@ -125,7 +125,7 @@
                     class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
                     href="javascript:void(0)"
                   >
-                    Tailwind Starter Kit
+                    Start Prediction | Computer Science
                   </a>
                 </div>
                 <div class="w-6/12 flex justify-end">
@@ -139,15 +139,6 @@
                 </div>
               </div>
             </div>
-            <form class="mt-6 mb-4 md:hidden">
-              <div class="mb-3 pt-0">
-                <input
-                  type="text"
-                  placeholder="Search"
-                  class="border-0 px-3 py-2 h-12 border border-solid  border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal"
-                />
-              </div>
-            </form>
             <ul class="md:flex-col md:min-w-full flex flex-col list-none">
               <li class="items-center">
                 <a
@@ -201,7 +192,7 @@
                     ><img
                       alt="..."
                       class="w-full rounded-full align-middle border-none shadow-lg"
-                      src="../../static/assets/img/team-1-800x800.jpg"
+                      src="/static/images/{{auth_user.img}}"
                   /></span>
                 </div>
               </a>
@@ -296,7 +287,7 @@
                           {% with messages = get_flashed_messages(with_categories=true) %}
                               {% if messages %}
                                   {% for category, message in messages %}
-                                      {% if category == 'success_register_cs' %}
+                                      {% if category == 'success_register_it' %}
                                           <div class="">
                                               <div class="">
                                                   <div class="">
@@ -347,6 +338,40 @@
                                                   </div>
                                               </div>
                                           </div>
+                                      {% elif category == 'upload_successfully' %}
+                                        <div class="">
+                                            <div class="">
+                                                <div class="">
+                                                    <div style="padding: 2%; color: green; font-size: 25px; font-weight: 700">
+                                                        <center>
+                                                            {{ message }}
+                                                        </center>
+                                                        <script>
+                                                            window.setTimeout(function () {
+                                                                window.location.reload();
+                                                            }, 3000);
+                                                        </script>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      {% elif category == 'upload_error' %}
+                                        <div class="">
+                                            <div class="">
+                                                <div class="">
+                                                    <div style="padding: 2%; color: red; font-size: 25px; font-weight: 700">
+                                                        <center>
+                                                            {{ message }}
+                                                        </center>
+                                                        <script>
+                                                            window.setTimeout(function () {
+                                                                window.location.reload();
+                                                            }, 3000);
+                                                        </script>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                       {% endif %}
                                   {% endfor %}
                               {% endif %}
@@ -1555,7 +1580,8 @@
                             {{ auth_user.desired_career }}
                           </div>
                           <div class="w-full p-8 mx-2 flex justify-center">
-                            <img id="showImage" class="max-w-xs w-32 items-center border" src="https://images.unsplash.com/photo-1477118476589-bff2c5c4cfbb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=200" alt="">                          
+                            <img id="showImage" class="max-w-xs w-32 items-center border" 
+                            src="/static/images/{{auth_user.img}}" style="max-width: 150px;">                          
                           </div>
                           <div class="mb-2 text-gray-700">
                             <i class="fas fa-user-circle mr-2 text-lg text-gray-500"></i>
@@ -1570,28 +1596,34 @@
                             <form action="/edit_profile_cs_dashboard" method="POST">
                               <label class="block mb-2 text-m font-medium text-gray-900 dark:text-white" for="file_input">Change Desired Career</label>
                               <select
-                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                                style="transition: all 0.15s ease 0s;"
+                              class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                              style="transition: all 0.15s ease 0s;"
                                 type="text" name="desiredCareer" id="drop-down" placeholder="Select career" required="">
                                 <option value="{{ auth_user.desired_career }}">{{ auth_user.desired_career }}</option>
                                 <option value="Software Engineer / Programmer">Software Engineer / Programmer</option>
                                 <option value="Technical Support Specialist">Technical Support Specialist</option>
                                 <option value="Academician">Academician</option>
                                 <option value="Administrative Assistant">Administrative Assistant</option>
-                              </select>                        
-                          </div>
-                          <div class="pb-4">
-                            <label class="block mb-2 text-m font-medium text-gray-900 dark:text-white" for="file_input">Upload Profile Photo</label>
-                            <input class="block w-full text-m text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file">
-                          </div>
-                          <button
-                                class="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-5 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
+                              </select>   
+                              <button
+                                class="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-5 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 mt-1"
                                 style="transition: all 0.15s ease 0s;"
                                 type="submit"
                                 >
-                              Save
-                          </button>
+                                Update Career
+                              </button>
+                            </form>                     
+                          </div>
+                          <div class="pb-4">
+                            <label class="block mb-2 text-m font-medium text-gray-900 dark:text-white" for="pic_input">Upload Profile Photo</label>
+                            <form method="POST" action="/cs_dashboard" enctype='multipart/form-data'>
+                              {{ form_upload.file(class="block w-full text-m text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400") }}
+                              <button class="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-5 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 mt-1" 
+                                type='submit'>
+                                Update Image
+                              </button>
                             </form>
+                          </div>
                         </div>
                       </div>
                     </div>

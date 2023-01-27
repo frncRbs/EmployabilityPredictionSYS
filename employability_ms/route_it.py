@@ -239,45 +239,70 @@ def signupIT():
         
     return redirect(url_for('.register_IT'))
 
-@_route_it.route('/it_dashboard', methods=['GET'])
+@_route_it.route('/it_dashboard', methods=['GET', 'POST'])
 @login_required
 def it_dashboard():
     auth_user=current_user
+    form_upload = UploadCSV()
     
-    if request.method == 'GET':
-        if auth_user.user_type == 1 and auth_user.department == "Information Technology" and auth_user.sex == "Male":
-            sex = 0
-            student_predictions = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', PredictionResult.user_id == int(auth_user.id)).group_by(PredictionResult.result_id).all()
-            predict_iter = User.query.filter_by(id=int(auth_user.id)).first()
-            remaining_attempt = int(predict_iter.predict_no)
-        
-            if auth_user.program == "Shiftee" or auth_user.program == "Transferee":
-                program = 1
-                
-                return render_template("IT/IT_landing.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
-            elif auth_user.program == "Regular":
-                program = 0
-                
-                return render_template("IT/IT_landing.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
-                  
-        elif auth_user.user_type == 1 and auth_user.department == "Information Technology" and auth_user.sex == "Female":
-            sex = 1
-            student_predictions = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', PredictionResult.user_id == int(auth_user.id)).group_by(PredictionResult.result_id).all()
-            predict_iter = User.query.filter_by(id=int(auth_user.id)).first()
-            remaining_attempt = int(predict_iter.predict_no)
+    if(request.method == 'GET'):
+        try:
+            if auth_user.user_type == 1 and auth_user.department == "Information Technology" and auth_user.sex == "Male":
+                sex = 0
+                student_predictions = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', PredictionResult.user_id == int(auth_user.id)).group_by(PredictionResult.result_id).all()
+                predict_iter = User.query.filter_by(id=int(auth_user.id)).first()
+                remaining_attempt = int(predict_iter.predict_no)
             
-            if auth_user.program == "Shiftee" or auth_user.program == "Transferee":
-                program = 1
+                if auth_user.program == "Shiftee" or auth_user.program == "Transferee":
+                    program = 1
+
+                elif auth_user.program == "Regular":
+                    program = 0
                     
-                return render_template("IT/IT_landing.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
-            elif auth_user.program == "Regular":
-                program = 0
+            elif auth_user.user_type == 1 and auth_user.department == "Information Technology" and auth_user.sex == "Female":
+                sex = 1
+                student_predictions = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', PredictionResult.user_id == int(auth_user.id)).group_by(PredictionResult.result_id).all()
+                predict_iter = User.query.filter_by(id=int(auth_user.id)).first()
+                remaining_attempt = int(predict_iter.predict_no)
                 
-                return render_template("IT/IT_landing.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
-        else:
-            return redirect(url_for('_auth.index'))
+                if auth_user.program == "Shiftee" or auth_user.program == "Transferee":
+                    program = 1
+
+                elif auth_user.program == "Regular":
+                    program = 0
+
+            else:
+                return redirect(url_for('_auth.index'))
+            
+            return render_template("IT/IT_landing.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions, form_upload=form_upload)
         
-    return render_template("IT/IT_landing.html", auth_user=auth_user, sex=sex, program=program, remaining_attempt=remaining_attempt, student_predictions=student_predictions)
+        except:
+            return redirect(url_for('/logout'))
+        
+    else:
+         # get uploaded file from thr form
+        file = form_upload.file.data
+        # create a file path and concatenate the file name
+        file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),'static/images',secure_filename(file.filename))
+        # save the file based on the file path
+        # file.filename
+        ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png', 'gif'}
+
+        def allowed_file(filename):
+            return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+        
+        if file and allowed_file(file.filename):
+            image = User.query.filter_by(id=int(auth_user.id)).first()
+            image.img = file.filename
+            db.session.commit()
+            file.save(file_path)
+            flash('Photo successfully added', category='upload_successfully')
+        elif not file:
+            flash('No photo uploaded!', category='upload_error')
+        else:
+            flash('Invalid format!', category='upload_error')
+        
+        return redirect(url_for('.it_dashboard'))
 
 @_route_it.route("/it_result", methods=['GET'])
 def it_result():
@@ -591,7 +616,7 @@ def predict_IT():
                                     prediction_text2 = "" if fetch2 == 0 or fetch1 == 0 and fetch2 == 0 and fetch3 == 0 and fetch4 == 0 or fetch2 <= 100 and fetch1 == 0 and fetch3 == 0 and fetch4 == 0 and fetchPred2 == "Administrative Assistant" or fetchPred2 == '0' else "{}".format(f"{prediction[K-1]} : {fetch2}%"),
                                     prediction_text3 = "" if fetch3 == 0 or fetch1 == 0 and fetch2 == 0 and fetch3 == 0 and fetch4 == 0 or fetch2 <= 100 and fetch1 == 0 and fetch3 == 0 and fetch4 == 0 and fetchPred2 == "Administrative Assistant" or fetchPred3 == '0' else "{}".format(f"{prediction[K-2]} : {fetch3}%"),
                                     prediction_text4 = "" if fetch4 == 0 or fetch1 == 0 and fetch2 == 0 and fetch3 == 0 and fetch4 == 0 or fetch2 <= 100 and fetch1 == 0 and fetch3 == 0 and fetch4 == 0 and fetchPred2 == "Administrative Assistant" or fetchPred4 == '0' else "{}".format(f"{prediction[K-3]} : {fetch4}%"),
-                                    prediction_label1 = "" if fetch2 == 0 or fetch1 == 0 and fetch2 == 0 and fetch3 == 0 and fetch4 == 0 or fetch2 == 1.0 and fetchPred2 == "Administrative Assistant" else "{}".format(f"{prediction[K-1]} is a more likely career path for you. Congratulations!"),
+                                    prediction_label1 = "" if fetch2 == 0 or fetch1 == 0 and fetch2 == 0 and fetch3 == 0 and fetch4 == 0 or fetch2 == 1.0 and fetchPred2 == "Administrative Assistant" else "{}".format(f"{prediction[K-1]}"),
                                     prediction_label3 = "{}".format(f"We apologize for the poor results caused by the anomaly our system discovered when performing the prediction....") if fetch1 == 0 and fetch2 == 0 and fetch3 == 0 and fetch4 == 0 else "",
                                     prediction_label4 = "- In addition to the possibilities mentioned above, there is still a significant chance that you will be hired for your first job in one or more of the positions listed on the left side." if fetch1 > 0 and fetchPred1 !="0" or fetch3 > 0 and fetchPred3 !="0" or fetch4 > 0 and fetchPred4 !="0" or fetchPred2 == "Administrative Assistant" else "",
                                     job_label1 = "{}".format(f"{prediction[K-1]} = {fetch2}%") if fetch2 <= 100 and fetch1 >= 0 and fetch3 >= 0 and fetch4 >= 0 and fetchPred2 == "Administrative Assistant" else "",
