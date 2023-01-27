@@ -11,6 +11,7 @@ class UserSchema(marsh.Schema):
     
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
+    img = db.Column(db.Text, default='default.png', nullable=True)
     first_name = db.Column(db.String(255), nullable=False)
     middle_name = db.Column(db.String(255))
     last_name = db.Column(db.String(255), nullable=False)
@@ -27,8 +28,7 @@ class User(db.Model, UserMixin):
     user_type = db.Column(db.SmallInteger, nullable=False, default=1) # -1 Superadmin(Built-in), 0 - Admin, 1 - Personnel
     date_created = db.Column(db.DateTime(timezone=True), default=func.now())
     pred_results = db.relationship('PredictionResult', backref='user', uselist=False)
-    img_uploads = db.relationship('Img', backref='user', uselist=False)
-
+    
     def __init__(self, first_name, middle_name, last_name, sex, curriculum_year, contact_number, email, desired_career, department, program, password, is_approve, predict_no, user_type):
         self.first_name = first_name
         self.middle_name = middle_name
@@ -83,21 +83,6 @@ class CurriculumResult(db.Model):
     def __init__(self, curriculum_year, created_by, date_created):
         self.curriculum_year = curriculum_year
         self.created_by = created_by
-        self.date_created = date_created
-
-class Img(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    img = db.Column(db.String(150), unique=True, nullable=True)
-    name = db.Column(db.String(150), nullable=True)
-    mimetype = db.Column(db.String(150), nullable=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    date_created = db.Column(db.DateTime(timezone=True), default=func.now())
-    
-    def __init__(self, img, name, mimetype, user_id, date_created):
-        self.img = img
-        self.name = name
-        self.mimetype = mimetype
-        self.user_id = user_id
         self.date_created = date_created
 
 # class TestUpload(db.Model):
