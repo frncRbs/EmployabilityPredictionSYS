@@ -1,3 +1,234 @@
+<style>
+/*PopUp Start*/
+#wrapper {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  z-index: 1;
+  min-height: 100vh;
+}
+#wrapper main {
+  margin: auto;
+  text-align: center;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    }
+    
+.notification-drop {
+    color: #444;
+}
+.notification-drop .item {
+    padding: 10px;
+    font-size: 18px;
+    position: relative;
+    border-bottom: 1px solid #ddd;
+}
+.notification-drop .item:hover {
+    cursor: pointer;
+}
+.notification-drop .item i {
+    margin-left: 10px;
+}
+.notification-drop .item ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    background: #fff;
+    left: -200px;
+    right: 0;
+    z-index: 1;
+    border-top: 1px solid #ddd;
+}
+.notification-drop .item ul li {
+    font-size: 16px;
+    padding: 15px 0 15px 25px;
+}
+.notification-drop .item ul li:hover {
+    background: rgba(0, 0, 0, 0.493);
+    color: rgba(0, 0, 0, 0.8);
+}
+
+@media screen and (min-width: 500px) {
+    .notification-drop {
+        display: flex;
+        justify-content: flex-end;
+}
+    .notification-drop .item {
+        border: none;
+    }
+}
+
+.notification-bell{
+font-size: 20px;
+}
+
+.hybridBtn{
+  width: 90%;
+  height: auto;
+  margin: 10px;
+  justify-content: center;
+  display: block;
+  color: #fff;
+  background: #0d4d12;
+  font-size: 1em;
+  font-weight: bold;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  transition: .2s ease-in;
+  cursor: pointer;
+}
+.hybridBtn:hover{
+  background: #52b844;
+}
+
+.btn__badge {
+    background: #FF5D5D;
+    color: white;
+    font-size: 12px;
+    position: absolute;
+    top: 0;
+    right: 0px;
+    padding:  3px 10px;
+    border-radius: 50%;
+}
+
+.pulse-button {
+box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
+    -webkit-animation: pulse 1.5s infinite;
+}
+
+.pulse-button:hover {
+    -webkit-animation: none;
+}
+
+@-webkit-keyframes pulse {
+0% {
+    -moz-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+}
+70% {
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    box-shadow: 0 0 0 50px rgba(255, 0, 0, 0);
+}
+100% {
+    -moz-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+    }
+}
+
+.notification-text{
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.notification-text span{
+    float: right;
+}
+
+
+.page-content {
+  max-width: 30rem;
+  margin: 10rem auto 0;
+  color: #ddd;
+  text-align: left;
+}
+
+.form {
+  width: 100%;
+  max-width: 30rem;
+  padding: 1.5rem;
+  border-radius: 10px;
+  background: linear-gradient(to bottom, #18290c, #3d632b, #2a3e24);
+  box-shadow: rgba(0, 0, 0, 0.8) 0px 13px 27px -5px, rgba(0, 0, 0, 0.7) 0px 8px 16px -8px;
+  color: #eee;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(50px);
+}
+.popup--show .form {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: all 0.3s ease-in-out;
+}
+.form h2 {
+  text-align: center;
+}
+
+.popup {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  overflow: hidden auto;
+}
+.popup--show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: initial;
+}
+.popup__inner {
+  width: inherit;
+  height: inherit;
+}
+.popup__container {
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 85%;
+}
+.popup__content {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.popup__close {
+  text-align: right;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.popup-close {
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.3s ease-in-out;
+}
+.popup-close:hover {
+  opacity: 1;
+}
+
+.popup-active {
+  overflow: hidden;
+}
+@media (any-hover: hover) {
+  .popup-active {
+    padding-right: var(--scroll-width);
+  }
+}
+/*PopUp End*/
+</style>
 <!DOCTYPE html>
 <html>
   <head>
@@ -25,6 +256,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/creativetimofficial/tailwind-starter-kit/compiled-tailwind.min.css"
     />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <title>Dashboard | Faculty</title>
   </head>
   <body class="text-blueGray-700 antialiased">
@@ -291,7 +523,7 @@
               class="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3"
             >
               <div class="relative flex w-full flex-wrap items-stretch">
-                <span
+                <!-- <span
                   class="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3"
                   ><i class="fas fa-search"></i
                 ></span>
@@ -299,7 +531,41 @@
                   type="text"
                   placeholder="Search here..."
                   class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm shadow outline-none focus:outline-none focus:ring w-full pl-10"
-                />
+                /> -->
+                <ul class="notification-drop">
+                  <li class="item">
+                    <i class="fa fa-bell" aria-hidden="true" style="color: white;"></i> <span class="btn__badge pulse-button ">{{ count_unapprove }}</span>     
+                    <ul style="background-color: #00000080; border-radius: 5px; overflow:scroll; height:250px; width: auto; overflow-y: auto; overflow-x: hidden;">
+                      {% if unapprove_account %}
+                        {% for unapprove in unapprove_account %}
+                            <li style="font-size: small; color: white; text-align: left; ">
+                              {{ unapprove.first_name }}
+                              {{ unapprove.middle_name }}
+                              {{ unapprove.last_name }}
+                              <div style="display: block">{{ unapprove.department }}</div>
+                              <div style="display: block">{{ unapprove.contact_number }}</div>
+                              <div style="display: inline-block">
+                                <form action="/approve_account" method="POST">
+                                  <input type="hidden" name="user_id" value="{{ unapprove.id }}">
+                                  <input type="hidden" name="user_email" value="{{ unapprove.email }}">
+                                  <input type="hidden" name="user_department" value="{{ unapprove.department }}">
+                                  <input type="hidden" name="approve_flag" value="1">
+                                  <button class="hybridBtn" type="submit"> Approve </button>
+                                </form>
+                              </div>
+                              <div style="display: inline-block">
+                                <form action="/approve_account" method="POST">
+                                  <input type="hidden" name="user_id" value="{{ unapprove.id }}">
+                                  <input type="hidden" name="user_email" value="{{ unapprove.email }}">
+                                  <input type="hidden" name="user_department" value="{{ unapprove.department }}">
+                                  <input type="hidden" name="approve_flag" value="0">
+                                  <button class="hybridBtn" type="submit"> Disapprove </button>
+                                </form>
+                              </div>
+                          </li>
+                        {% endfor %}
+                      {% endif %}
+                  </ul>
               </div>
             </form>
             <ul
@@ -350,21 +616,21 @@
             <div>
               <!-- Card stats -->
               <div class="flex flex-wrap">
-                <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
+                <div class="w-full lg:w-12/12 xl:w-4/12 px-4">
                   <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
                     <div class="flex-auto p-4">
                       <div class="flex flex-wrap">
                         <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
                           <h5 class="text-blueGray-400 uppercase font-bold text-xs">
-                            Traffic
+                            Number of Registered Students
                           </h5>
                           <span class="font-semibold text-xl text-blueGray-700">
-                            350,897
+                            {{ registered_students }}
                           </span>
                         </div>
                         <div class="relative w-auto pl-4 flex-initial">
                           <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-red-500">
-                            <i class="far fa-chart-bar"></i>
+                            <i class="fas fa-users"></i>
                           </div>
                         </div>
                       </div>
@@ -379,21 +645,21 @@
                     </div>
                   </div>
                 </div>
-                <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
+                <div class="w-full lg:w-12/12 xl:w-4/12 px-4">
                   <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
                     <div class="flex-auto p-4">
                       <div class="flex flex-wrap">
                         <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
                           <h5 class="text-blueGray-400 uppercase font-bold text-xs">
-                            New users
+                            Overall Students Prediction
                           </h5>
                           <span class="font-semibold text-xl text-blueGray-700">
-                            2,356
+                            {{ overall_studs_top_1_prediction }}
                           </span>
                         </div>
                         <div class="relative w-auto pl-4 flex-initial">
                           <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-orange-500">
-                            <i class="fas fa-chart-pie"></i>
+                            <i class="fab fa-hubspot"></i>
                           </div>
                         </div>
                       </div>
@@ -408,21 +674,21 @@
                     </div>
                   </div>
                 </div>
-                <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
+                <div class="w-full lg:w-12/12 xl:w-4/12 px-4">
                   <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
                     <div class="flex-auto p-4">
                       <div class="flex flex-wrap">
                         <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
                           <h5 class="text-blueGray-400 uppercase font-bold text-xs">
-                            Sales
+                            Number of Predictions That Match Students Desired Career
                           </h5>
                           <span class="font-semibold text-xl text-blueGray-700">
-                            924
+                            {{ no_studs_met_their_desired_career }}
                           </span>
                         </div>
                         <div class="relative w-auto pl-4 flex-initial">
                           <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-pink-500">
-                            <i class="fas fa-users"></i>
+                            <i class="far fa-chart-bar"></i>
                           </div>
                         </div>
                       </div>
@@ -437,444 +703,102 @@
                     </div>
                   </div>
                 </div>
-                <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
-                  <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
-                    <div class="flex-auto p-4">
-                      <div class="flex flex-wrap">
-                        <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-                          <h5 class="text-blueGray-400 uppercase font-bold text-xs">
-                            Performance
-                          </h5>
-                          <span class="font-semibold text-xl text-blueGray-700">
-                            49,65%
-                          </span>
-                        </div>
-                        <div class="relative w-auto pl-4 flex-initial">
-                          <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-lightBlue-500">
-                            <i class="fas fa-percent"></i>
-                          </div>
-                        </div>
-                      </div>
-                      <p class="text-sm text-blueGray-400 mt-4">
-                        <span class="text-emerald-500 mr-2">
-                          <i class="fas fa-arrow-up"></i> 12%
-                        </span>
-                        <span class="whitespace-nowrap">
-                          Since last month
-                        </span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="px-4 md:px-10 mx-auto w-full -m-24">
-          <div class="flex flex-wrap">
-            <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
-              <div
-                class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-blueGray-800"
-              >
-                <div class="rounded-t mb-0 px-4 py-3 bg-transparent">
-                  <div class="flex flex-wrap items-center">
-                    <div class="relative w-full max-w-full flex-grow flex-1">
-                      <h6
-                        class="uppercase text-blueGray-100 mb-1 text-xs font-semibold"
-                      >
-                        Overview
-                      </h6>
-                      <h2 class="text-white text-xl font-semibold">
-                        Sales value
-                      </h2>
+        <div x-data="faculty_end" x-init="display_graph(), merge_two_charts()">
+          <div class="px-4 md:px-10 mx-auto w-full -m-24">
+            <div class="flex flex-wrap">
+              <div class="w-full xl:w-12/12 mb-12 xl:mb-0 px-4">
+                <div
+                  class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-blueGray-800"
+                >
+                  <div class="rounded-t mb-0 px-4 py-3 bg-transparent">
+                    <div class="flex flex-wrap items-center">
+                      <div class="relative w-full max-w-full flex-grow flex-1">
+                        <h6
+                          class="uppercase text-blueGray-100 mb-1 text-xs font-semibold"
+                        >
+                          Overview
+                        </h6>
+                        <h2 class="text-white text-xl font-semibold">
+                          Sales value
+                        </h2>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="p-4 flex-auto">
-                  <!-- Chart -->
-                  <div class="relative" style="height:350px">
-                    <canvas id="line-chart"></canvas>
+                  <div class="p-4 flex-auto">
+                    <div class="relative" style="height:350px">
+                      <canvas id="merge_chart" class="h-full w-auto"></canvas>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="w-full xl:w-4/12 px-4">
-              <div
-                class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"
-              >
-                <div class="rounded-t mb-0 px-4 py-3 bg-transparent">
-                  <div class="flex flex-wrap items-center">
-                    <div class="relative w-full max-w-full flex-grow flex-1">
-                      <h6
-                        class="uppercase text-blueGray-400 mb-1 text-xs font-semibold"
-                      >
-                        Performance
-                      </h6>
-                      <h2 class="text-blueGray-700 text-xl font-semibold">
-                        Total orders
-                      </h2>
+
+            <div class="flex flex-wrap">
+              <div class="w-full xl:w-12/12 mb-12 xl:mb-0 px-4">
+                <div
+                  class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-blueGray-800"
+                >
+                  <div class="rounded-t mb-0 px-4 py-3 bg-transparent">
+                    <div class="flex flex-wrap items-center">
+                      <div class="relative w-full max-w-full flex-grow flex-1">
+                        <h6
+                          class="uppercase text-blueGray-100 mb-1 text-xs font-semibold"
+                        >
+                          Overview
+                        </h6>
+                        <h2 class="text-white text-xl font-semibold">
+                          Sales value
+                        </h2>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="p-4 flex-auto">
-                  <!-- Chart -->
-                  <div class="relative" style="height:350px">
-                    <canvas id="bar-chart"></canvas>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div x-data="faculty_end" x-init="display_graph(), merge_two_charts()">
-            <center><div><h1 style="color: #fff;">DATA STATISTICS</h1></div></center>
-            <hr>
-            <div style="display: flex; flex-direction: row; align-items: center; ">
-              <div style="display: flex; flex-direction: column; width: 50%; justify-content: center; background:rgba(255, 255, 255, 0.233); margin: 10px">
-                <div style="width: 90%; height: 150px; text-align: center; border: solid white 10px; background: rgba(255, 255, 255, 0.795); color: black; margin: 20px">
-                  <div class="mx-auto mt-10">
-                    <h2 style="font-size: large; font-weight: bold">Number of Registered Students</h2>
-                    <h1 style="font-size: large; font-weight: bold">{{ registered_students }}</h1>
-                  </div>
-                </div>
-                <div style="width: 100%; height: 150px; text-align: center; display: flex">
-                  <div style="width: 50%; height: auto; border: solid white 10px; background: rgba(255, 255, 255, 0.795); color: black; margin: 20px">
-                    <div class="mx-auto">
-                      <h2 style="font-size: medium; font-weight: bold">Number of Predictions That Match Students Desired Career</h2>
-                      <h1 style="font-size: medium; font-weight: bold">{{ no_studs_met_their_desired_career }}</h1>
+                  <div class="p-4 flex-auto">
+                    <div class="w-auto mt-3 lg:mt-0 relative">
+                      <canvas id="main_pie" x-ref="pie_main" class="h-full w-auto"></canvas>
+                      <button type="button" class="absolute top-0 mt-7 -ml-3 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-1 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                        x-on:click="refresh_pie">
+                        Refresh
+                      </button>
                     </div>
-                  </div>
-                  <div style="width: 50%; height: auto; border: solid white 10px; background: rgba(255, 255, 255, 0.795); color: black; margin: 20px">
-                    <div class="mx-auto mt-3">
-                      <h2 style="font-size: medium; font-weight: bold">Overall Students Prediction</h2>
-                      <h1 style="font-size: medium; font-weight: bold">{{ overall_studs_top_1_prediction }}</h1>
-                    </div>
-                  </div>
-                </div>
-                <!-- <div style="width: 90%; height: 150px; text-align: center; border: solid white 10px; background: rgba(255, 255, 255, 0.795); color: black; margin: 20px">
-                  <div class="mx-auto mt-10">
-                    <h2 style="font-size: large; font-weight: bold">Number of Students Met Their Desired Career</h2>
-                    <h1 style="font-size: large; font-weight: bold">{{ no_studs_met_their_desired_career }}</h1>
-                  </div>
-                </div> -->
-              </div>
-    
-              <div class="relative w-full flex flex-col m-auto lg:flex-row items-center justify-center space-y-3 lg:space-x-3 overflow-y-auto p-3" style="background:rgba(255, 255, 255, 0.233); height: 380px;">
-                <div class="w-auto mt-24 lg:mt-0 relative">
-                  <canvas id="main_pie" x-ref="pie_main" class="h-full w-auto"></canvas>
-                  <button type="button" class="absolute top-0 mt-7 -ml-3 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-1 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-                    x-on:click="refresh_pie">
-                    Refresh
-                  </button>
-                </div>
-                <div class="w-auto bg-white-10" x-show="show_names">
-                  <table style="font-size: 16px;">
-                    <thead style="display: block;">
-                      <tr>
-                        <th style="text-align: center">Full Name</th>
-                        <th style="text-align: center">Desired Career</th>
-                        <th style="text-align: center">Top 1 Prediction</th>
-                      </tr>
-                    </thead>
-                    <tbody style="display: block; height: 300px; overflow-y: auto; overflow-x: hidden;">
-                      <template x-if="list_of_names">
-                        <template x-for="name_record in list_of_names">
+                    <div class="w-auto bg-white-10" x-show="show_names">
+                      <table style="font-size: 16px;">
+                        <thead style="display: block;">
                           <tr>
-                            <td>
-                              <span x-text="name_record.fullname"></span>
-                            </td>
-                            <td>
-                              <span style="margin: 5px; text-align: center" x-text="name_record.desired_career"></span>
-                            </td>
-                            <td>
-                              <span style="margin: 5px; text-align: center" x-text="name_record.main_rank"></span>
-                            </td>
+                            <th style="text-align: center">Full Name</th>
+                            <th style="text-align: center">Desired Career</th>
+                            <th style="text-align: center">Top 1 Prediction</th>
                           </tr>
-                        </template>
-                      </template>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-            <!-- <div style="margin: 10px; display: flex; justify-content: center; background:rgba(255, 255, 255, 0.233)"> -->
-              <!-- <div style="background: rgba(255, 255, 255, 0.795); width: 100%; height: auto; margin: 10px" ><canvas id="myChart"></canvas></div>
-              <div style="background: rgba(255, 255, 255, 0.795); width: 100%; height: auto; margin: 10px" ><canvas id="myRank"></canvas></div> -->
-            <!-- </div> -->
-            <div class="w-full flex flex-row justify-center items-center mb-3 mx-3" style="height: 400px;">
-              <canvas id="merge_chart" class="h-full w-auto"></canvas>
-            </div>
-          </div>
-          <div class="flex flex-wrap mt-4">
-            <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
-              <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
-                <div class="rounded-t mb-0 px-4 py-3 border-0">
-                  <div class="flex flex-wrap items-center">
-                    <div class="relative w-full px-4 max-w-full flex-grow flex-1">
-                      <h3 class="font-semibold text-base text-blueGray-700">
-                        Page visits
-                      </h3>
-                    </div>
-                    <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-                      <button
-                        class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1"
-                        type="button"
-                        style="transition:all .15s ease"
-                      >
-                        See all
-                      </button>
+                        </thead>
+                        <tbody style="display: block; height: 300px; overflow-y: auto; overflow-x: hidden;">
+                          <template x-if="list_of_names">
+                            <template x-for="name_record in list_of_names">
+                              <tr>
+                                <td>
+                                  <span x-text="name_record.fullname"></span>
+                                </td>
+                                <td>
+                                  <span style="margin: 5px; text-align: center" x-text="name_record.desired_career"></span>
+                                </td>
+                                <td>
+                                  <span style="margin: 5px; text-align: center" x-text="name_record.main_rank"></span>
+                                </td>
+                              </tr>
+                            </template>
+                          </template>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
-                </div>
-                <div class="block w-full overflow-x-auto">
-                  <!-- Projects table -->
-                  <table class="items-center w-full bg-transparent border-collapse">
-                    <thead>
-                      <tr>
-                        <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                          Page name
-                        </th>
-                        <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                          Visitors
-                        </th>
-                        <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                          Unique users
-                        </th>
-                        <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                          Bounce rate
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                          /argon/
-                        </th>
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          4,569
-                        </td>
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          340
-                        </td>
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          <i class="fas fa-arrow-up text-emerald-500 mr-4"></i>
-                          46,53%
-                        </td>
-                      </tr>
-                      <tr>
-                        <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                          /argon/index.html
-                        </th>
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          3,985
-                        </td>
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          319
-                        </td>
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          <i class="fas fa-arrow-down text-orange-500 mr-4"></i>
-                          46,53%
-                        </td>
-                      </tr>
-                      <tr>
-                        <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                          /argon/charts.html
-                        </th>
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          3,513
-                        </td>
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          294
-                        </td>
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          <i class="fas fa-arrow-down text-orange-500 mr-4"></i>
-                          36,49%
-                        </td>
-                      </tr>
-                      <tr>
-                        <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                          /argon/tables.html
-                        </th>
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          2,050
-                        </td>
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          147
-                        </td>
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          <i class="fas fa-arrow-up text-emerald-500 mr-4"></i>
-                          50,87%
-                        </td>
-                      </tr>
-                      <tr>
-                        <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                          /argon/profile.html
-                        </th>
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          1,795
-                        </td>
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          190
-                        </td>
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          <i class="fas fa-arrow-down text-red-500 mr-4"></i>
-                          46,53%
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-            <div class="w-full xl:w-4/12 px-4">
-              <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
-                <div class="rounded-t mb-0 px-4 py-3 border-0">
-                  <div class="flex flex-wrap items-center">
-                    <div class="relative w-full px-4 max-w-full flex-grow flex-1">
-                      <h3 class="font-semibold text-base text-blueGray-700">
-                        Social traffic
-                      </h3>
-                    </div>
-                    <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-                      <button
-                        class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1"
-                        type="button"
-                        style="transition:all .15s ease"
-                      >
-                        See all
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div class="block w-full overflow-x-auto">
-                  <!-- Projects table -->
-                  <table class="items-center w-full bg-transparent border-collapse">
-                    <thead class="thead-light">
-                      <tr>
-                        <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                          Referral
-                        </th>
-                        <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                          Visitors
-                        </th>
-                        <th
-                          class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-                          style="min-width:140px"
-                        ></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                          Facebook
-                        </th>
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          1,480
-                        </td>
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          <div class="flex items-center">
-                            <span class="mr-2">60%</span>
-                            <div class="relative w-full">
-                              <div class="overflow-hidden h-2 text-xs flex rounded bg-red-200">
-                                <div
-                                  style="width:60%"
-                                  class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500"
-                                ></div>
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                          Facebook
-                        </th>
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          5,480
-                        </td>
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          <div class="flex items-center">
-                            <span class="mr-2">70%</span>
-                            <div class="relative w-full">
-                              <div class="overflow-hidden h-2 text-xs flex rounded bg-emerald-200">
-                                <div
-                                  style="width:70%"
-                                  class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-emerald-500"
-                                ></div>
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                          Google
-                        </th>
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          4,807
-                        </td>
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          <div class="flex items-center">
-                            <span class="mr-2">80%</span>
-                            <div class="relative w-full">
-                              <div class="overflow-hidden h-2 text-xs flex rounded bg-purple-200">
-                                <div
-                                  style="width:80%"
-                                  class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-purple-500"
-                                ></div>
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                          Instagram
-                        </th>
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          3,678
-                        </td>
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          <div class="flex items-center">
-                            <span class="mr-2">75%</span>
-                            <div class="relative w-full">
-                              <div class="overflow-hidden h-2 text-xs flex rounded bg-lightBlue-200">
-                                <div
-                                  style="width:75%"
-                                  class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-lightBlue-500"
-                                ></div>
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                          twitter
-                        </th>
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          2,645
-                        </td>
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                          <div class="flex items-center">
-                            <span class="mr-2">30%</span>
-                            <div class="relative w-full">
-                              <div class="overflow-hidden h-2 text-xs flex rounded bg-orange-200">
-                                <div
-                                  style="width:30%"
-                                  class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-emerald-500"
-                                ></div>
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
                 </div>
               </div>
             </div>
           </div>
-          <footer class="block py-4">
+          
+          <footer class="block py-20">
             <div class="container mx-auto px-4">
               <hr class="mb-4 border-b-1 border-blueGray-200" />
               <div class="flex flex-wrap items-center md:justify-between justify-center">
@@ -931,6 +855,39 @@
         </div>
       </div>
     </div>
+    <script>
+      $(document).ready(function() {
+        $(".notification-drop .item").on('click',function() {
+          $(this).find('ul').toggle();
+        });
+      });
+    // Modal
+            // Get the modal
+      var modal = document.getElementById("myModal");
+
+          // Get the button that opens the modal
+      var btn = document.getElementById("myBtn");
+
+          // Get the <span> element that closes the modal
+      var span = document.getElementsByClassName("close")[0];
+
+          // When the user clicks on the button, open the modal
+      btn.onclick = function() {
+        modal.style.display = "block";
+      }
+
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function() {
+        modal.style.display = "none";
+        }
+
+          // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+    </script>
     <!-- <script
       src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
       charset="utf-8"
@@ -1115,245 +1072,18 @@
                 scale: {
                 ticks: {
                     precision: 0
-                }
+                  }
                 },
                 responsive: true,
                 maintainAspectRatio: false,
-            }
-            }); 
+              }
+            });
+            
         }
         
         }));
     });
     </script>
-    <script src="https://unpkg.com/@popperjs/core@2.9.1/dist/umd/popper.min.js" charset="utf-8"></script>
-    <script type="text/javascript">
-      /* Sidebar - Side navigation menu on mobile/responsive mode */
-      function toggleNavbar(collapseID) {
-        document.getElementById(collapseID).classList.toggle("hidden");
-        document.getElementById(collapseID).classList.toggle("bg-white");
-        document.getElementById(collapseID).classList.toggle("m-2");
-        document.getElementById(collapseID).classList.toggle("py-3");
-        document.getElementById(collapseID).classList.toggle("px-6");
-      }
-      /* Function for dropdowns */
-      function openDropdown(event, dropdownID) {
-        let element = event.target;
-        while (element.nodeName !== "A") {
-          element = element.parentNode;
-        }
-        var popper = Popper.createPopper(element, document.getElementById(dropdownID), {
-          placement: "bottom-end"
-        });
-        document.getElementById(dropdownID).classList.toggle("hidden");
-        document.getElementById(dropdownID).classList.toggle("block");
-      }
-
-
-      (function() {
-        /* Add current date to the footer */
-        document.getElementById("javascript-date").innerHTML = new Date().getFullYear();
-        /* Chart initialisations */
-        /* Line Chart */
-        var config = {
-          type: "line",
-          data: {
-            labels: [
-              "January",
-              "February",
-              "March",
-              "April",
-              "May",
-              "June",
-              "July"
-            ],
-            datasets: [
-              {
-                label: new Date().getFullYear(),
-                backgroundColor: "#4c51bf",
-                borderColor: "#4c51bf",
-                data: [65, 78, 66, 44, 56, 67, 75],
-                fill: false
-              },
-              {
-                label: new Date().getFullYear() - 1,
-                fill: false,
-                backgroundColor: "#ed64a6",
-                borderColor: "#ed64a6",
-                data: [40, 68, 86, 74, 56, 60, 87]
-              }
-            ]
-          },
-          options: {
-            maintainAspectRatio: false,
-            responsive: true,
-            title: {
-              display: false,
-              text: "Sales Charts",
-              fontColor: "white"
-            },
-            legend: {
-              labels: {
-                fontColor: "white"
-              },
-              align: "end",
-              position: "bottom"
-            },
-            tooltips: {
-              mode: "index",
-              intersect: false
-            },
-            hover: {
-              mode: "nearest",
-              intersect: true
-            },
-            scales: {
-              xAxes: [
-                {
-                  ticks: {
-                    fontColor: "rgba(255,255,255,.7)"
-                  },
-                  display: true,
-                  scaleLabel: {
-                    display: false,
-                    labelString: "Month",
-                    fontColor: "white"
-                  },
-                  gridLines: {
-                    display: false,
-                    borderDash: [2],
-                    borderDashOffset: [2],
-                    color: "rgba(33, 37, 41, 0.3)",
-                    zeroLineColor: "rgba(0, 0, 0, 0)",
-                    zeroLineBorderDash: [2],
-                    zeroLineBorderDashOffset: [2]
-                  }
-                }
-              ],
-              yAxes: [
-                {
-                  ticks: {
-                    fontColor: "rgba(255,255,255,.7)"
-                  },
-                  display: true,
-                  scaleLabel: {
-                    display: false,
-                    labelString: "Value",
-                    fontColor: "white"
-                  },
-                  gridLines: {
-                    borderDash: [3],
-                    borderDashOffset: [3],
-                    drawBorder: false,
-                    color: "rgba(255, 255, 255, 0.15)",
-                    zeroLineColor: "rgba(33, 37, 41, 0)",
-                    zeroLineBorderDash: [2],
-                    zeroLineBorderDashOffset: [2]
-                  }
-                }
-              ]
-            }
-          }
-        };
-        var ctx = document.getElementById("line-chart").getContext("2d");
-        window.myLine = new Chart(ctx, config);
-
-        /* Bar Chart */
-        config = {
-          type: "bar",
-          data: {
-            labels: [
-              "January",
-              "February",
-              "March",
-              "April",
-              "May",
-              "June",
-              "July"
-            ],
-            datasets: [
-              {
-                label: new Date().getFullYear(),
-                backgroundColor: "#ed64a6",
-                borderColor: "#ed64a6",
-                data: [30, 78, 56, 34, 100, 45, 13],
-                fill: false,
-                barThickness: 8
-              },
-              {
-                label: new Date().getFullYear() - 1,
-                fill: false,
-                backgroundColor: "#4c51bf",
-                borderColor: "#4c51bf",
-                data: [27, 68, 86, 74, 10, 4, 87],
-                barThickness: 8
-              }
-            ]
-          },
-          options: {
-            maintainAspectRatio: false,
-            responsive: true,
-            title: {
-              display: false,
-              text: "Orders Chart"
-            },
-            tooltips: {
-              mode: "index",
-              intersect: false
-            },
-            hover: {
-              mode: "nearest",
-              intersect: true
-            },
-            legend: {
-              labels: {
-                fontColor: "rgba(0,0,0,.4)"
-              },
-              align: "end",
-              position: "bottom"
-            },
-            scales: {
-              xAxes: [
-                {
-                  display: false,
-                  scaleLabel: {
-                    display: true,
-                    labelString: "Month"
-                  },
-                  gridLines: {
-                    borderDash: [2],
-                    borderDashOffset: [2],
-                    color: "rgba(33, 37, 41, 0.3)",
-                    zeroLineColor: "rgba(33, 37, 41, 0.3)",
-                    zeroLineBorderDash: [2],
-                    zeroLineBorderDashOffset: [2]
-                  }
-                }
-              ],
-              yAxes: [
-                {
-                  display: true,
-                  scaleLabel: {
-                    display: false,
-                    labelString: "Value"
-                  },
-                  gridLines: {
-                    borderDash: [2],
-                    drawBorder: false,
-                    borderDashOffset: [2],
-                    color: "rgba(33, 37, 41, 0.2)",
-                    zeroLineColor: "rgba(33, 37, 41, 0.15)",
-                    zeroLineBorderDash: [2],
-                    zeroLineBorderDashOffset: [2]
-                  }
-                }
-              ]
-            }
-          }
-        };
-        ctx = document.getElementById("bar-chart").getContext("2d");
-        window.myBar = new Chart(ctx, config);
-      })();
-    </script>
+    
   </body>
 </html>
