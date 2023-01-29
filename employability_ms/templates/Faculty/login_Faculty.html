@@ -33,7 +33,7 @@
           <a
             class="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white"
             href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/presentation"
-            >Sign In | Computer Science</a
+            >Sign In | Faculty / Admin</a
           ><button
             class="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
             type="button"
@@ -76,7 +76,7 @@
                 <div class="rounded-t mb-0 px-6 py-6">
                   <div class="text-center mb-3">
                     <h3 class="text-gray-600 text-m font-bold">
-                      No account yet? <a href="/register_CS" class="underline">Register now</a> 
+                      No account yet? <a href="/register_faculty" class="underline">Register now</a> 
                     </h3>
                   </div>
                   <hr class="mt-6 border-b-1 border-gray-400" />
@@ -85,7 +85,7 @@
                   <div class="text-gray-500 text-center mb-3 font-bold">
                     <small>Or sign in with credentials</small>
                   </div>
-                  <form action="{{ url_for('_route_cs.login_CS') }}" method="POST">
+                  <form action="{{ url_for('_faculty.login_faculty') }}" method="POST">
                     <div class="relative w-full mb-3">
                       <label
                         class="block uppercase text-gray-700 text-xs font-bold mb-2"
