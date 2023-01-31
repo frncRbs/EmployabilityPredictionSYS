@@ -217,15 +217,9 @@ def faculty_landing():
                             )
     
     
-@_faculty.route('/faculty_dashboard', methods=['GET'])
+@_faculty.route('/faculty_student_view', methods=['GET'])
 @login_required
-def faculty_dashboard():
-    
-    # no_studs_desired_job_1 = db.session.query(User).filter(User.is_approve == 1, User.user_type == 1, User.predict_no >=1, User.desired_career == 'Software Engineer / Programmer').group_by(User.id).count()
-    # no_studs_desired_job_2 = db.session.query(User).filter(User.is_approve == 1, User.user_type == 1, User.predict_no >=1, User.desired_career == 'Technical Support Specialist').group_by(User.id).count()
-    # no_studs_desired_job_3 = db.session.query(User).filter(User.is_approve == 1, User.user_type == 1, User.predict_no >=1, User.desired_career == 'Academician').group_by(User.id).count()
-    # no_studs_desired_job_4 = db.session.query(User).filter(User.is_approve == 1, User.user_type == 1, User.predict_no >=1, User.desired_career == 'Administrative Assistant').group_by(User.id).count()
-    # overall_studs_desired_job = int(no_studs_desired_job_1 + no_studs_desired_job_2 + no_studs_desired_job_3 + no_studs_desired_job_4)
+def faculty_student_view():
     
     no_studs_top_1_prediction_1 = db.session.query(User, PredictionResult).filter(PredictionResult.top_rank == 'Software Engineer / Programmer').group_by(PredictionResult.result_id).count()
     no_studs_top_1_prediction_2 = db.session.query(User, PredictionResult).filter(PredictionResult.top_rank == 'Technical Support Specialist').group_by(PredictionResult.result_id).count()
@@ -327,7 +321,7 @@ def faculty_dashboard():
     else:  
         return redirect(url_for('_auth.index'))
     
-    return render_template("Faculty/facultyEnd.html", auth_user=auth_user, 
+    return render_template("Faculty/faculty_student_view.html", auth_user=auth_user, 
                             students_record=students_record, overall_studs_top_1_prediction=overall_studs_top_1_prediction,
                             unapprove_account=unapprove_account, no_studs_met_their_desired_career=no_studs_met_their_desired_career,
                             count_unapprove=count_unapprove, search=search, curriculum_input=curriculum_input,
