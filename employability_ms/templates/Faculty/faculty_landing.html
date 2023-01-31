@@ -285,7 +285,6 @@ box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
             <li class="inline-block relative">
               <a
                 class="text-blueGray-500 block py-1 px-3"
-                href="#pablo"
                 onclick="openDropdown(event,'notification-dropdown')"
                 ><i class="fas fa-bell"></i
               ></a>
@@ -295,30 +294,25 @@ box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
                 id="notification-dropdown"
               >
                 <a
-                  href="#pablo"
-                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                  >Action</a
+                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                href="/cs_profile"
+                >Profile</a
                 ><a
-                  href="#pablo"
-                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                  >Another action</a
-                ><a
-                  href="#pablo"
-                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                  >Something else here</a
+                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                data-popup-open="popupID"
+                >Change Desired Career</a
                 >
                 <div class="h-0 my-2 border border-solid border-blueGray-100"></div>
                 <a
-                  href="#pablo"
-                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                  >Seprated link</a
+                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                href="/logout"
+                >Logout</a
                 >
               </div>
             </li>
             <li class="inline-block relative">
               <a
                 class="text-blueGray-500 block"
-                href="#pablo"
                 onclick="openDropdown(event,'user-responsive-dropdown')"
                 ><div class="items-center flex">
                   <span
@@ -326,7 +320,7 @@ box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
                     ><img
                       alt="..."
                       class="w-full rounded-full align-middle border-none shadow-lg"
-                      src="../../static/assets/img/team-1-800x800.jpg"
+                      src="/static/images/{{auth_user.img}}"
                   /></span></div
               ></a>
               <div
@@ -335,23 +329,19 @@ box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
                 id="user-responsive-dropdown"
               >
                 <a
-                  href="#pablo"
                   class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                  >Action</a
+                  href="/cs_profile"
+                  >Profile</a
                 ><a
-                  href="#pablo"
                   class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                  >Another action</a
-                ><a
-                  href="#pablo"
-                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                  >Something else here</a
+                  data-popup-open="popupID"
+                  >Change Desired Career</a
                 >
                 <div class="h-0 my-2 border border-solid border-blueGray-100"></div>
                 <a
-                  href="#pablo"
                   class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                  >Seprated link</a
+                  href="/logout"
+                  >Logout</a
                 >
               </div>
             </li>
@@ -405,16 +395,8 @@ box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
                   <a
                     class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
                     href="/faculty_student_view"
-                    ><i class="fas fa-newspaper text-blueGray-400 mr-2 text-sm"></i>
+                    ><i class="fab fa-hubspot text-blueGray-400 mr-2 text-sm"></i>
                     Predictions</a
-                  >
-                </li>
-                <li class="items-center">
-                  <a
-                    class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                    href="#/login"
-                    ><i class="fas fa-fingerprint text-blueGray-400 mr-2 text-sm"></i>
-                    Login</a
                   >
                 </li>
                 <li class="items-center">
@@ -422,7 +404,7 @@ box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
                     class="text-blueGray-700 text-xs uppercase py-3 font-bold block"
                     href="#pablo"
                     ><i
-                      class="fas fa-clipboard-list text-blueGray-400 mr-2 text-sm"
+                      class="fas fa-user-plus text-blueGray-400 mr-2 text-sm"
                     ></i>
                     Register Faculty</a
                   >
@@ -431,8 +413,16 @@ box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
                   <a
                     class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
                     href="#/profile"
-                    ><i class="fas fa-user-circle text-blueGray-400 mr-2 text-sm"></i>
+                    ><i class="fas fa-users text-blueGray-400 mr-2 text-sm"></i>
                     Faculty Lists</a
+                  >
+                </li>
+                <li class="items-center">
+                  <a
+                    class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                    href="/logout"
+                    ><i class="fas fa-sign-out-alt text-blueGray-400 mr-2 text-sm"></i>
+                    Sign Out</a
                   >
                 </li>
               </ul>
@@ -513,7 +503,7 @@ box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
                 id="user-dropdown"
               >
                 <a
-                  href="#pablo"
+                  href="#p"
                   class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
                   >Action</a
                 ><a
@@ -536,6 +526,7 @@ box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
           </div>
         </nav>
         <!-- Header -->
+        
         <div class="relative bg-pink-600 md:pt-32 pb-32 pt-12">
           <div class="px-4 md:px-10 mx-auto w-full">
             <div>
@@ -631,7 +622,102 @@ box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
               </div>
             </div>
           </div>
+          <div class="z-10">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        {% if category == 'success_deletion' %}
+                            <div class="">
+                                <div class="">
+                                    <div class="">
+                                        <div style="padding: 2%; color: rgb(27, 202, 27); font-size: 25px; font-weight: 700">
+                                            <center>
+                                                {{ message }}
+                                            </center>
+                                            <script>
+                                                window.setTimeout(function () {
+                                                    window.location.reload();
+                                                  }, 10000);
+                                            </script>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% elif category == 'error' %}
+                            <div class="">
+                                <div class="">
+                                    <div class="">
+                                        <div style="padding: 2%; color: red; font-size: 25px; font-weight: 700">
+                                            <center>
+                                                {{ message }}
+                                            </center>
+                                            <script>
+                                                window.setTimeout(function () {
+                                                    window.location.reload();
+                                                }, 3000);
+                                            </script>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% elif category == 'info' %}
+                            <div class="">
+                                <div class="">
+                                    <div class="">
+                                        <div style="padding: 2%; color: green; font-size: 25px; font-weight: 700">
+                                            <center>
+                                                {{ message }}
+                                            </center>
+                                            <script>
+                                                window.setTimeout(function () {
+                                                    window.location.reload();
+                                                }, 3000);
+                                            </script>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% elif category == 'upload_successfully' %}
+                          <div class="">
+                              <div class="">
+                                  <div class="">
+                                      <div style="padding: 2%; color: green; font-size: 25px; font-weight: 700">
+                                          <center>
+                                              {{ message }}
+                                          </center>
+                                          <script>
+                                              window.setTimeout(function () {
+                                                  window.location.reload();
+                                              }, 3000);
+                                          </script>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                        {% elif category == 'error' %}
+                          <div class="">
+                              <div class="">
+                                  <div class="">
+                                      <div style="padding: 2%; color: red; font-size: 25px; font-weight: 700">
+                                          <center>
+                                              {{ message }}
+                                          </center>
+                                          <script>
+                                              window.setTimeout(function () {
+                                                  window.location.reload();
+                                              }, 3000);
+                                          </script>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+          </div>
         </div>
+
         <div x-data="faculty_end" x-init="display_graph(), merge_two_charts()">
           <div class="px-4 md:px-10 mx-auto w-full -m-24">
             <div class="flex flex-wrap">

@@ -1,0 +1,707 @@
+<style>
+    /*PopUp Start*/
+    #wrapper {
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      z-index: 1;
+      min-height: 100vh;
+    }
+    #wrapper main {
+      margin: auto;
+      text-align: center;
+    }
+    
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        }
+        
+    .notification-drop {
+        color: #444;
+    }
+    .notification-drop .item {
+        padding: 10px;
+        font-size: 18px;
+        position: relative;
+        border-bottom: 1px solid #ddd;
+    }
+    .notification-drop .item:hover {
+        cursor: pointer;
+    }
+    .notification-drop .item i {
+        margin-left: 10px;
+    }
+    .notification-drop .item ul {
+        display: none;
+        position: absolute;
+        top: 100%;
+        background: #fff;
+        left: -200px;
+        right: 0;
+        z-index: 1;
+        border-top: 1px solid #ddd;
+    }
+    .notification-drop .item ul li {
+        font-size: 16px;
+        padding: 15px 0 15px 25px;
+    }
+    .notification-drop .item ul li:hover {
+        background: rgba(0, 0, 0, 0.493);
+        color: rgba(0, 0, 0, 0.8);
+    }
+    
+    @media screen and (min-width: 500px) {
+        .notification-drop {
+            display: flex;
+            justify-content: flex-end;
+    }
+        .notification-drop .item {
+            border: none;
+        }
+    }
+    
+    .notification-bell{
+    font-size: 20px;
+    }
+    
+    .hybridBtn{
+      width: 90%;
+      height: auto;
+      margin: 10px;
+      justify-content: center;
+      display: block;
+      color: #fff;
+      background: #0d4d12;
+      font-size: 1em;
+      font-weight: bold;
+      outline: none;
+      border: none;
+      border-radius: 5px;
+      transition: .2s ease-in;
+      cursor: pointer;
+    }
+    .hybridBtn:hover{
+      background: #52b844;
+    }
+    
+    .btn__badge {
+        background: #FF5D5D;
+        color: white;
+        font-size: 12px;
+        position: absolute;
+        top: 0;
+        right: 0px;
+        padding:  3px 10px;
+        border-radius: 50%;
+    }
+    
+    .pulse-button {
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
+        -webkit-animation: pulse 1.5s infinite;
+    }
+    
+    .pulse-button:hover {
+        -webkit-animation: none;
+    }
+    
+    @-webkit-keyframes pulse {
+    0% {
+        -moz-transform: scale(0.9);
+        -ms-transform: scale(0.9);
+        -webkit-transform: scale(0.9);
+        transform: scale(0.9);
+    }
+    70% {
+        -moz-transform: scale(1);
+        -ms-transform: scale(1);
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        box-shadow: 0 0 0 50px rgba(255, 0, 0, 0);
+    }
+    100% {
+        -moz-transform: scale(0.9);
+        -ms-transform: scale(0.9);
+        -webkit-transform: scale(0.9);
+        transform: scale(0.9);
+        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+        }
+    }
+    
+    .notification-text{
+        font-size: 14px;
+        font-weight: bold;
+    }
+    
+    .notification-text span{
+        float: right;
+    }
+    
+    
+    .page-content {
+      max-width: 30rem;
+      margin: 10rem auto 0;
+      color: #ddd;
+      text-align: left;
+    }
+    
+    .form {
+      width: 100%;
+      max-width: 30rem;
+      padding: 1.5rem;
+      border-radius: 10px;
+      background: linear-gradient(to bottom, #18290c, #3d632b, #2a3e24);
+      box-shadow: rgba(0, 0, 0, 0.8) 0px 13px 27px -5px, rgba(0, 0, 0, 0.7) 0px 8px 16px -8px;
+      color: #eee;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(50px);
+    }
+    .popup--show .form {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      transition: all 0.3s ease-in-out;
+    }
+    .form h2 {
+      text-align: center;
+    }
+    
+    .popup {
+      position: fixed;
+      z-index: 100;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      overflow: hidden auto;
+    }
+    .popup--show {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: initial;
+    }
+    .popup__inner {
+      width: inherit;
+      height: inherit;
+    }
+    .popup__container {
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      min-height: 85%;
+    }
+    .popup__content {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .popup__close {
+      text-align: right;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+    
+    .popup-close {
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity 0.3s ease-in-out;
+    }
+    .popup-close:hover {
+      opacity: 1;
+    }
+    
+    .popup-active {
+      overflow: hidden;
+    }
+    @media (any-hover: hover) {
+      .popup-active {
+        padding-right: var(--scroll-width);
+      }
+    }
+    /*PopUp End*/
+    
+    .relative {
+      position: relative;
+    }
+    select:focus + label {
+      transform: translateY(-75%) translateX(-50%) scale(0.75);
+      transform-origin: top left;
+      font-size: 12px;
+      top: -1px;
+      left: 0;
+      background-color: white;
+      padding: 0 4px;
+    }
+    select:focus {
+      padding-top: 6px;
+    }
+    
+    input:focus + label {
+      transform: translateY(-75%) translateX(-50%) scale(0.75);
+      transform-origin: top left;
+      font-size: 12px;
+      top: -1px;
+      left: 0;
+      background-color: white;
+      padding: 0 4px;
+    }
+    input:focus {
+      padding-top: 6px;
+    }
+    </style>
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#000000" />
+        <link rel="shortcut icon" href="../../static/assets/img/favicon.ico" />
+        <link rel="stylesheet" href="../../static/app.css" />
+        <script defer src="../../static/alpine.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <link
+          rel="apple-touch-icon"
+          sizes="76x76"
+          href="../../static/assets/img/apple-icon.png"
+        />
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css"
+        />
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/creativetimofficial/tailwind-starter-kit/compiled-tailwind.min.css"
+        />
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <title>Dashboard | Faculty</title>
+      </head>
+      <body class="text-blueGray-700 antialiased">
+        <noscript>You need to enable JavaScript to run this app.</noscript>
+        <div id="root">
+          <nav
+            class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
+          >
+            <div
+              class="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto"
+            >
+              <button
+                class="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
+                type="button"
+                onclick="toggleNavbar('example-collapse-sidebar')"
+              >
+                <i class="fas fa-bars"></i></button
+              >
+              <a
+                class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
+                href="javascript:void(0)"
+              >
+                Faculty Dashboard
+              </a>
+              <ul class="md:hidden items-center flex flex-wrap list-none">
+                <li class="inline-block relative">
+                  <a
+                    class="text-blueGray-500 block py-1 px-3"
+                    href="#pablo"
+                    onclick="openDropdown(event,'notification-dropdown')"
+                    ><i class="fas fa-bell"></i
+                  ></a>
+                  <div
+                    class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
+                    style="min-width: 12rem;"
+                    id="notification-dropdown"
+                  >
+                    <a
+                      href="#pablo"
+                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                      >Action</a
+                    ><a
+                      href="#pablo"
+                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                      >Another action</a
+                    ><a
+                      href="#pablo"
+                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                      >Something else here</a
+                    >
+                    <div class="h-0 my-2 border border-solid border-blueGray-100"></div>
+                    <a
+                      href="#pablo"
+                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                      >Seprated link</a
+                    >
+                  </div>
+                </li>
+                <li class="inline-block relative">
+                  <a
+                    class="text-blueGray-500 block"
+                    href="#pablo"
+                    onclick="openDropdown(event,'user-responsive-dropdown')"
+                    ><div class="items-center flex">
+                      <span
+                        class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
+                        ><img
+                          alt="..."
+                          class="w-full rounded-full align-middle border-none shadow-lg"
+                          src="../../static/assets/img/team-1-800x800.jpg"
+                      /></span></div
+                  ></a>
+                  <div
+                    class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
+                    style="min-width: 12rem;"
+                    id="user-responsive-dropdown"
+                  >
+                    <a
+                      href="#pablo"
+                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                      >Action</a
+                    ><a
+                      href="#pablo"
+                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                      >Another action</a
+                    ><a
+                      href="#pablo"
+                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                      >Something else here</a
+                    >
+                    <div class="h-0 my-2 border border-solid border-blueGray-100"></div>
+                    <a
+                      href="#pablo"
+                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                      >Seprated link</a
+                    >
+                  </div>
+                </li>
+              </ul>
+              <div
+                class="md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded hidden"
+                id="example-collapse-sidebar"
+              >
+                <div
+                  class="md:min-w-full md:hidden block pb-4 mb-4 border-b border-solid border-blueGray-200"
+                >
+                  <div class="flex flex-wrap">
+                    <div class="w-6/12">
+                      <a
+                        class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
+                        href="javascript:void(0)"
+                      >
+                        Faculty Dashboard
+                      </a>
+                    </div>
+                    <div class="w-6/12 flex justify-end">
+                      <button
+                        type="button"
+                        class="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
+                        onclick="toggleNavbar('example-collapse-sidebar')"
+                      >
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <form class="mt-6 mb-4 md:hidden">
+                  <div class="mb-3 pt-0">
+                    <input
+                      type="text"
+                      placeholder="Search"
+                      class="border-0 px-3 py-2 h-12 border border-solid  border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal"
+                    />
+                  </div>
+                </form>
+                <ul class="md:flex-col md:min-w-full flex flex-col list-none">
+                  <li class="items-center">
+                    <a
+                      class="text-blueGray-700 text-xs uppercase py-3 font-bold block"
+                      href="/faculty_landing"
+                      ><i class="fas fa-tv text-blueGray-400 mr-2 text-sm"></i>
+                      Data Statistics</a
+                    >
+                  </li>
+                  <li class="items-center">
+                    <a
+                      class="text-pink-500 hover:text-pink-600 text-xs uppercase py-3 font-bold block"
+                      href="/faculty_student_view"
+                      ><i class="fab fa-hubspot opacity-75 mr-2 text-sm"></i>
+                      Predictions</a
+                    >
+                  </li>
+                  <li class="items-center">
+                    <a
+                      class="text-blueGray-700 text-xs uppercase py-3 font-bold block"
+                      href="#pablo"
+                      ><i
+                        class="fas fa-user-plus text-blueGray-400 mr-2 text-sm"
+                      ></i>
+                      Register Faculty</a
+                    >
+                  </li>
+                  <li class="items-center">
+                    <a
+                      class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                      href="#/profile"
+                      ><i class="fas fa-users text-blueGray-400 mr-2 text-sm"></i>
+                      Faculty Lists</a
+                    >
+                  </li>
+                  <li class="items-center">
+                    <a
+                      class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                      href="/logout"
+                      ><i class="fas fa-sign-out-alt text-blueGray-400 mr-2 text-sm"></i>
+                      Sign Out</a
+                    >
+                  </li>
+                </ul>
+                <hr class="my-4 md:min-w-full" />
+              </div>
+            </div>
+          </nav>
+          <div class="relative md:ml-64 bg-blueGray-50">
+            <nav
+              class="absolute top-0 left-0 w-full z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start flex items-center p-4"
+            >
+              <div
+                class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4"
+              >
+                <a
+                  class="text-black text-sm uppercase hidden lg:inline-block font-semibold"
+                  href="./index.html"
+                  >Student Predictions</a>
+                <ul
+                  class="flex-col md:flex-row list-none items-center hidden md:flex"
+                >
+                  <a class="text-blueGray-500 block" href="#pablo" onclick="openDropdown(event,'user-dropdown')">
+                    <div class="items-center flex">
+                      <span
+                        class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
+                        ><img
+                          alt="..."
+                          class="w-full rounded-full align-middle border-none shadow-lg"
+                          src="../../static/assets/img/team-1-800x800.jpg"
+                      /></span>
+                    </div>
+                  </a>
+                  <div
+                    class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
+                    style="min-width: 12rem;"
+                    id="user-dropdown"
+                  >
+                    <a
+                      href="#pablo"
+                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                      >Action</a
+                    ><a
+                      href="#pablo"
+                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                      >Another action</a
+                    ><a
+                      href="#pablo"
+                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                      >Something else here</a
+                    >
+                    <div class="h-0 my-2 border border-solid border-blueGray-100"></div>
+                    <a
+                      href="#pablo"
+                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                      >Seprated link</a
+                    >
+                  </div>
+                </ul>
+              </div>
+            </nav>
+            <!-- Header -->
+            <div class="relative bg-grey-600 md:pt-20 pb-20 pt-10"
+            style="background-image: url(../../static/assets/img/register_bg_2.png); background-size: 100%; background-repeat: no-repeat;">
+              <div class="px-4 md:px-10 mx-auto w-full">
+                <div>
+                  <!-- Card stats -->
+                  
+                </div>
+                <div class="mt-2 py-4 border-t border-gray-300 text-center">
+                  <h3
+                    class="text-3xl font-semibold leading-normal mb-2 text-black mb-2"
+                    >
+                    <i class="fab fa-hubspot text-3xl text-black"></i> Predictions
+                  </h3>
+                    <div class="flex flex-wrap justify-center">
+                      <div class="-m-1.5 overflow-x-auto ">
+                        <div class="p-1.5 min-w-full inline-block align-middle">
+                          <div class="border rounded-lg shadow overflow-hidden dark:border-white dark:shadow-white shadow-lg rounded bg-blueGray-800">
+                            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                              <thead>
+                                <tr class="divide-x divide-white dark:divide-white">
+                                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Full Name</th>
+                                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Sex</th>
+                                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Curriculum year</th>
+                                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Department</th>
+                                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Desired Career</th>
+                                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Prediction Results</th>
+                                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Date Predicted</th>
+                                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Action</th>
+                                </tr>
+                              </thead>
+                              <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                                {% if view_pred_result %}
+                                  {% for user, pred_results in view_pred_result.items %}
+                                    <tr >
+                                      <td>
+                                        <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ user.first_name }}</span>
+                                        <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ user.middle_name }}</span>
+                                        <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ user.last_name }} </span>
+                                      </td>
+                                      <td>
+                                        <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ user.sex }}</span>
+                                      </td>
+                                      <td>
+                                        <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ user.curriculum_year }}</span>
+                                      </td>
+                                      <td>
+                                        <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ user.department }}</span>
+                                      </td>
+                                      <td>
+                                        <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ pred_results.desired_job }}</span>
+                                      </td>
+                                      <td>
+                                        <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white"> {{ pred_results.main_rank }} </span>
+                                        <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white"> {{ pred_results.sub_rank1 }} </span>
+                                        <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white"> {{ pred_results.sub_rank2 }} </span>
+                                        <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white"> {{ pred_results.sub_rank3 }} </span>
+                                      </td>
+                                      <td>
+                                        <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ pred_results.date_created }}</span>
+                                      </td>
+                                      <td>
+                                        <div>
+                                            <form action="/delete_results" method="POST">
+                                                <input type="hidden" name="result_id" value="{{ pred_results.result_id }}">
+                                                <input type="hidden" name="user_id" value="{{ pred_results.user_id }}">
+                                                <button type="submit" class="hybridBtn" id="hybridBtn"> Delete</button>
+                                            </form>
+                                        </div>
+                                      </td>
+                                    </tr>
+                                  {% endfor %}
+                                {% endif %}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    
+              <footer class="block py-20">
+                <div class="container mx-auto px-4">
+                  <hr class="mb-4 border-b-1 border-blueGray-200" />
+                  <div class="flex flex-wrap items-center md:justify-between justify-center">
+                    <div class="w-full md:w-4/12 px-4">
+                      <div class="text-sm text-blueGray-500 font-semibold py-1">
+                        Copyright © <span id="javascript-date"></span>
+                        <a
+                          href="https://www.creative-tim.com"
+                          class="text-blueGray-500 hover:text-blueGray-700 text-sm font-semibold py-1"
+                        >
+                          Creative Tim
+                        </a>
+                      </div>
+                    </div>
+                    <div class="w-full md:w-8/12 px-4">
+                      <ul class="flex flex-wrap list-none md:justify-end  justify-center">
+                        <li>
+                          <a
+                            href="https://www.creative-tim.com"
+                            class="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
+                          >
+                            Creative Tim
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="https://www.creative-tim.com/presentation"
+                            class="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
+                          >
+                            About Us
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="http://blog.creative-tim.com"
+                            class="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
+                          >
+                            Blog
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="https://github.com/creativetimofficial/tailwind-starter-kit/blob/main/LICENSE.md"
+                            class="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
+                          >
+                            MIT License
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </footer>
+            </div>
+          </div>
+        </div>
+        <script>
+          $(document).ready(function() {
+            $(".notification-drop .item").on('click',function() {
+              $(this).find('ul').toggle();
+            });
+          });
+        // Modal
+                // Get the modal
+          var modal = document.getElementById("myModal");
+    
+              // Get the button that opens the modal
+          var btn = document.getElementById("myBtn");
+    
+              // Get the <span> element that closes the modal
+          var span = document.getElementsByClassName("close")[0];
+    
+              // When the user clicks on the button, open the modal
+          btn.onclick = function() {
+            modal.style.display = "block";
+          }
+    
+          // When the user clicks on <span> (x), close the modal
+          span.onclick = function() {
+            modal.style.display = "none";
+            }
+    
+              // When the user clicks anywhere outside of the modal, close it
+          window.onclick = function(event) {
+            if (event.target == modal) {
+              modal.style.display = "none";
+            }
+          }
+        </script>
+        <!-- <script
+          src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
+          charset="utf-8"
+        ></script> -->
+        
+          <!-- <script src="../../static/alpine.js"></script> -->
+
+      </body>
+    </html>
+    

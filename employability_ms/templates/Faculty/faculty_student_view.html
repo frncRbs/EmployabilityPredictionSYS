@@ -424,26 +424,18 @@ input:focus {
             <ul class="md:flex-col md:min-w-full flex flex-col list-none">
               <li class="items-center">
                 <a
-                  class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                  class="text-blueGray-700 text-xs uppercase py-3 font-bold block"
                   href="/faculty_landing"
-                  ><i class="fas fa-tv opacity-75 mr-2 text-sm"></i>
+                  ><i class="fas fa-tv text-blueGray-400 mr-2 text-sm"></i>
                   Data Statistics</a
                 >
               </li>
               <li class="items-center">
                 <a
-                  class="text-pink-500 hover:text-blueGray-600 text-xs uppercase py-3 font-bold block"
+                  class="text-pink-500 hover:text-pink-600 text-xs uppercase py-3 font-bold block"
                   href="/faculty_student_view"
-                  ><i class="fas fa-newspaper opacity-75 mr-2 text-sm"></i>
+                  ><i class="fab fa-hubspot opacity-75 mr-2 text-sm"></i>
                   Predictions</a
-                >
-              </li>
-              <li class="items-center">
-                <a
-                  class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  href="#/login"
-                  ><i class="fas fa-fingerprint text-blueGray-400 mr-2 text-sm"></i>
-                  Login</a
                 >
               </li>
               <li class="items-center">
@@ -451,7 +443,7 @@ input:focus {
                   class="text-blueGray-700 text-xs uppercase py-3 font-bold block"
                   href="#pablo"
                   ><i
-                    class="fas fa-clipboard-list text-blueGray-400 mr-2 text-sm"
+                    class="fas fa-user-plus text-blueGray-400 mr-2 text-sm"
                   ></i>
                   Register Faculty</a
                 >
@@ -460,8 +452,16 @@ input:focus {
                 <a
                   class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
                   href="#/profile"
-                  ><i class="fas fa-user-circle text-blueGray-400 mr-2 text-sm"></i>
+                  ><i class="fas fa-users text-blueGray-400 mr-2 text-sm"></i>
                   Faculty Lists</a
+                >
+              </li>
+              <li class="items-center">
+                <a
+                  class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                  href="/logout"
+                  ><i class="fas fa-sign-out-alt text-blueGray-400 mr-2 text-sm"></i>
+                  Sign Out</a
                 >
               </li>
             </ul>
@@ -578,6 +578,100 @@ input:focus {
                 >
                 <i class="fab fa-hubspot text-3xl text-black"></i> Predictions
               </h3>
+              <div class="z-10">
+                  {% with messages = get_flashed_messages(with_categories=true) %}
+                      {% if messages %}
+                          {% for category, message in messages %}
+                              {% if category == 'success_deletion' %}
+                                  <div class="">
+                                      <div class="">
+                                          <div class="">
+                                              <div style="padding: 2%; color: rgb(27, 202, 27); font-size: 25px; font-weight: 700">
+                                                  <center>
+                                                      {{ message }}
+                                                  </center>
+                                                  <script>
+                                                      window.setTimeout(function () {
+                                                          window.location.reload();
+                                                        }, 10000);
+                                                  </script>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              {% elif category == 'error' %}
+                                  <div class="">
+                                      <div class="">
+                                          <div class="">
+                                              <div style="padding: 2%; color: red; font-size: 25px; font-weight: 700">
+                                                  <center>
+                                                      {{ message }}
+                                                  </center>
+                                                  <script>
+                                                      window.setTimeout(function () {
+                                                          window.location.reload();
+                                                      }, 3000);
+                                                  </script>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              {% elif category == 'info' %}
+                                  <div class="">
+                                      <div class="">
+                                          <div class="">
+                                              <div style="padding: 2%; color: green; font-size: 25px; font-weight: 700">
+                                                  <center>
+                                                      {{ message }}
+                                                  </center>
+                                                  <script>
+                                                      window.setTimeout(function () {
+                                                          window.location.reload();
+                                                      }, 3000);
+                                                  </script>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              {% elif category == 'upload_successfully' %}
+                                <div class="">
+                                    <div class="">
+                                        <div class="">
+                                            <div style="padding: 2%; color: green; font-size: 25px; font-weight: 700">
+                                                <center>
+                                                    {{ message }}
+                                                </center>
+                                                <script>
+                                                    window.setTimeout(function () {
+                                                        window.location.reload();
+                                                    }, 3000);
+                                                </script>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              {% elif category == 'error' %}
+                                <div class="">
+                                    <div class="">
+                                        <div class="">
+                                            <div style="padding: 2%; color: red; font-size: 25px; font-weight: 700">
+                                                <center>
+                                                    {{ message }}
+                                                </center>
+                                                <script>
+                                                    window.setTimeout(function () {
+                                                        window.location.reload();
+                                                    }, 3000);
+                                                </script>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              {% endif %}
+                          {% endfor %}
+                      {% endif %}
+                  {% endwith %}
+                </div>
                 <div class="flex flex-wrap justify-center">
                   <div class="flex justify-between ... ">
                     <div class="flex-1 h-16 p-2 ...">
@@ -740,6 +834,85 @@ input:focus {
               </div>
           </div>
         </div>
+
+          <div class="popup" id="popupID">
+            <div class="popup__inner">
+              <div class="popup__container">
+                <!-- <div style="position: relative; right: 520px; top: 140px; z-index: 1" class="popup__close popup-close" data-popup-close>
+                  <div class="svg-icon">&#10006;</div>
+                </div> -->
+                <div class="popup__content">
+                  <div class="pt-6 w-full md:w-6/12 px-4 text-center">
+                    <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+                      <div class="w-auto bg-white-10">
+                        <table>
+                            <thead>
+                              <tr>
+                                <th>Full Name</th>
+                                <th>Sex</th>
+                                <th>Curriculum year</th>
+                                <th>Department</th>
+                                <th>Desired Career</th>
+                                <th>Prediction Results</th>
+                                <th>Date Predicted</th>
+                                <th>Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% if view_pred_result %}
+                                {% for user, pred_results in view_pred_result.items %}
+                                  <tr>
+                                    <td>
+                                      <span>{{ user.first_name }}</span>
+                                      <span>{{ user.middle_name }}</span>
+                                      <span>{{ user.last_name }} </span>
+                                    </td>
+                                    <td>
+                                      <span style="margin: 5px;">{{ user.sex }}</span>
+                                    </td>
+                                    <td>
+                                      <span style="margin: 5px;">{{ user.curriculum_year }}</span>
+                                    </td>
+                                    <td>
+                                      <span style="margin: 5px;">{{ user.department }}</span>
+                                    </td>
+                                    <td>
+                                      <span style="margin: 5px;">{{ pred_results.desired_job }}</span>
+                                    </td>
+                                    <td>
+                                      <span style="margin: 5px;"> {{ pred_results.main_rank }} </span>
+                                      <span style="margin: 5px;"> {{ pred_results.sub_rank1 }} </span>
+                                      <span style="margin: 5px;"> {{ pred_results.sub_rank2 }} </span>
+                                      <span style="margin: 5px;"> {{ pred_results.sub_rank3 }} </span>
+                                    </td>
+                                    <td>
+                                      <span style="margin: 5px;">{{ pred_results.date_created }}</span>
+                                    </td>
+                                    <td>
+                                      <!--
+                                        class should be inline
+                                      -->
+                                      <div>
+                                        <form action="/delete_results" method="POST">
+                                          <input type="hidden" name="result_id" value="{{ pred_results.result_id }}">
+                                          <input type="hidden" name="user_id" value="{{ pred_results.user_id }}">
+                                          <button type="submit" class="hybridBtn" id="hybridBtn"> Delete</button>
+                                        </form>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                {% endfor %}
+                              {% endif %}
+                            </tbody>
+                          </table>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <footer class="block py-20">
             <div class="container mx-auto px-4">
               <hr class="mb-4 border-b-1 border-blueGray-200" />
@@ -830,202 +1003,93 @@ input:focus {
         }
       }
     </script>
-    <!-- <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
-      charset="utf-8"
-    ></script> -->
-    
-      <!-- <script src="../../static/alpine.js"></script> -->
     <script>
-    let counter = 0;
-    let main_pie = null;
-    let mixedChart = null;
-    let dept = null;
-    let stat = null;
-    let sex = null;
-
-    it_students = JSON.parse({{ it_students | tojson}})
-    cs_students = JSON.parse({{ cs_students | tojson}})
-    first_SE = JSON.parse({{ first_SE | tojson}})
-    first_TSS = JSON.parse({{ first_TSS | tojson}})
-    first_A = JSON.parse({{ first_A | tojson}})
-    first_AA = JSON.parse({{ first_AA | tojson}})
-    software_engineer_programmer = JSON.parse({{ software_engineer_programmer  | tojson}})
-    technical_support_specialist = JSON.parse({{ technical_support_specialist  | tojson}})
-    academician = JSON.parse({{ academician  | tojson}})
-    administrative_assistant = JSON.parse({{ administrative_assistant  | tojson}})
-    male = JSON.parse({{ male  | tojson}})
-    female = JSON.parse({{ female  | tojson}})
-    shiftee = JSON.parse({{ shiftee  | tojson}})
-    transferee = JSON.parse({{ transferee  | tojson}})
-    regular = JSON.parse({{ regular  | tojson}})
-
-    document.addEventListener('alpine:init', () => {
-        Alpine.data('faculty_end', () => ({
-        'canvas_id': 0,
-        'show_names': false,
-        'list_of_names': [],
-        generate_id(){
-            this.canvas_id = '_'+counter.toString();
-            return (this.canvas_id.toString());
-        },
-        display_graph(default_labels = ['Computer Science', 'Information Technology'], default_data = [cs_students, it_students]){
-            if(main_pie!=null){
-            main_pie.destroy();
-            }
-
-            var cht = document.getElementById(this.$refs.pie_main.id).getContext('2d');
-            main_pie = new Chart(cht, {
-            type: 'pie',
-            data: {
-                labels: default_labels,
-                datasets: [{
-                    label:  ["# of Students"],
-                    backgroundColor: ['#5DA5DA ', '#FAA43A', '#60BD68', '#B276B2', '#E16851', '#FB8267'],
-                    borderColor: 'rgba(154, 241, 140)',
-                    color: "white",
-                    data: default_data,
-                    borderWidth: 1.5,
-                    tension: 0.3,
-                    fill: true,
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                onClick: (e, activeEls) => {
-                let datasetIndex = activeEls[0].datasetIndex;
-                let dataIndex = activeEls[0].index;
-                let datasetLabel = e.chart.data.datasets[datasetIndex].label;
-                let value = e.chart.data.datasets[datasetIndex].data[dataIndex];
-                let label = e.chart.data.labels[dataIndex];
-                counter++;
-                this.expand_data(label);
-                },
-                title: {
-                    display: true,
-                    text: 'Item Something'
-                },
-                plugins: {
-                tooltip: true,
-                    legend: {
-                    display: true,
-                    labels: {
-                        color: 'white'
-                    }
-                    },
-                },
-                hover: {
-                    mode: 'index',
-                    intersect: true
-                }
-            }
-            });
-        },
-        async expand_data(_val){
-            let default_labels = null;
-            let default_data = null;
-            if(_val.toLowerCase() == 'Information Technology'.toLowerCase() || _val.toLowerCase() == 'Computer Science'.toLowerCase()){
-            let form = new FormData;
-            
-            if(_val.toLowerCase() == 'Information Technology'.toLowerCase()){
-                dept = _val;
-                form.append('department', dept);
-                await axios.post('/change_data_status', form)
-                .then((response) => {
-                default_labels = Object.keys(response.data);
-                default_data = Object.values(response.data);
-                },
-                (error) => {
-                console.log(error);
-                });
-            }
-            else if(_val.toLowerCase() == 'Computer Science'.toLowerCase()){
-                dept = _val;
-                form.append('department', dept);
-                await axios.post('/change_data_status', form)
-                .then((response) => {
-                default_labels = Object.keys(response.data);
-                default_data = Object.values(response.data);
-                },
-                (error) => {
-                console.log(error);
-                });
-            }
-            }
-            else if(_val.toLowerCase() == 'Shiftee'.toLowerCase() || _val.toLowerCase() == 'Transferee'.toLowerCase() || _val.toLowerCase() == 'Regular'.toLowerCase()){
-            stat = _val;
-
-            let form = new FormData;
-            form.append('department', dept);
-            form.append('status', stat);
-            await axios.post('/change_data_sex', form)
-            .then((response) => {
-                default_labels = Object.keys(response.data);
-                default_data = Object.values(response.data);
-            },
-            (error) => {
-                console.log(error);
-            });
-            }
-            else if(_val.toLowerCase() == 'Female'.toLowerCase() || _val.toLowerCase() == 'Male'.toLowerCase()){
-            sex = _val;
-            let form = new FormData;
-            form.append('department', dept);
-            form.append('status', stat);
-            form.append('sex', sex);
-            
-            await axios.post('/generate_names', form)
-            .then((response) => {
-                console.log(Object.values(response.data));
-                this.list_of_names = Object.values(response.data);
-            },
-            (error) => {
-                console.log(error);
-            });
-
-            this.show_names = true;
-            }
-            
-            if(_val != 'Female' && _val != 'Male'){
-            this.display_graph(default_labels, default_data);
-            }
-        },
-        refresh_pie(){
-            this.show_names = false;
-            this.display_graph(default_labels = ['Computer Science', 'Information Technology'], default_data = [cs_students, it_students])
-        },
-        merge_two_charts(){
-            let ctx = document.getElementById('merge_chart').getContext('2d');
-            mixedChart = new Chart(ctx, {
-            data: {
-                datasets: [{
-                    type: 'line',
-                    label: 'Students Desired Careers',
-                    data: [software_engineer_programmer, technical_support_specialist, academician, administrative_assistant]
-                }, {
-                    type: 'line',
-                    label: 'Students Top 1 Predictions',
-                    data: [first_SE, first_TSS, first_A, first_AA],
-                }],
-                labels: ['Software Engineer Programmer', 'Technical Support Specialist', 'Academician', 'Administrative Assistant']
-            },
-            options: {
-                scale: {
-                ticks: {
-                    precision: 0
-                  }
-                },
-                responsive: true,
-                maintainAspectRatio: false,
-              }
-            });
-            
-        }
-        
-        }));
-    });
-    </script>
+      class Popup {
+        classPopupShow =  'popup--show';
+        classForBody = 'popup-active';
+        popup = null;
+        closeOnClickOverlay = false;
     
+        constructor(options = {}) {
+    
+            this.closeOnClickOverlay = options?.closeOnClickOverlay || false;
+        
+            // check if page has vertical scroll
+            this.scrollWidthInit();
+    
+            document.addEventListener('click', e => {
+            
+            // open
+            if (e.target.dataset.popupOpen) {
+                e.preventDefault();
+                this.popup = document.getElementById(e.target.dataset.popupOpen);
+                this.show();
+            }
+    
+            // close
+            if (e.target.hasAttribute('data-popup-close') ||
+                (e.target.closest('.popup__close') && e.target.closest('.popup__close').hasAttribute('data-popup-close')) ||
+                (this.closeOnClickOverlay && e.target.classList.contains('popup__content'))
+            ){
+                e.preventDefault();
+                this.hide();
+            }
+            })
+        }
+    
+        scrollWidthInit() {
+    
+            function existVerticalScroll() {
+            let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0),
+                sh =  document.body.scrollHeight;
+    
+            return sh > vh ? true : false;
+            }
+    
+            let div = document.createElement('div');
+        
+            div.style.overflowY = 'scroll';
+            div.style.width = '50px';
+            div.style.height = '50px';
+        
+            document.body.append(div);
+        
+            let scrollWidth = div.offsetWidth - div.clientWidth;
+        
+            div.remove();
+    
+            if (existVerticalScroll()) {
+            document.documentElement.style.setProperty('--scroll-width', scrollWidth + 'px');
+            }
+        }
+    
+        show() {
+            
+            if (this.popup) {
+            this.popup.classList.add(this.classPopupShow);
+            }
+    
+            document.body.classList.add(this.classForBody);
+        }
+    
+        hide() {
+    
+            if (this.popup) {
+            this.popup.classList.remove(this.classPopupShow);
+            }
+    
+            document.body.classList.remove(this.classForBody);
+        }
+        }
+    
+        new Popup({
+        closeOnClickOverlay: true, // if you want popup to be closed after click on overlay (default: false)
+        });
+  
+      function toggleNavbar(collapseID) {
+        document.getElementById(collapseID).classList.toggle("hidden");
+        document.getElementById(collapseID).classList.toggle("block");
+      }
+    </script>
   </body>
 </html>
