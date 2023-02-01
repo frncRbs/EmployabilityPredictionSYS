@@ -28,7 +28,7 @@ def login_registerFaculty_view():
 def register_faculty():    
     auth_user=current_user
     if auth_user.is_authenticated and auth_user.user_type == -1:
-        return render_template("Faculty/register_admin.html")
+        return render_template("Faculty/register_Faculty.html")
     else:
         flash('Sorry only the admin is permitted to register a faculty account', category='error')
         return redirect(url_for('.faculty_dashboard'))
@@ -418,9 +418,9 @@ def add_curriculum_year():
         flash('Failed to add Curriculum Year, Identical Input detected! Please try again', category='error')
         return redirect(url_for('.faculty_dashboard'))
 
-@_faculty.route('/signup_Superadmin', methods=['POST'])
+@_faculty.route('/signup_superadmin', methods=['POST'])
 @login_required
-def signup_Superadmin():
+def signup_superadmin():
     first = request.form['first_name']
     middle = request.form['middle_name']
     last = request.form['last_name']

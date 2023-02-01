@@ -433,8 +433,8 @@
                   </li>
                   <li class="items-center">
                     <a
-                      class="text-blueGray-700 text-xs uppercase py-3 font-bold block"
-                      href="#pablo"
+                      class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                      href="/register_faculty"
                       ><i
                         class="fas fa-user-plus text-blueGray-400 mr-2 text-sm"
                       ></i>
@@ -516,7 +516,7 @@
               </div>
             </nav>
             <!-- Header -->
-            <div class="relative bg-grey-600 md:pt-20 pb-20 pt-10"
+            <div class="relative bg-pink-600 md:pt-20 pb-20 pt-10"
             style="background-image: url(../../static/assets/img/register_bg_2.png); background-size: 100%; background-repeat: no-repeat;">
               <div class="px-4 md:px-10 mx-auto w-full">
                 <div>
@@ -581,7 +581,16 @@
                                             <form action="/delete_results" method="POST">
                                                 <input type="hidden" name="result_id" value="{{ pred_results.result_id }}">
                                                 <input type="hidden" name="user_id" value="{{ pred_results.user_id }}">
-                                                <button type="submit" class="hybridBtn" id="hybridBtn"> Delete</button>
+                                                <button
+                                                class="bg-red-500 active:bg-red-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-4 rounded outline-none focus:outline-none sm:mr-2 mt-2"
+                                                style="transition: all 0.15s ease 0s;"
+                                                type="submit"
+                                                >
+                                                <i
+                                                class="fas fa-trash-alt mr-2 text-xs text-white"
+                                                ></i> Delete
+                                                </button>
+                                                <!-- <button type="submit" class="hybridBtn" id="hybridBtn"> Delete</button> -->
                                             </form>
                                         </div>
                                       </td>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="shortcut icon" href="../../static/assets/img/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="76x76"
+      href="../../static/assets/img/apple-icon.png"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/creativetimofficial/tailwind-starter-kit/compiled-tailwind.min.css"
+    />
+    <title>Register | Employability Management System</title>
+  </head>
+  <body class="text-gray-800 antialiased">
+    <nav
+      class="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 "
+    >
+      <div
+        class="container px-4 mx-auto flex flex-wrap items-center justify-between"
+      >
+        <div
+          class="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start"
+        >
+          <a
+            class="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white"
+            href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/presentation"
+            >Sign Up | Faculty</a
+          ><button
+            class="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
+            type="button"
+            onclick="toggleNavbar('example-collapse-navbar')"
+          >
+            <i class="text-white fas fa-bars"></i>
+          </button>
+        </div>
+        <div
+          class="lg:flex flex-grow items-center bg-white lg:bg-transparent lg:shadow-none hidden"
+          id="example-collapse-navbar"
+        >
+          <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
+            <li class="flex items-center">
+                <button
+                  class="bg-white text-gray-800 active:bg-gray-100 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 mt-3"
+                  type="button"
+                  style="transition: all 0.15s ease 0s;"
+                  onclick="window.location='/faculty_landing'"
+                >
+                  <i class="fas fa-reply"> </i> Back
+                </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <main>
+      <section class="absolute w-full h-full">
+        <div
+          class="absolute top-0 w-full h-full bg-gray-900"
+          style="background-image: url(../../static/assets/img/register_bg_2.png); background-size: 100%; background-repeat: no-repeat;"
+        ></div>
+        <div class="container mx-auto px-6 h-full">
+          <div class="flex content-center items-center justify-center h-full">
+            <div class="w-full lg:w-6/12 px-6">
+              <div
+                class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0"
+              >
+                <div class="flex-auto px-4 lg:px-10 py-10 pt-0 mt-5">
+                    <div class="text-center mb-3">
+                        <h3 class="text-gray-600 text-m font-bold">
+                            Register a Faculty
+                        </h3>
+                    </div>
+                    <hr class="mt-6 border-b-1 border-gray-400 mb-3" />
+                <form action="{{ url_for('_faculty.signup_superadmin') }}" method="POST">
+                    <div class="relative flex flex-row">
+                        <div class="relative w-full mb-3">
+                            <label
+                                class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                for="first_name"
+                                >First Name</label
+                            ><input
+                                type="text"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                placeholder="First Name"
+                                style="transition: all 0.15s ease 0s;"
+                                name="first_name"
+                                required="" autocomplete="off"
+                            />
+                        </div> 
+                        <div class="relative w-full mb-3 mr-1 ml-1">
+                            <label
+                                class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                for="middle_name"
+                                >Middle Name</label
+                            ><input
+                                type="text"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                placeholder="Middle Name"
+                                style="transition: all 0.15s ease 0s;"
+                                name="middle_name"
+                                required="" autocomplete="off"
+                            />
+                        </div>
+                        <div class="relative w-full mb-3">
+                            <label
+                                class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                for="last_name"
+                                >Last Name</label
+                            ><input
+                                type="text"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                placeholder="Last Name"
+                                style="transition: all 0.15s ease 0s;"
+                                name="last_name"
+                                required="" autocomplete="off"
+                            />
+                        </div>
+                    </div>
+                    <div class="relative flex flex-row">
+                        <div class="relative w-full mb-3 ml-1">
+                            <label
+                                class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                for="contact_number"
+                                >Contact Number</label
+                            ><input
+                                type="number"
+                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                placeholder="Contact Number"
+                                style="transition: all 0.15s ease 0s;"
+                                name="contact_number"
+                                required="" autocomplete="off"
+                            />
+                        </div>
+                        <div class="relative w-full mb-3 ml-1">
+                            <label
+                                class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                for="sex"
+                                >Sex</label
+                            >
+                            <select type="text" name="sex" id="drop-down" placeholder="Sex" required="" autocomplete="off"
+                            class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                            style="transition: all 0.15s ease 0s;"
+                            >
+                                <option value="">Sex</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    {% if category == 'success_register' %}
+                                        <div class="">
+                                            <div class="">
+                                                <div class="">
+                                                    <div style="padding: 2%; color: rgb(27, 202, 27); font-size: 25px; font-weight: 700">
+                                                        <center>
+                                                            {{ message }}
+                                                        </center>
+                                                        <script>
+                                                            window.setTimeout(function () {
+                                                                window.location.reload();
+                                                              }, 10000);
+                                                        </script>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% elif category == 'error' %}
+                                        <div class="">
+                                            <div class="">
+                                                <div class="">
+                                                    <div style="padding: 2%; color: red; font-size: 25px; font-weight: 700">
+                                                        <center>
+                                                            {{ message }}
+                                                        </center>
+                                                        <script>
+                                                            window.setTimeout(function () {
+                                                                window.location.reload();
+                                                            }, 3000);
+                                                        </script>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% elif category == 'info' %}
+                                        <div class="">
+                                            <div class="">
+                                                <div class="">
+                                                    <div style="padding: 2%; color: green; font-size: 25px; font-weight: 700">
+                                                        <center>
+                                                            {{ message }}
+                                                        </center>
+                                                        <script>
+                                                            window.setTimeout(function () {
+                                                                window.location.reload();
+                                                            }, 3000);
+                                                        </script>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                    <div class="relative flex flex-row">
+                        <div class="relative w-full mb-3 mr-1">
+                        <label
+                            class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                            for="email"
+                            >Email</label
+                        ><input
+                            type="email"
+                            class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                            placeholder="Email"
+                            style="transition: all 0.15s ease 0s;"
+                            name="email"
+                            required="" autocomplete="off"
+                        />
+                        </div>
+                        <div class="relative w-full mb-3 ml-1">
+                        <label
+                            class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                            for="password"
+                            >Password</label
+                        ><input
+                            type="password"
+                            class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                            placeholder="Password"
+                            style="transition: all 0.15s ease 0s;"
+                            name="password"
+                            required="" autocomplete="off"
+                        />
+                        </div>
+                    </div>
+                    <div class="text-center mt-6">
+                      <button
+                        class="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
+                        style="transition: all 0.15s ease 0s;"
+                        type="submit"
+                      >
+                        Sign Up
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+  <script>
+    function toggleNavbar(collapseID) {
+      document.getElementById(collapseID).classList.toggle("hidden");
+      document.getElementById(collapseID).classList.toggle("block");
+    }
+  </script>
+</html>
