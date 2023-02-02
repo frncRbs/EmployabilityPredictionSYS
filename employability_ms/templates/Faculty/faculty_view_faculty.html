@@ -878,28 +878,24 @@
                                     {% if page_num  %}
                                         {% if students_record.page == page_num  %}
                                           {% if search  %}
-                                            <a class="" href="{{ url_for('_faculty.faculty_student_view', page=page_num, search=search) }}">{{ page_num }}</a>
+                                            <a class="" href="{{ url_for('_faculty.faculty_view_faculty', page=page_num, search=search) }}">{{ page_num }}</a>
                                           {% elif department %}
-                                            <a class="" href="{{ url_for('_faculty.faculty_student_view', page=page_num, department=department) }}">{{ page_num }}</a>
+                                            <a class="" href="{{ url_for('_faculty.faculty_view_faculty', page=page_num, department=department) }}">{{ page_num }}</a>
                                           {% elif sex %}
-                                            <a class="" href="{{ url_for('_faculty.faculty_student_view', page=page_num, sex=sex) }}">{{ page_num }}</a>
-                                          {% elif curriculum_year %}
-                                            <a class="" href="{{ url_for('_faculty.faculty_student_view', page=page_num, curriculum_year=curriculum_year) }}">{{ page_num }}</a>
+                                            <a class="" href="{{ url_for('_faculty.faculty_view_faculty', page=page_num, sex=sex) }}">{{ page_num }}</a>
                                           {% else %}
-                                            <a class="" href="{{ url_for('_faculty.faculty_student_view', page=page_num) }}">{{ page_num }}</a>
+                                            <a class="" href="{{ url_for('_faculty.faculty_view_faculty', page=page_num) }}">{{ page_num }}</a>
                                           {% endif %}
           
                                           {% else %}
                                             {% if search  %}
-                                              <a class="" href="{{ url_for('_faculty.faculty_student_view', page=page_num, search=search) }}">{{ page_num }}</a>
+                                              <a class="" href="{{ url_for('_faculty.faculty_view_faculty', page=page_num, search=search) }}">{{ page_num }}</a>
                                             {% elif department %}
-                                              <a class="" href="{{ url_for('_faculty.faculty_student_view', page=page_num, department=department) }}">{{ page_num }}</a>
+                                              <a class="" href="{{ url_for('_faculty.faculty_view_faculty', page=page_num, department=department) }}">{{ page_num }}</a>
                                             {% elif sex %}
-                                              <a class="" href="{{ url_for('_faculty.faculty_student_view', page=page_num, sex=sex) }}">{{ page_num }}</a>
-                                            {% elif curriculum_year %}
-                                              <a class="" href="{{ url_for('_faculty.faculty_student_view', page=page_num, curriculum_year=curriculum_year) }}">{{ page_num }}</a>
+                                              <a class="" href="{{ url_for('_faculty.faculty_view_faculty', page=page_num, sex=sex) }}">{{ page_num }}</a>
                                             {% else %}
-                                              <a class="" href="{{ url_for('_faculty.faculty_student_view', page=page_num) }}">{{ page_num }}</a>
+                                              <a class="" href="{{ url_for('_faculty.faculty_view_faculty', page=page_num) }}">{{ page_num }}</a>
                                             {% endif %}
                                           {% endif %}
                                       {% else %}

@@ -301,6 +301,7 @@ def faculty_student_view():
 @_faculty.route('/view_results', methods=['POST'])
 @login_required
 def view_results():
+    unapprove_account = User.query.filter_by(is_approve = False, user_type = 1).all()
     try:
         auth_user=current_user
         page = request.args.get('page', 1, type=int)
@@ -309,7 +310,7 @@ def view_results():
         flash('System error cannot delete data', category='error')
         return redirect(url_for('.faculty_student_view'))
     
-    return render_template("Faculty/faculty_view_predictions.html", view_pred_result=view_pred_result, auth_user=auth_user)
+    return render_template("Faculty/faculty_view_predictions.html", view_pred_result=view_pred_result, auth_user=auth_user, unapprove_account=unapprove_account)
     
 
 @_faculty.route('/delete_results', methods=['POST'])
@@ -366,10 +367,9 @@ def delete_faculty():
 @_faculty.route('/approve_account', methods=['POST'])
 @login_required
 def approve_account():
-    try: 
+    try:
         if int(request.form['approve_flag']) == 1:
-            print(int(request.form['user_id']))
-            approve_account = User.query.filter_by(id=int(request.form['user_id']))
+            approve_account = User.query.filter_by(id=int(request.form['user_id'])).first()
             approve_account.is_approve = True
             db.session.commit()
             # send_link(request.form['user_email'], request.form['user_department'])
