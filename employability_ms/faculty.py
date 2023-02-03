@@ -18,7 +18,7 @@ def login_registerFaculty_view():
     auth_user=current_user
     if auth_user.is_authenticated:
         if auth_user.user_type == -1 or auth_user.user_type == 0:
-            return redirect(url_for('.faculty_dashboard'))
+            return redirect(url_for('.faculty_landing'))
         else:
             return redirect(url_for('_auth.index'))
             
@@ -31,7 +31,7 @@ def register_faculty():
         return render_template("Faculty/register_Faculty.html")
     else:
         flash('Sorry only the admin is permitted to register a faculty account', category='error')
-        return redirect(url_for('.faculty_dashboard'))
+        return redirect(url_for('.faculty_landing'))
 
     
 @_faculty.route('/login_faculty', methods=['GET', 'POST'])
@@ -72,7 +72,6 @@ def faculty_dash():
         sex = request.args.getlist('sex')
         sex = (','.join(sex))
         
-        print(search, sex)
         # Data for filter department
         # Return Data for template
         if auth_user.user_type == -1 or auth_user.user_type == 0:
@@ -102,6 +101,8 @@ def faculty_dash():
 @_faculty.route('/faculty_landing', methods=['GET'])
 @login_required
 def faculty_landing():
+    auth_user=current_user
+    
     no_studs_top_1_prediction_1 = db.session.query(User, PredictionResult).filter(PredictionResult.top_rank == 'Software Engineer / Programmer').group_by(PredictionResult.result_id).count()
     no_studs_top_1_prediction_2 = db.session.query(User, PredictionResult).filter(PredictionResult.top_rank == 'Technical Support Specialist').group_by(PredictionResult.result_id).count()
     no_studs_top_1_prediction_3 = db.session.query(User, PredictionResult).filter(PredictionResult.top_rank == 'Academician').group_by(PredictionResult.result_id).count()
@@ -134,6 +135,11 @@ def faculty_landing():
     
     registered_students = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.user_type == 1, User.predict_no >=1, PredictionResult.user_id == User.id).group_by(User.id).count()
     unregistered_students = db.session.query(User).filter(User.is_approve == 0, User.user_type == 1).count()
+    
+    if auth_user.user_type == -1:
+        check_admin = True
+    else:
+        check_admin = False
     
     if request.method == 'GET':
         # Current Logged User
@@ -190,8 +196,7 @@ def faculty_landing():
                     .paginate(page=page, per_page=5)# fetch curriculum year only
             else:
                 students_record = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', User.predict_no >=1, PredictionResult.user_id == User.id).group_by(PredictionResult.user_id).order_by(asc(PredictionResult.date_created)).paginate(page=page, per_page=5)# fetch user students only
-            
-            auth_user=current_user
+        
             curriculum_input = db.session.query(CurriculumResult).all()
             curriculum_record = db.session.query(CurriculumResult).all()
             unapprove_account = User.query.filter_by(is_approve = False, user_type = 1).all()
@@ -202,7 +207,7 @@ def faculty_landing():
     else:  
         return redirect(url_for('_auth.index'))
     
-    return render_template("Faculty/faculty_landing.html", auth_user=auth_user, 
+    return render_template("Faculty/faculty_landing.html", auth_user=auth_user, check_admin=check_admin,
                             students_record=students_record, overall_studs_top_1_prediction=overall_studs_top_1_prediction,
                             unapprove_account=unapprove_account, no_studs_met_their_desired_career=no_studs_met_their_desired_career,
                             count_unapprove=count_unapprove, search=search, curriculum_input=curriculum_input,
@@ -244,6 +249,10 @@ def faculty_student_view():
             print(search, department, sex, curriculum_year)
             # Data for filter department
             # Return Data for template
+            if auth_user.user_type == -1:
+                check_admin = True
+            else:
+                check_admin = False
             
             if auth_user.user_type == -1 or auth_user.user_type == 0:
                 
@@ -289,7 +298,7 @@ def faculty_student_view():
             return redirect(url_for('_auth.index'))
         
         return render_template("Faculty/faculty_student_view.html", auth_user=auth_user, 
-                                students_record=students_record, 
+                                students_record=students_record, check_admin=check_admin,
                                 unapprove_account=unapprove_account, 
                                 count_unapprove=count_unapprove, search=search, curriculum_input=curriculum_input,
                                 department=department, sex=sex, curriculum_year=curriculum_year, curriculum_record=curriculum_record
@@ -297,11 +306,75 @@ def faculty_student_view():
     except:
         flash('Server error 500', category='error')
         return redirect(url_for('.faculty_landing'))
+    
+@_faculty.route('/faculty_view_faculty', methods=['GET'])
+@login_required
+def faculty_view_faculty():
+    
+    # try:
+    if request.method == 'GET':
+        # Current Logged User
+        auth_user=current_user
+        page = request.args.get('page', 1, type=int)
+
+        # Data for search
+        search = request.args.getlist('search')
+        search = (','.join(search))
+        
+        sex = request.args.getlist('sex')
+        sex = (','.join(sex))
+        
+        if auth_user.user_type == -1:
+            check_admin = True
+        else:
+            check_admin = False
+    
+        # Data for filter department
+        # Return Data for template
+        if auth_user.user_type == -1 or auth_user.user_type == 0:
+            if search:
+                students_record = db.session.query(User).filter(User.is_approve == 1, User.department == 'Faculty')\
+                    .filter((User.first_name.like('%' + search + '%'))      |
+                    (User.middle_name.like('%' + search + '%'))     |
+                    (User.last_name.like('%' + search + '%'))       |
+                    (User.desired_career.like('%' + search + '%'))         |
+                    (User.contact_number.like('%' + search + '%'))  |
+                    (User.department.like('%' + search + '%'))    |
+                    (User.email.like('%' + search + '%')))\
+                    .paginate(page=page, per_page=5)# fetch user students only
+            elif sex:
+                students_record = db.session.query(User).filter(User.is_approve == 1, User.department == 'Faculty')\
+                    .filter((User.sex==sex))\
+                    .paginate(page=page, per_page=5)# fetch sex only
+            else:
+                students_record = db.session.query(User).filter(User.is_approve == 1, User.department == 'Faculty').paginate(page=page, per_page=5)# fetch user students only
+            
+            curriculum_input = db.session.query(CurriculumResult).all()
+            curriculum_record = db.session.query(CurriculumResult).all()
+            unapprove_account = User.query.filter_by(is_approve = False, user_type = 1).all()
+            count_unapprove = User.query.filter_by(is_approve = False, user_type = 1).count()
+    else:
+        return redirect(url_for('_auth.index'))                 
+    
+    return render_template("Faculty/faculty_view_faculty.html", auth_user=auth_user, 
+                            students_record=students_record, check_admin=check_admin,
+                            unapprove_account=unapprove_account, 
+                            count_unapprove=count_unapprove, search=search, curriculum_input=curriculum_input,
+                            sex=sex, curriculum_record=curriculum_record)
+    # except:
+    #     flash('Server error 500', category='error')
+    #     return redirect(url_for('.faculty_landing'))
 
 @_faculty.route('/view_results', methods=['POST'])
 @login_required
 def view_results():
+    auth_user = current_user
     unapprove_account = User.query.filter_by(is_approve = False, user_type = 1).all()
+    
+    if auth_user.user_type == -1:
+        check_admin = True
+    else:
+        check_admin = False
     try:
         auth_user=current_user
         page = request.args.get('page', 1, type=int)
@@ -310,7 +383,7 @@ def view_results():
         flash('System error cannot delete data', category='error')
         return redirect(url_for('.faculty_student_view'))
     
-    return render_template("Faculty/faculty_view_predictions.html", view_pred_result=view_pred_result, auth_user=auth_user, unapprove_account=unapprove_account)
+    return render_template("Faculty/faculty_view_predictions.html", check_admin=check_admin, view_pred_result=view_pred_result, auth_user=auth_user, unapprove_account=unapprove_account)
     
 
 @_faculty.route('/delete_results', methods=['POST'])
@@ -356,13 +429,13 @@ def delete_faculty():
             db.session.execute(delete_result)
             db.session.commit()
             flash('Faculty account successfully deleted', category='success_deletion')
-            return redirect(url_for('.faculty_dashboard'))
+            return redirect(url_for('.faculty_view_faculty'))
         except:
             flash('System error cannot delete data please try again', category='error')
-            return redirect(url_for('.faculty_dashboard'))
+            return redirect(url_for('.faculty_view_faculty'))
         
     flash('Sorry only the admin is permitted to delete some data', category='error')
-    return redirect(url_for('.faculty_dashboard'))
+    return redirect(url_for('.faculty_view_faculty'))
 
 @_faculty.route('/approve_account', methods=['POST'])
 @login_required

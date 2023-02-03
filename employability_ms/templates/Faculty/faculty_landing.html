@@ -279,7 +279,7 @@ box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
             class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
             href="javascript:void(0)"
           >
-            Faculty Dashboard
+            Welcome {{ auth_user.first_name }}
           </a>
           <ul class="md:hidden items-center flex flex-wrap list-none">
             <li class="inline-block relative">
@@ -412,7 +412,7 @@ box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
                     class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
                     href="javascript:void(0)"
                   >
-                    Faculty Dashboard
+                  Welcome {{ auth_user.first_name }}
                   </a>
                 </div>
                 <div class="w-6/12 flex justify-end">
@@ -443,20 +443,35 @@ box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
                     Predictions</a
                   >
                 </li>
+                {% if check_admin %}
+                  <li class="items-center">
+                    <a
+                      class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                      href="/register_faculty"
+                      ><i
+                        class="fas fa-user-plus text-blueGray-400 mr-2 text-sm"
+                      ></i>
+                      Register Faculty</a
+                    >
+                  </li>
+                  <li class="items-center">
+                    <a
+                      class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                      href="#"
+                      data-popup-open="popupID"
+                      ><i
+                        class="fas fa-folder-plus text-blueGray-400 mr-2 text-sm"
+                      ></i>
+                      Add Curriculum</a
+                    >
+                  </li>
+                {% else %}
+
+                {% endif %}
                 <li class="items-center">
                   <a
                     class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                    href="/register_faculty"
-                    ><i
-                      class="fas fa-user-plus text-blueGray-400 mr-2 text-sm"
-                    ></i>
-                    Register Faculty</a
-                  >
-                </li>
-                <li class="items-center">
-                  <a
-                    class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                    href="#/profile"
+                    href="/faculty_view_faculty"
                     ><i class="fas fa-users text-blueGray-400 mr-2 text-sm"></i>
                     Faculty Lists</a
                   >
@@ -474,6 +489,157 @@ box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
           </div>
         </div>
       </nav>
+
+      <div class="popup" id="popupID">
+        <div class="popup__inner">
+          <div class="popup__container">
+            <!-- <div style="position: relative; right: 520px; top: 140px; z-index: 1" class="popup__close popup-close" data-popup-close>
+              <div class="svg-icon">&#10006;</div>
+            </div> -->
+            <div class="popup__content">
+              <!-- your content -->
+              <!-- <div>
+                <center>
+                  <img style="position: relative; width: 150px; height: auto; z-index: 1; left: 250px; bottom: 115px"src="https://i.ibb.co/hVNnnCf/312968052-2476337182505210-5876316929227327673-n.png" alt="278471092-1030717754212581-5567044845078025126-n-removebg-preview" border="0"></center>
+              </div> -->
+              
+              <div class="pt-6 w-full md:w-6/12 px-4 text-center">
+                <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+                  <div class="px-4 py-5 flex-auto">
+                    <!-- <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
+                    <i class="fas fa-award"></i> -->
+                    <div class="wrap" style="text-align: justify; margin-left: 40px; color: black;">
+                      <div class="user-left">
+                        <center><h1><div class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0">Add Curriculum</div></h1></center>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex flex-wrap justify-center">
+                    <div class="-m-1.2 overflow-x-auto ">
+                      <div class="p-1.2 min-w-full inline-block align-middle">
+                        <div class="border rounded-lg shadow overflow-hidden dark:border-white dark:shadow-white shadow-lg rounded bg-blueGray-800 h-64 overflow-y-scroll">
+                          <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                            <thead>
+                              <tr class="divide-x divide-white dark:divide-white">
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Created By</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Curriculum Year</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Date Created</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Action</th>
+                              </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                              {% if curriculum_record %}
+                                {% for curriculum_yr in curriculum_record %}
+                                  <tr >
+                                    <td>
+                                      <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ curriculum_yr.created_by }}</span>
+                                    </td>
+                                    <td>
+                                      <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ curriculum_yr.curriculum_year }}</span>
+                                    </td>
+                                    <td>
+                                      <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white"> {{ curriculum_yr.date_created }} </span>
+                                    </td>
+                                    <td>
+                                      <div>
+                                          <form action="{{ url_for('_faculty.delete_curriculum_year') }}" method="POST">
+                                              <input type="hidden" name="curriculum_identity" value="{{ curriculum_yr.curriculum_id }}">
+                                              <button
+                                              class="bg-red-500 active:bg-red-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-4 rounded outline-none focus:outline-none sm:mr-2 mt-2"
+                                              style="transition: all 0.15s ease 0s;"
+                                              type="submit"
+                                              >
+                                              <i
+                                              class="fas fa-trash-alt mr-2 text-xs text-white"
+                                              ></i> Delete
+                                              </button>
+                                              <!-- <button type="submit" class="hybridBtn" id="hybridBtn"> Delete</button> -->
+                                          </form>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                {% endfor %}
+                              {% endif %}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="user-right" style="color: #000;">
+                      <label for="add_curriculum">Add Curriculum Year: </label>
+                      <form action="{{ url_for('_faculty.add_curriculum_year') }}" method="POST">
+                      <input style="background: rgb(255, 255, 255)" type="text" name="add_curriculum" placeholder="Example: 2007 - 2008">
+                      <button
+                      class="bg-red-500 active:bg-green-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-4 rounded outline-none focus:outline-none sm:mr-2 mt-2"
+                      style="transition: all 0.15s ease 0s;"
+                      type="submit"
+                      > 
+                      <i
+                      class="fas fa-trash-alt mr-2 text-xs text-white"
+                      ></i>Add
+                      </button>
+                    </div>
+                    </form>
+                  </div>
+
+                    <!-- <div class="relative w-full flex flex-col m-auto sm:flex-col justify-center">
+                      <table style="font-size: 14px;">
+                        <thead style="display: block;">
+                          <tr>
+                            <th style="text-align: center">Created By</th>
+                            <th style="text-align: center">Curriculum Year</th>
+                            <th style="text-align: center">Date Created</th>
+                            <th style="text-align: center">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody style="display: block; height: 150px; overflow-y: auto; overflow-x: hidden;">
+                          {% if curriculum_record %}
+                            {% for curriculum_yr in curriculum_record %}
+                              <tr>
+                                <td>
+                                  <span>{{ curriculum_yr.created_by }}</span>
+                                </td>
+                                <td>
+                                  <span style="margin: 5px; text-align: center">{{ curriculum_yr.curriculum_year }}</span>
+                                </td>
+                                <td>
+                                  <span style="margin: 5px; text-align: center">{{ curriculum_yr.date_created }}</span>
+                                </td>
+                                <td>
+                                  <div style="display: flex">
+                                    <form action="{{ url_for('_faculty.delete_curriculum_year') }}" method="POST">
+                                      <input type="hidden" name="curriculum_identity" value="{{ curriculum_yr.curriculum_id }}">
+                                      <button type="submit" style="padding: 10px; margin: 5px" class="hybridBtn"> Delete </button>
+                                    </form>
+                                  </div>
+                                  <div style="display: inline-block; display: flex">
+                                    <form action="{{ url_for('_faculty.delete_curriculum_year') }}" method="POST">
+                                      <input type="hidden" name="curriculum_identity" value="{{ curriculum_yr.curriculum_id }}">
+                                      <button type="submit" style="padding: 10px; margin: 5px" class="hybridBtn"> Delete </button>
+                                    </form>
+                                  </div>
+                                </td>
+                              </tr>
+                            {% endfor %}
+                          {% endif %}
+                        </tbody>
+                      </table>
+                      <div class="user-right" style="color: #000;">
+                        <label for="add_curriculum">Add Curriculum Year: </label>
+                        <form action="{{ url_for('_faculty.add_curriculum_year') }}" method="POST">
+                        <input style="background: rgb(255, 255, 255)" type="text" name="add_curriculum" placeholder="Example: 2007 - 2008">
+                      </div>
+                      <center><button class="hybridBtn" style="margin: 10px; width: 90%" type="submit">Add</button></center>
+                      </form>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="relative md:ml-64 bg-blueGray-50">
         <nav
           class="absolute top-0 left-0 w-full z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start flex items-center p-4"
@@ -884,6 +1050,94 @@ box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
       </div>
     </div>
 
+    <script>
+      function toggleNavbar(collapseID) {
+        document.getElementById(collapseID).classList.toggle("hidden");
+        document.getElementById(collapseID).classList.toggle("block");
+      }
+      class Popup {
+        classPopupShow =  'popup--show';
+        classForBody = 'popup-active';
+        popup = null;
+        closeOnClickOverlay = false;
+    
+        constructor(options = {}) {
+    
+            this.closeOnClickOverlay = options?.closeOnClickOverlay || false;
+        
+            // check if page has vertical scroll
+            this.scrollWidthInit();
+    
+            document.addEventListener('click', e => {
+            
+            // open
+            if (e.target.dataset.popupOpen) {
+                e.preventDefault();
+                this.popup = document.getElementById(e.target.dataset.popupOpen);
+                this.show();
+            }
+    
+            // close
+            if (e.target.hasAttribute('data-popup-close') ||
+                (e.target.closest('.popup__close') && e.target.closest('.popup__close').hasAttribute('data-popup-close')) ||
+                (this.closeOnClickOverlay && e.target.classList.contains('popup__content'))
+            ){
+                e.preventDefault();
+                this.hide();
+            }
+            })
+        }
+    
+        scrollWidthInit() {
+    
+            function existVerticalScroll() {
+            let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0),
+                sh =  document.body.scrollHeight;
+    
+            return sh > vh ? true : false;
+            }
+    
+            let div = document.createElement('div');
+        
+            div.style.overflowY = 'scroll';
+            div.style.width = '50px';
+            div.style.height = '50px';
+        
+            document.body.append(div);
+        
+            let scrollWidth = div.offsetWidth - div.clientWidth;
+        
+            div.remove();
+    
+            if (existVerticalScroll()) {
+            document.documentElement.style.setProperty('--scroll-width', scrollWidth + 'px');
+            }
+        }
+    
+        show() {
+            
+            if (this.popup) {
+            this.popup.classList.add(this.classPopupShow);
+            }
+    
+            document.body.classList.add(this.classForBody);
+        }
+    
+        hide() {
+    
+            if (this.popup) {
+            this.popup.classList.remove(this.classPopupShow);
+            }
+    
+            document.body.classList.remove(this.classForBody);
+        }
+        }
+    
+      new Popup({
+      closeOnClickOverlay: true, // if you want popup to be closed after click on overlay (default: false)
+      });
+    </script>
+    
     <script>
       /* Sidebar - Side navigation menu on mobile/responsive mode */
       function toggleNavbar(collapseID) {

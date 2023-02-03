@@ -411,7 +411,7 @@
                 <ul class="md:flex-col md:min-w-full flex flex-col list-none">
                   <li class="items-center">
                     <a
-                      class="text-blueGray-700 text-xs uppercase py-3 font-bold block"
+                      class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
                       href="/faculty_landing"
                       ><i class="fas fa-tv text-blueGray-400 mr-2 text-sm"></i>
                       Statistics</a
@@ -425,20 +425,35 @@
                       Predictions</a
                     >
                   </li>
+                  {% if check_admin %}
+                    <li class="items-center">
+                      <a
+                        class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                        href="/register_faculty"
+                        ><i
+                          class="fas fa-user-plus text-blueGray-400 mr-2 text-sm"
+                        ></i>
+                        Register Faculty</a
+                      >
+                    </li>
+                    <li class="items-center">
+                      <a
+                        class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                        href="#"
+                        data-popup-open="popupID"
+                        ><i
+                          class="fas fa-folder-plus text-blueGray-400 mr-2 text-sm"
+                        ></i>
+                        Add Curriculum</a
+                      >
+                    </li>
+                  {% else %}
+  
+                  {% endif %}
                   <li class="items-center">
                     <a
                       class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                      href="/register_faculty"
-                      ><i
-                        class="fas fa-user-plus text-blueGray-400 mr-2 text-sm"
-                      ></i>
-                      Register Faculty</a
-                    >
-                  </li>
-                  <li class="items-center">
-                    <a
-                      class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                      href="#/profile"
+                      href="/faculty_view_faculty"
                       ><i class="fas fa-users text-blueGray-400 mr-2 text-sm"></i>
                       Faculty Lists</a
                     >
