@@ -479,17 +479,29 @@ def delete_curriculum_year():
 def add_curriculum_year():
     auth_user=current_user
     date_added = datetime.now()
+    
     get_created_by = User.query.filter_by(id=int(auth_user.id)).first()
     admin_created_by = get_created_by.first_name
+    
+    get_curriculum = CurriculumResult.query.filter_by(curriculum_id=int(auth_user.id)).first()
+    email_check = get_curriculum.curriculum_year
+    
+    search_bar = request.form['search']
     try:
-        new_year = CurriculumResult(request.form['add_curriculum'], admin_created_by, date_created=date_added)
-        db.session.add(new_year)
-        db.session.commit()
-        flash('Curriculum Year successfully created', category='success_deletion')
-        return redirect(url_for('.faculty_dashboard'))
+        if search_bar == "":
+            flash('Failed to add Curriculum Year, No value inputed!', category='error')
+        elif search_bar == email_check:
+            flash('Failed to add Curriculum Year, Identical Input detected! Please try again', category='error')
+        else:
+            new_year = CurriculumResult(request.form['add_curriculum'], admin_created_by, date_created=date_added)
+            db.session.add(new_year)
+            db.session.commit()
+            flash('Curriculum Year successfully created', category='success_deletion')
     except:
         flash('Failed to add Curriculum Year, Identical Input detected! Please try again', category='error')
-        return redirect(url_for('.faculty_dashboard'))
+        return redirect(url_for('.faculty_landing'))
+    
+    return redirect(url_for('.faculty_landing'))
 
 @_faculty.route('/signup_superadmin', methods=['POST'])
 @login_required

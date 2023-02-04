@@ -568,7 +568,8 @@ box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
                     <div class="user-right" style="color: #000;">
                       <label for="add_curriculum">Add Curriculum Year: </label>
                       <form action="{{ url_for('_faculty.add_curriculum_year') }}" method="POST">
-                      <input style="background: rgb(255, 255, 255)" type="text" name="add_curriculum" placeholder="Example: 2007 - 2008">
+                        <input class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="search" value="{{ search }}" name="search" placeholder="Example: 2007 - 2008" autocomplete="off">
+                      <!-- <input style="background: rgb(255, 255, 255)" type="text" name="add_curriculum" placeholder="Example: 2007 - 2008"> -->
                       <button
                       class="bg-red-500 active:bg-green-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-4 rounded outline-none focus:outline-none sm:mr-2 mt-2"
                       style="transition: all 0.15s ease 0s;"
@@ -581,57 +582,6 @@ box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
                     </div>
                     </form>
                   </div>
-
-                    <!-- <div class="relative w-full flex flex-col m-auto sm:flex-col justify-center">
-                      <table style="font-size: 14px;">
-                        <thead style="display: block;">
-                          <tr>
-                            <th style="text-align: center">Created By</th>
-                            <th style="text-align: center">Curriculum Year</th>
-                            <th style="text-align: center">Date Created</th>
-                            <th style="text-align: center">Action</th>
-                          </tr>
-                        </thead>
-                        <tbody style="display: block; height: 150px; overflow-y: auto; overflow-x: hidden;">
-                          {% if curriculum_record %}
-                            {% for curriculum_yr in curriculum_record %}
-                              <tr>
-                                <td>
-                                  <span>{{ curriculum_yr.created_by }}</span>
-                                </td>
-                                <td>
-                                  <span style="margin: 5px; text-align: center">{{ curriculum_yr.curriculum_year }}</span>
-                                </td>
-                                <td>
-                                  <span style="margin: 5px; text-align: center">{{ curriculum_yr.date_created }}</span>
-                                </td>
-                                <td>
-                                  <div style="display: flex">
-                                    <form action="{{ url_for('_faculty.delete_curriculum_year') }}" method="POST">
-                                      <input type="hidden" name="curriculum_identity" value="{{ curriculum_yr.curriculum_id }}">
-                                      <button type="submit" style="padding: 10px; margin: 5px" class="hybridBtn"> Delete </button>
-                                    </form>
-                                  </div>
-                                  <div style="display: inline-block; display: flex">
-                                    <form action="{{ url_for('_faculty.delete_curriculum_year') }}" method="POST">
-                                      <input type="hidden" name="curriculum_identity" value="{{ curriculum_yr.curriculum_id }}">
-                                      <button type="submit" style="padding: 10px; margin: 5px" class="hybridBtn"> Delete </button>
-                                    </form>
-                                  </div>
-                                </td>
-                              </tr>
-                            {% endfor %}
-                          {% endif %}
-                        </tbody>
-                      </table>
-                      <div class="user-right" style="color: #000;">
-                        <label for="add_curriculum">Add Curriculum Year: </label>
-                        <form action="{{ url_for('_faculty.add_curriculum_year') }}" method="POST">
-                        <input style="background: rgb(255, 255, 255)" type="text" name="add_curriculum" placeholder="Example: 2007 - 2008">
-                      </div>
-                      <center><button class="hybridBtn" style="margin: 10px; width: 90%" type="submit">Add</button></center>
-                      </form>
-                    </div> -->
                   </div>
                 </div>
               </div>
