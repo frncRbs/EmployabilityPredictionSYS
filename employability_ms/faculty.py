@@ -483,15 +483,11 @@ def add_curriculum_year():
     get_created_by = User.query.filter_by(id=int(auth_user.id)).first()
     admin_created_by = get_created_by.first_name
     
-    get_curriculum = CurriculumResult.query.filter_by(curriculum_id=int(auth_user.id)).first()
-    email_check = get_curriculum.curriculum_year
-    
-    search_bar = request.form['search']
+    get_curriculum = db.session.query(CurriculumResult).where(request.form['add_curriculum'] == CurriculumResult.curriculum_year)
+    search_bar = request.form['add_curriculum']
     try:
         if search_bar == "":
             flash('Failed to add Curriculum Year, No value inputed!', category='error')
-        elif search_bar == email_check:
-            flash('Failed to add Curriculum Year, Identical Input detected! Please try again', category='error')
         else:
             new_year = CurriculumResult(request.form['add_curriculum'], admin_created_by, date_created=date_added)
             db.session.add(new_year)
