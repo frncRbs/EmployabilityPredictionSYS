@@ -370,6 +370,7 @@ def faculty_view_faculty():
 def view_results():
     auth_user = current_user
     unapprove_account = User.query.filter_by(is_approve = False, user_type = 1).all()
+    curriculum_record = db.session.query(CurriculumResult).all()
     
     if auth_user.user_type == -1:
         check_admin = True
@@ -383,7 +384,7 @@ def view_results():
         flash('System error cannot delete data', category='error')
         return redirect(url_for('.faculty_student_view'))
     
-    return render_template("Faculty/faculty_view_predictions.html", check_admin=check_admin, view_pred_result=view_pred_result, auth_user=auth_user, unapprove_account=unapprove_account)
+    return render_template("Faculty/faculty_view_predictions.html", check_admin=check_admin, view_pred_result=view_pred_result, auth_user=auth_user, unapprove_account=unapprove_account, curriculum_record=curriculum_record)
     
 
 @_faculty.route('/delete_results', methods=['POST'])
@@ -397,7 +398,7 @@ def delete_results():
         val = predict_iter.predict_no
         predict_iter.predict_no = (val - 1)
         db.session.commit()
-        flash('History successfully deleted', category='success_deletion')
+        flash('Data successfully deleted', category='success_deletion')
         
     except:
         flash('System error cannot delete data', category='error')

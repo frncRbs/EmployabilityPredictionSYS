@@ -373,7 +373,7 @@ box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
                     ><img
                       alt="..."
                       class="w-full rounded-full align-middle border-none shadow-lg"
-                      src="/static/images/{{auth_user.img}}"
+                      src="/static/images/admin.png"
                   /></span></div
               ></a>
               <div
@@ -566,21 +566,19 @@ box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
                       </div>
                     </div>
                     <div class="user-right" style="color: #000;">
-                      <label for="add_curriculum">Add Curriculum Year: </label>
-                      <form action="{{ url_for('_faculty.add_curriculum_year') }}" method="POST">
-                        <input class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="search" value="{{ search }}" name="add_curriculum" placeholder="Example: 2007 - 2008" autocomplete="off">
-                      <!-- <input style="background: rgb(255, 255, 255)" type="text" name="add_curriculum" placeholder="Example: 2007 - 2008"> -->
-                      <button
-                      class="bg-red-500 active:bg-green-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-4 rounded outline-none focus:outline-none sm:mr-2 mt-2"
-                      style="transition: all 0.15s ease 0s;"
-                      type="submit"
-                      > 
-                      <i
-                      class="fas fa-trash-alt mr-2 text-xs text-white"
-                      ></i>Add
-                      </button>
+                      <div class="relative">
+                        <label for="add_curriculum">Add Curriculum Year: </label>
+                        <form class="flex" action="{{ url_for('_faculty.add_curriculum_year') }}" method="POST">
+                          <input pattern="\d{4} - \d{4}" class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="search" value="{{ search }}" name="add_curriculum" placeholder="Example: 2007 - 2008" autocomplete="off" class="form-input w-3/4">
+                          <button 
+                          class="bg-green-500 active:bg-green-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none"
+                          style="transition: all 0.15s ease 0s;"
+                          type="submit"
+                          >Submit</button>
+                        </form>
+                      </div>
                     </div>
-                    </form>
+                    <!-- </form> -->
                   </div>
                   </div>
                 </div>
@@ -669,7 +667,7 @@ box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
                     ><img
                       alt="..."
                       class="w-full rounded-full align-middle border-none shadow-lg"
-                      src="../../static/assets/img/team-1-800x800.jpg"
+                      src="/static/images/admin.png"
                   /></span>
                 </div>
               </a>

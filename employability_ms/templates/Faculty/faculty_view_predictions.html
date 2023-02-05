@@ -351,7 +351,7 @@
                         ><img
                           alt="..."
                           class="w-full rounded-full align-middle border-none shadow-lg"
-                          src="../../static/assets/img/team-1-800x800.jpg"
+                          src="/static/images/admin.png"
                       /></span></div
                   ></a>
                   <div
@@ -492,7 +492,7 @@
                         ><img
                           alt="..."
                           class="w-full rounded-full align-middle border-none shadow-lg"
-                          src="../../static/assets/img/team-1-800x800.jpg"
+                          src="/static/images/admin.png"
                       /></span>
                     </div>
                   </a>
@@ -616,21 +616,11 @@
         <div class="popup" id="popupID">
           <div class="popup__inner">
             <div class="popup__container">
-              <!-- <div style="position: relative; right: 520px; top: 140px; z-index: 1" class="popup__close popup-close" data-popup-close>
-                <div class="svg-icon">&#10006;</div>
-              </div> -->
               <div class="popup__content">
-                <!-- your content -->
-                <!-- <div>
-                  <center>
-                    <img style="position: relative; width: 150px; height: auto; z-index: 1; left: 250px; bottom: 115px"src="https://i.ibb.co/hVNnnCf/312968052-2476337182505210-5876316929227327673-n.png" alt="278471092-1030717754212581-5567044845078025126-n-removebg-preview" border="0"></center>
-                </div> -->
                 
                 <div class="pt-6 w-full md:w-6/12 px-4 text-center">
                   <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                     <div class="px-4 py-5 flex-auto">
-                      <!-- <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
-                      <i class="fas fa-award"></i> -->
                       <div class="wrap" style="text-align: justify; margin-left: 40px; color: black;">
                         <div class="user-left">
                           <center><h1><div class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0">Add Curriculum</div></h1></center>
@@ -689,18 +679,17 @@
                         </div>
                       </div>
                       <div class="user-right" style="color: #000;">
-                        <label for="add_curriculum">Add Curriculum Year: </label>
-                        <form action="{{ url_for('_faculty.add_curriculum_year') }}" method="POST">
-                        <input style="background: rgb(255, 255, 255)" type="text" name="add_curriculum" placeholder="Example: 2007 - 2008">
-                        <button
-                        class="bg-red-500 active:bg-green-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-4 rounded outline-none focus:outline-none sm:mr-2 mt-2"
-                        style="transition: all 0.15s ease 0s;"
-                        type="submit"
-                        > 
-                        <i
-                        class="fas fa-trash-alt mr-2 text-xs text-white"
-                        ></i>Add
-                        </button>
+                        <div class="relative">
+                          <label for="add_curriculum">Add Curriculum Year: </label>
+                          <form class="flex" action="{{ url_for('_faculty.add_curriculum_year') }}" method="POST">
+                            <input pattern="\d{4} - \d{4}" class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="search" value="{{ search }}" name="add_curriculum" placeholder="Example: 2007 - 2008" autocomplete="off" class="form-input w-3/4">
+                            <button 
+                            class="bg-green-500 active:bg-green-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none"
+                            style="transition: all 0.15s ease 0s;"
+                            type="submit"
+                            >Submit</button>
+                          </form>
+                        </div>
                       </div>
                       </form>
                     </div>
