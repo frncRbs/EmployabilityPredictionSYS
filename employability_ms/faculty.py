@@ -140,7 +140,7 @@ def faculty_landing():
         check_admin = True
     else:
         check_admin = False
-    
+
     if request.method == 'GET':
         # Current Logged User
         auth_user=current_user
@@ -165,6 +165,15 @@ def faculty_landing():
         # Data for filter department
         # Return Data for template
         
+        if auth_user.user_type == 0 and auth_user.sex == "Male":
+            check_sex = 1
+        elif auth_user.user_type == 0 and auth_user.sex == "Female":
+            check_sex = 2
+        elif auth_user.user_type == -1 and auth_user.sex == "Male":
+            check_sex = 3
+        elif auth_user.user_type == -1 and auth_user.sex == "Female":
+            check_sex = 4
+            
         if auth_user.user_type == -1 or auth_user.user_type == 0:
             
             if search:
@@ -207,7 +216,7 @@ def faculty_landing():
     else:  
         return redirect(url_for('_auth.index'))
     
-    return render_template("Faculty/faculty_landing.html", auth_user=auth_user, check_admin=check_admin,
+    return render_template("Faculty/faculty_landing.html", auth_user=auth_user, check_admin=check_admin, check_sex=check_sex,
                             students_record=students_record, overall_studs_top_1_prediction=overall_studs_top_1_prediction,
                             unapprove_account=unapprove_account, no_studs_met_their_desired_career=no_studs_met_their_desired_career,
                             count_unapprove=count_unapprove, search=search, curriculum_input=curriculum_input,

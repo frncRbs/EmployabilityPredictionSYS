@@ -443,6 +443,14 @@ box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
                     Predictions</a
                   >
                 </li>
+                <li class="items-center">
+                  <a
+                    class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                    href="/faculty_view_faculty"
+                    ><i class="fas fa-users text-blueGray-400 mr-2 text-sm"></i>
+                    Faculty Lists</a
+                  >
+                </li>
                 {% if check_admin %}
                   <li class="items-center">
                     <a
@@ -471,14 +479,6 @@ box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
                 <li class="items-center">
                   <a
                     class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                    href="/faculty_view_faculty"
-                    ><i class="fas fa-users text-blueGray-400 mr-2 text-sm"></i>
-                    Faculty Lists</a
-                  >
-                </li>
-                <li class="items-center">
-                  <a
-                    class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
                     href="/logout"
                     ><i class="fas fa-sign-out-alt text-blueGray-400 mr-2 text-sm"></i>
                     Sign Out</a
@@ -503,14 +503,14 @@ box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
                   <img style="position: relative; width: 150px; height: auto; z-index: 1; left: 250px; bottom: 115px"src="https://i.ibb.co/hVNnnCf/312968052-2476337182505210-5876316929227327673-n.png" alt="278471092-1030717754212581-5567044845078025126-n-removebg-preview" border="0"></center>
               </div> -->
               
-              <div class="pt-6 w-full md:w-6/12 px-4 text-center">
+              <div class="pt-6 w-full md:w-5/12 px-4 text-center">
                 <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                   <div class="px-4 py-5 flex-auto">
                     <!-- <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
                     <i class="fas fa-award"></i> -->
                     <div class="wrap" style="text-align: justify; margin-left: 40px; color: black;">
                       <div class="user-left">
-                        <center><h1><div class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0">Add Curriculum</div></h1></center>
+                        <center><h1><div class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-lg uppercase font-bold p-4 px-0">Add Curriculum</div></h1></center>
                       </div>
                     </div>
                   </div>
@@ -569,12 +569,12 @@ box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
                       <div class="relative">
                         <label for="add_curriculum">Add Curriculum Year: </label>
                         <form class="flex" action="{{ url_for('_faculty.add_curriculum_year') }}" method="POST">
-                          <input pattern="\d{4} - \d{4}" class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="search" value="{{ search }}" name="add_curriculum" placeholder="Example: 2007 - 2008" autocomplete="off" class="form-input w-3/4">
+                          <input pattern="\d{4} - \d{4}" required="" class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="search" value="{{ search }}" name="add_curriculum" placeholder="Example: 2007 - 2008" autocomplete="off" class="form-input w-3/4">
                           <button 
-                          class="bg-green-500 active:bg-green-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none"
+                          class="bg-green-500 active:bg-green-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none m-2"
                           style="transition: all 0.15s ease 0s;"
                           type="submit"
-                          >Submit</button>
+                          >Add</button>
                         </form>
                       </div>
                     </div>
@@ -662,13 +662,39 @@ box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
             >
               <a class="text-blueGray-500 block" href="#pablo" onclick="openDropdown(event,'user-dropdown')">
                 <div class="items-center flex">
-                  <span
+                  {% if check_sex == 1 %}
+                    <span
+                      class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
+                      ><img
+                        alt="..."
+                        class="w-full rounded-full align-middle border-none shadow-lg"
+                        src="/static/images/male_staff.jpg"
+                    /></span>
+                  {% elif check_sex == 2 %}
+                    <span
+                    class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
+                    ><img
+                      alt="..."
+                      class="w-full rounded-full align-middle border-none shadow-lg"
+                      src="/static/images/female_staff.jpg"
+                    /></span>
+                  {% elif check_sex == 3 %}
+                    <span
                     class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
                     ><img
                       alt="..."
                       class="w-full rounded-full align-middle border-none shadow-lg"
                       src="/static/images/admin.png"
-                  /></span>
+                    /></span>
+                  {% elif check_sex == 4 %}
+                    <span
+                    class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
+                    ><img
+                      alt="..."
+                      class="w-full rounded-full align-middle border-none shadow-lg"
+                      src="/static/images/admin.png"
+                    /></span>
+                  {% endif %}
                 </div>
               </a>
               <div
@@ -725,43 +751,6 @@ box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
                           </div>
                         </div>
                       </div>
-                        <p class="text-sm text-blueGray-400 mt-4">
-                        <span class="text-emerald-500 mr-2">
-                          <i class="fas fa-arrow-up"></i> 3.48%
-                        </span>
-                        <span class="whitespace-nowrap">
-                          Since last month
-                        </span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="w-full lg:w-12/12 xl:w-4/12 px-4">
-                  <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
-                    <div class="flex-auto p-4">
-                      <div class="flex flex-wrap">
-                        <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-                          <h5 class="text-blueGray-400 uppercase font-bold text-xs">
-                            Overall Students Prediction
-                          </h5>
-                          <span class="font-semibold text-xl text-blueGray-700">
-                            {{ overall_studs_top_1_prediction }}
-                          </span>
-                        </div>
-                        <div class="relative w-auto pl-4 flex-initial">
-                          <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-orange-500">
-                            <i class="fab fa-hubspot"></i>
-                          </div>
-                        </div>
-                      </div>
-                      <p class="text-sm text-blueGray-400 mt-4">
-                        <span class="text-red-500 mr-2">
-                          <i class="fas fa-arrow-down"></i> 3.48%
-                        </span>
-                        <span class="whitespace-nowrap">
-                          Since last week
-                        </span>
-                      </p>
                     </div>
                   </div>
                 </div>
@@ -783,14 +772,27 @@ box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
                           </div>
                         </div>
                       </div>
-                      <p class="text-sm text-blueGray-400 mt-4">
-                        <span class="text-orange-500 mr-2">
-                          <i class="fas fa-arrow-down"></i> 1.10%
-                        </span>
-                        <span class="whitespace-nowrap">
-                          Since yesterday
-                        </span>
-                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="w-full lg:w-12/12 xl:w-4/12 px-4">
+                  <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+                    <div class="flex-auto p-4">
+                      <div class="flex flex-wrap">
+                        <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+                          <h5 class="text-blueGray-400 uppercase font-bold text-xs">
+                            Overall Students Prediction
+                          </h5>
+                          <span class="font-semibold text-xl text-blueGray-700">
+                            {{ overall_studs_top_1_prediction }}
+                          </span>
+                        </div>
+                        <div class="relative w-auto pl-4 flex-initial">
+                          <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-orange-500">
+                            <i class="fab fa-hubspot"></i>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -909,7 +911,7 @@ box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
                           Overview
                         </h6>
                         <h2 class="text-white text-xl font-semibold">
-                          Sales value
+                          Desired Career Frequency for Top 1 Prediction
                         </h2>
                       </div>
                     </div>
@@ -937,7 +939,7 @@ box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
                           Overview
                         </h6>
                         <h2 class="text-white text-xl font-semibold">
-                          Sales value
+                          Drilldown Piechart
                         </h2>
                       </div>
                     </div>
