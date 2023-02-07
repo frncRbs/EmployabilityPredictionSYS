@@ -230,6 +230,7 @@ def signupIT():
                 db.session.add(new_user)
                 db.session.commit()
                 flash('Account successfully created. Registration feedback will be sent soon via email -support@wetechsupport.online', category='success_register_it')
+                return redirect(url_for('.login_IT'))
             except:
                 flash('Invalid credentials', category='error')
         else:

@@ -1,3 +1,123 @@
+<style>
+/*PopUp Start*/
+#wrapper {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    min-height: 100vh;
+  }
+  #wrapper main {
+    margin: auto;
+    text-align: center;
+  }
+  
+  /*button {
+    margin-top: 10rem;
+    padding: 0.5em 1em;
+    background-color: #121212;
+    border: 2px solid #eee;
+    font-size: 1.5rem;
+    color: inherit;
+    box-shadow: rgba(0, 0, 0, 0.8) 0px 13px 27px -5px, rgba(0, 0, 0, 0.7) 0px 8px 16px -8px;
+    transition: background-color 0.3s ease-in-out;
+  }
+  button:hover {
+    background-color: #000;
+  }
+  button:active {
+    box-shadow: rgba(0, 0, 0, 0.8) 0px 4px 20px -5px, rgba(0, 0, 0, 0.7) 0px 8px 16px -8px;
+  }*/
+  
+  .page-content {
+    max-width: 30rem;
+    margin: 10rem auto 0;
+    color: #ddd;
+    text-align: left;
+  }
+  
+  .form {
+    position: fixed;
+    width: 100%;
+    max-width: 30rem;
+    padding: 2rem;
+    border-radius: 10px;
+    background: linear-gradient(to bottom, #3e7417, #3d632b, #2a3e24);
+    box-shadow: rgba(0, 0, 0, 0.8) 0px 13px 27px -5px, rgba(0, 0, 0, 0.7) 0px 8px 16px -8px;
+    color: #eee;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(50px);
+  }
+  .popup--show .form {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: all 0.3s ease-in-out;
+  }
+  .form h2 {
+    text-align: center;
+  }
+  
+  .popup {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    overflow: hidden auto;
+  }
+  .popup--show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: initial;
+  }
+  .popup__inner {
+    width: inherit;
+    height: inherit;
+  }
+  .popup__container {
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 85%;
+  }
+  .popup__content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+  .popup__close {
+    text-align: right;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+  
+  .popup-close {
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.3s ease-in-out;
+  }
+  .popup-close:hover {
+    opacity: 1;
+  }
+  
+  .popup-active {
+    overflow: hidden;
+  }
+  @media (any-hover: hover) {
+    .popup-active {
+      padding-right: var(--scroll-width);
+    }
+  }
+</style>
 <!DOCTYPE html>
 <html>
   <head>
@@ -18,6 +138,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/creativetimofficial/tailwind-starter-kit/compiled-tailwind.min.css"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.11/typed.min.js" integrity="sha512-BdHyGtczsUoFcEma+MfXc71KJLv/cd+sUsUaYYf2mXpfG/PtBjNXsPo78+rxWjscxUYN2Qr2+DbeGGiJx81ifg==" crossorigin="anonymous"></script>
     <title>Employability Management System</title>
   </head>
   <body class="text-gray-800 antialiased">
@@ -33,7 +154,7 @@
           <a
             class="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white"
             href="#"
-            >Employability Management System</a
+            >EmpowerEase</a
           ><button
             class="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
             type="button"
@@ -54,7 +175,7 @@
                 style="transition: all 0.15s ease 0s;"
                 data-popup-open="popupID"
               >
-              <i class="fas fa-sign-in-alt"> </i> Sign In
+              <i class="fas fa-sign-in-alt"> </i> Sign In / Sign Up
 
               </button>
             </li>
@@ -79,14 +200,15 @@
         <div class="container relative mx-auto">
           <div class="items-center flex flex-wrap">
             <div class="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
-              <div class="pr-12">
-                <h1 class="text-white font-semibold text-5xl">
-                    Employability Prediction System
+              <div class="mx-auto">
+                <h1 class="text-white font-semibold text-5xl title">
+                  
                 </h1>
-                <p class="mt-4 text-lg text-gray-300">
-                    The proposed system aims to predict the employability of future graduates of the College of Computing Studies based on their grades from 1st year 
+                <p class="text-lg text-gray-300 text">
+                    <!-- The proposed system aims to predict the employability of future graduates of the College of Computing Studies based on their grades from 1st year 
                     to 3rd year college, through the use of the proposed system, the student will have a knowledge in which subject they should improve more as it also has a recommendation
-                    in which subjects you need to enhance to meet the job market of the IT industry.
+                    in which subjects you need to enhance to meet the job market of the IT industry. -->
+                    <!-- Streamlining Employability for the Future Workforce -->
                 </p>
               </div>
             </div>
@@ -123,12 +245,12 @@
                   <div
                     class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400"
                   >
-                    <i class="fas fa-award"></i>
+                    <i class="fas fa-gift"></i>
                   </div>
-                  <h6 class="text-xl font-semibold">Awarded Agency</h6>
-                  <p class="mt-2 mb-4 text-gray-600">
-                    Divide details about your product or agency work into parts.
-                    A paragraph describing a feature will be enough.
+                  <h6 class="text-xl font-semibold">Our Aim</h6>
+                  <p class="mt-2 mb-4 text-gray-600 text-justify">
+                    EmpowerEase: aims to predict employability and recommend area for improvement for future graduates of College of Computing Studies based on their grades from 1st year 
+                    to 3rd year college, through the use of the proposed system.
                   </p>
                 </div>
               </div>
@@ -143,10 +265,16 @@
                   >
                     <i class="fab fa-hubspot"></i>
                   </div>
-                  <h6 class="text-xl font-semibold">Prediction Accuracy up to 70%</h6>
-                  <p class="mt-2 mb-4 text-gray-600">
-                    Keep you user engaged by providing meaningful information.
-                    Remember that by this time, the user is curious.
+                  <h6 class="text-xl font-semibold">Prediction Accuracy up to 87%</h6>
+                  <p class="mt-2 mb-4 text-gray-600 text-justify">
+                    <!-- Recent advancements in AI and machine learning have allowed for the development of 
+                    highly accurate employability prediction models, with an accuracy rate of up to 80%. 
+                    This means that our models are able to correctly predict employment outcomes, 
+                    providing valuable insights and guidance for the future graduates of College of Computing Studies. -->
+                    Recent advancements in AI and machine learning have allowed for the development of highly accurate 
+                    employability prediction models, with an accuracy rate of up to 87%. This means that these models 
+                    are able to correctly predict employment outcomes for 87% of individuals, providing valuable insights 
+                    and guidance for the future graduates of College of Computing Studies.
                   </p>
                 </div>
               </div>
@@ -161,10 +289,11 @@
                   >
                     <i class="fas fa-fingerprint"></i>
                   </div>
-                  <h6 class="text-xl font-semibold">Verified Company</h6>
-                  <p class="mt-2 mb-4 text-gray-600">
-                    Write a few lines about each one. A paragraph describing a
-                    feature will be enough. Keep you user engaged!
+                  <h6 class="text-xl font-semibold">User Friendly</h6>
+                  <p class="mt-2 mb-4 text-gray-600 text-justify">
+                    EmpowerEase: prioritize simplicity and intuitive navigation, allowing users to accomplish their desired tasks without confusion or frustration.
+                    <!-- The student will have a knowledge in which subject they should improve more as it also has a recommendation
+                    in which area should need to enhance to meet the job market of the IT industry. -->
                   </p>
                 </div>
               </div>
@@ -183,21 +312,20 @@
               <p
                 class="text-lg font-light leading-relaxed mt-4 mb-4 text-gray-700"
               >
-                Don't let your uses guess by attaching tooltips and popoves to
-                any element. Just make sure you enable them first via
-                JavaScript.
+                College of Computing Studies review the students predictions to come up with an insights to the currently 
+                proposed learning program.
               </p>
               <p
                 class="text-lg font-light leading-relaxed mt-0 mb-4 text-gray-700"
               >
-                The kit comes with three pre-built pages to help you get started
-                faster. You can change the text and images and you're good to
-                go. Just make sure you enable them first via JavaScript.
+                Enabling the faculty of College of Computing Studies to promote a better and robust learning program for the 
+                IT / CS students.
               </p>
               <a
-                href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/presentation"
+                href="#"
                 class="font-bold text-gray-800 mt-8"
-                >Check Tailwind Starter Kit!</a
+                data-popup-open="popupID"
+                >Predict Now!</a
               >
             </div>
             <div class="w-full md:w-4/12 px-4 mr-auto ml-auto">
@@ -223,12 +351,11 @@
                     ></polygon>
                   </svg>
                   <h4 class="text-xl font-bold text-white">
-                    Top Notch Services
+                    Data Privacy Protection
                   </h4>
                   <p class="text-md font-light mt-2 text-white">
-                    The Arctic Ocean freezes every winter and much of the
-                    sea-ice then thaws every summer, and that process will
-                    continue whatever happens.
+                    The Data that will be collected and generated upon prediction will be conceal from
+                    public
                   </p>
                 </blockquote>
               </div>
@@ -385,6 +512,20 @@
     </main>
   </body>
   <script>
+    var typing=new Typed(".text", {
+        strings: ["Streamlining Employability for the Future Workforce", "Streamlining Employability for the Future Workforce"],
+        typeSpeed: 100,
+        backSpeed: 40,
+        loop: true,
+    });
+    var typingTitle=new Typed(".title", {
+      strings: ["EmpowerEase","EmpowerEase"],
+      typeSpeed: 100,
+      backSpeed: 40,
+      loop: false,
+  });
+ </script>
+  <script>
     function toggleNavbar(collapseID) {
       document.getElementById(collapseID).classList.toggle("hidden");
       document.getElementById(collapseID).classList.toggle("block");
@@ -472,125 +613,3 @@
         });
   </script>
 </html>
-
-<style>
-/*PopUp Start*/
-#wrapper {
-    width: 100%;
-    overflow: hidden;
-    display: flex;
-    min-height: 100vh;
-  }
-  #wrapper main {
-    margin: auto;
-    text-align: center;
-  }
-  
-  /*button {
-    margin-top: 10rem;
-    padding: 0.5em 1em;
-    background-color: #121212;
-    border: 2px solid #eee;
-    font-size: 1.5rem;
-    color: inherit;
-    box-shadow: rgba(0, 0, 0, 0.8) 0px 13px 27px -5px, rgba(0, 0, 0, 0.7) 0px 8px 16px -8px;
-    transition: background-color 0.3s ease-in-out;
-  }
-  button:hover {
-    background-color: #000;
-  }
-  button:active {
-    box-shadow: rgba(0, 0, 0, 0.8) 0px 4px 20px -5px, rgba(0, 0, 0, 0.7) 0px 8px 16px -8px;
-  }*/
-  
-  .page-content {
-    max-width: 30rem;
-    margin: 10rem auto 0;
-    color: #ddd;
-    text-align: left;
-  }
-  
-  .form {
-    position: fixed;
-    width: 100%;
-    max-width: 30rem;
-    padding: 2rem;
-    border-radius: 10px;
-    background: linear-gradient(to bottom, #3e7417, #3d632b, #2a3e24);
-    box-shadow: rgba(0, 0, 0, 0.8) 0px 13px 27px -5px, rgba(0, 0, 0, 0.7) 0px 8px 16px -8px;
-    color: #eee;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(50px);
-  }
-  .popup--show .form {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-    transition: all 0.3s ease-in-out;
-  }
-  .form h2 {
-    text-align: center;
-  }
-  
-  .popup {
-    position: fixed;
-    z-index: 100;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    overflow: hidden auto;
-  }
-  .popup--show {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: initial;
-  }
-  .popup__inner {
-    width: inherit;
-    height: inherit;
-  }
-  .popup__container {
-    padding: 2rem 1rem;
-    display: flex;
-    flex-direction: column;
-    min-height: 85%;
-  }
-  .popup__content {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    z-index: 1;
-  }
-  .popup__close {
-    text-align: right;
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-  }
-  
-  .popup-close {
-    cursor: pointer;
-    opacity: 0.7;
-    transition: opacity 0.3s ease-in-out;
-  }
-  .popup-close:hover {
-    opacity: 1;
-  }
-  
-  .popup-active {
-    overflow: hidden;
-  }
-  @media (any-hover: hover) {
-    .popup-active {
-      padding-right: var(--scroll-width);
-    }
-  }
-/*PopUp End*/
-</style>

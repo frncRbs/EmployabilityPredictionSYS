@@ -230,7 +230,8 @@ def signupCS():
                 db.session.add(new_user)
                 db.session.commit()
                 flash('Account successfully created. Registration feedback will be sent soon via email -support@wetechsupport.online', category='success_register_cs')
-            except:
+                return redirect(url_for('.login_CS'))
+            except:  
                 flash('Invalid credentials', category='error')
         else:
             flash('Please enter necessary data in fields', category='error')
