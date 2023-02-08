@@ -7,13 +7,13 @@ from flask_login import LoginManager
 from flask_marshmallow import Marshmallow
 from datetime import timedelta
 from flask_mail import Mail
-from flask_ngrok import run_with_ngrok
+# from flask_ngrok import run_with_ngrok
 
 db = SQLAlchemy()
 marsh = Marshmallow()
 mail = Mail()
 app = Flask(__name__)
-run_with_ngrok(app)
+# run_with_ngrok(app)
 
 DB_NAME = "database.db"
 conn = "mysql+pymysql://{0}:{1}@{2}:{3}/{4}".format(DB_USERNAME, DB_PASSWORD, DB_HOST, DB_PORT, DB_DATABASENAME)
