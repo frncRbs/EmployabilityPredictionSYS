@@ -262,6 +262,15 @@ def faculty_student_view():
                 check_admin = True
             else:
                 check_admin = False
+                
+            if auth_user.user_type == 0 and auth_user.sex == "Male":
+                check_sex = 1
+            elif auth_user.user_type == 0 and auth_user.sex == "Female":
+                check_sex = 2
+            elif auth_user.user_type == -1 and auth_user.sex == "Male":
+                check_sex = 3
+            elif auth_user.user_type == -1 and auth_user.sex == "Female":
+                check_sex = 4
             
             if auth_user.user_type == -1 or auth_user.user_type == 0:
                 
@@ -306,7 +315,7 @@ def faculty_student_view():
         else:  
             return redirect(url_for('_auth.index'))
         
-        return render_template("Faculty/faculty_student_view.html", auth_user=auth_user, 
+        return render_template("Faculty/faculty_student_view.html", auth_user=auth_user, check_sex=check_sex,
                                 students_record=students_record, check_admin=check_admin,
                                 unapprove_account=unapprove_account, 
                                 count_unapprove=count_unapprove, search=search, curriculum_input=curriculum_input,
@@ -337,6 +346,15 @@ def faculty_view_faculty():
             check_admin = True
         else:
             check_admin = False
+            
+        if auth_user.user_type == 0 and auth_user.sex == "Male":
+            check_sex = 1
+        elif auth_user.user_type == 0 and auth_user.sex == "Female":
+            check_sex = 2
+        elif auth_user.user_type == -1 and auth_user.sex == "Male":
+            check_sex = 3
+        elif auth_user.user_type == -1 and auth_user.sex == "Female":
+            check_sex = 4
     
         # Data for filter department
         # Return Data for template
@@ -365,7 +383,7 @@ def faculty_view_faculty():
     else:
         return redirect(url_for('_auth.index'))                 
     
-    return render_template("Faculty/faculty_view_faculty.html", auth_user=auth_user, 
+    return render_template("Faculty/faculty_view_faculty.html", auth_user=auth_user, check_sex=check_sex,
                             students_record=students_record, check_admin=check_admin,
                             unapprove_account=unapprove_account, 
                             count_unapprove=count_unapprove, search=search, curriculum_input=curriculum_input,
@@ -385,6 +403,15 @@ def view_results():
         check_admin = True
     else:
         check_admin = False
+        
+    if auth_user.user_type == 0 and auth_user.sex == "Male":
+        check_sex = 1
+    elif auth_user.user_type == 0 and auth_user.sex == "Female":
+        check_sex = 2
+    elif auth_user.user_type == -1 and auth_user.sex == "Male":
+        check_sex = 3
+    elif auth_user.user_type == -1 and auth_user.sex == "Female":
+        check_sex = 4
     try:
         auth_user=current_user
         page = request.args.get('page', 1, type=int)
@@ -393,7 +420,7 @@ def view_results():
         flash('System error cannot delete data', category='error')
         return redirect(url_for('.faculty_student_view'))
     
-    return render_template("Faculty/faculty_view_predictions.html", check_admin=check_admin, view_pred_result=view_pred_result, auth_user=auth_user, unapprove_account=unapprove_account, curriculum_record=curriculum_record)
+    return render_template("Faculty/faculty_view_predictions.html", check_admin=check_admin, view_pred_result=view_pred_result, auth_user=auth_user, unapprove_account=unapprove_account, curriculum_record=curriculum_record, check_sex=check_sex)
     
 
 @_faculty.route('/delete_results', methods=['POST'])
@@ -455,7 +482,7 @@ def approve_account():
             approve_account = User.query.filter_by(id=int(request.form['user_id'])).first()
             approve_account.is_approve = True
             db.session.commit()
-            # send_link(request.form['user_email'], request.form['user_department'])
+            send_link(request.form['user_email'], request.form['user_department'])
             flash('Account successfully approved', category='success_deletion')
             
         elif int(request.form['approve_flag']) == 0:
@@ -463,7 +490,7 @@ def approve_account():
             approve_account.is_approve = False
             db.session.execute(approve_account)
             db.session.commit()
-            # send_link_disapproved(request.form['user_email'])
+            send_link_disapproved(request.form['user_email'])
             flash('Account successfully disapproved/deleted', category='success_deletion')
     except: 
         flash('System Error', category='error')

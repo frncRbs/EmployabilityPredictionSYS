@@ -20,7 +20,7 @@ def logout():
 def send_link(user_email, user_department):
     msg = Message('The account registration has been accepted.', sender='support@wetechsupport.online', recipients=[user_email])
     msg.body = f'''Account already approved!, visit following link
-    { url_for('_route_cs.login_CS', _external=True) if user_department == 'computer science' else url_for('_route_it.login_IT', _external=True)}
+    { url_for('_route_cs.login_CS', _external=True) if user_department == 'Computer Science' else url_for('_route_it.login_IT', _external=True)}
     If you did not make this request then simply ignore this email and no changes will be made
     '''
     mail.send(msg)

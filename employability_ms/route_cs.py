@@ -37,8 +37,11 @@ csv_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),"model/Instit
 
 model_IT_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),"model/ProjectModel_IT.pkl")
 model_CS_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),"model/ProjectModel_CS.pkl")
-model_ITsuggest_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),"model/IT_SUGGESTEDcourse.pkl")
-model_CSsuggest_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),"model/CS_SUGGESTEDcourse.pkl")
+
+# model_ITsuggest_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),"model/IT_SUGGESTEDcourse.pkl")
+# model_CSsuggest_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),"model/CS_SUGGESTEDcourse.pkl")
+model_ITsuggest_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),"model/CourseRecommend.pkl")
+model_CSsuggest_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),"model/CourseRecommend.pkl")
 
 dataset = pd.read_csv(csv_path)
 
