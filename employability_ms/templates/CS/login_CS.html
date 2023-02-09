@@ -207,5 +207,8 @@
       document.getElementById(collapseID).classList.toggle("hidden");
       document.getElementById(collapseID).classList.toggle("block");
     }
+    window.addEventListener("load", function () {
+      localStorage.clear();
+    });
   </script>
 </html>

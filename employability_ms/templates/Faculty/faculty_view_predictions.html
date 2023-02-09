@@ -259,503 +259,395 @@
     input:focus {
       padding-top: 6px;
     }
-    </style>
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#000000" />
-        <link rel="shortcut icon" href="../../static/assets/img/favicon.ico" />
-        <link rel="stylesheet" href="../../static/app.css" />
-        <script defer src="../../static/alpine.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <link
-          rel="apple-touch-icon"
-          sizes="76x76"
-          href="../../static/assets/img/apple-icon.png"
-        />
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css"
-        />
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-        />
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/gh/creativetimofficial/tailwind-starter-kit/compiled-tailwind.min.css"
-        />
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <title>Dashboard | Faculty</title>
-      </head>
-      <body class="text-blueGray-700 antialiased">
-        <noscript>You need to enable JavaScript to run this app.</noscript>
-        <div id="root">
-          <nav
-            class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
-          >
+</style>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <link rel="shortcut icon" href="../../static/assets/img/favicon.ico" />
+  <link rel="stylesheet" href="../../static/app.css" />
+  <script defer src="../../static/alpine.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link
+    rel="apple-touch-icon"
+    sizes="76x76"
+    href="../../static/assets/img/apple-icon.png"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/creativetimofficial/tailwind-starter-kit/compiled-tailwind.min.css"
+  />
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <title>Dashboard | Faculty</title>
+</head>
+<body class="text-blueGray-700 antialiased">
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root">
+    <nav
+      class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
+    >
+      <div
+        class="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto"
+      >
+        <button
+          class="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
+          type="button"
+          onclick="toggleNavbar('example-collapse-sidebar')"
+        >
+          <i class="fas fa-bars"></i></button
+        >
+        <a
+          class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
+          href="javascript:void(0)"
+        >
+          Faculty Dashboard
+        </a>
+        <ul class="md:hidden items-center flex flex-wrap list-none">
+          <li class="inline-block relative">
             <div
-              class="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto"
+              class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
+              style="min-width: 12rem;"
+              id="notification-dropdown"
             >
-              <button
-                class="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
-                type="button"
-                onclick="toggleNavbar('example-collapse-sidebar')"
-              >
-                <i class="fas fa-bars"></i></button
-              >
               <a
-                class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-                href="javascript:void(0)"
+                href="#pablo"
+                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                >Action</a
+              ><a
+                href="#pablo"
+                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                >Another action</a
+              ><a
+                href="#pablo"
+                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                >Something else here</a
               >
-                Faculty Dashboard
-              </a>
-              <ul class="md:hidden items-center flex flex-wrap list-none">
-                <li class="inline-block relative">
-                  <div
-                    class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
-                    style="min-width: 12rem;"
-                    id="notification-dropdown"
-                  >
-                    <a
-                      href="#pablo"
-                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                      >Action</a
-                    ><a
-                      href="#pablo"
-                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                      >Another action</a
-                    ><a
-                      href="#pablo"
-                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                      >Something else here</a
-                    >
-                    <div class="h-0 my-2 border border-solid border-blueGray-100"></div>
-                    <a
-                      href="#pablo"
-                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                      >Seprated link</a
-                    >
-                  </div>
-                </li>
-                <li class="inline-block relative">
-                  <a
-                    class="text-blueGray-500 block"
-                    href="#pablo"
-                    onclick="openDropdown(event,'user-responsive-dropdown')"
-                    ><div class="items-center flex">
-                      {% if check_sex == 1 %}
-                        <span
-                          class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
-                          ><img
-                            alt="..."
-                            class="w-full rounded-full align-middle border-none shadow-lg"
-                            src="/static/images/male_staff.png"
-                        /></span>
-                      {% elif check_sex == 2 %}
-                        <span
-                        class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
-                        ><img
-                          alt="..."
-                          class="w-full rounded-full align-middle border-none shadow-lg"
-                          src="/static/images/female_staff.png"
-                        /></span>
-                      {% elif check_sex == 3 %}
-                        <span
-                        class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
-                        ><img
-                          alt="..."
-                          class="w-full rounded-full align-middle border-none shadow-lg"
-                          src="/static/images/admin.png"
-                        /></span>
-                      {% elif check_sex == 4 %}
-                        <span
-                        class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
-                        ><img
-                          alt="..."
-                          class="w-full rounded-full align-middle border-none shadow-lg"
-                          src="/static/images/admin.png"
-                        /></span>
-                      {% endif %}
-                    </div></a>
-                  <div
-                    class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
-                    style="min-width: 12rem;"
-                    id="user-responsive-dropdown"
-                  >
-                    <a
-                      href="#pablo"
-                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                      >Action</a
-                    ><a
-                      href="#pablo"
-                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                      >Another action</a
-                    ><a
-                      href="#pablo"
-                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                      >Something else here</a
-                    >
-                    <div class="h-0 my-2 border border-solid border-blueGray-100"></div>
-                    <a
-                      href="#pablo"
-                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                      >Seprated link</a
-                    >
-                  </div>
-                </li>
-              </ul>
-              <div
-                class="md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded hidden"
-                id="example-collapse-sidebar"
+              <div class="h-0 my-2 border border-solid border-blueGray-100"></div>
+              <a
+                href="#pablo"
+                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                >Seprated link</a
               >
-                <div
-                  class="md:min-w-full md:hidden block pb-4 mb-4 border-b border-solid border-blueGray-200"
-                >
-                  <div class="flex flex-wrap">
-                    <div class="w-6/12">
-                      <a
-                        class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-                        href="javascript:void(0)"
-                      >
-                        Faculty Dashboard
-                      </a>
-                    </div>
-                    <div class="w-6/12 flex justify-end">
-                      <button
-                        type="button"
-                        class="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
-                        onclick="toggleNavbar('example-collapse-sidebar')"
-                      >
-                        <i class="fas fa-times"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-                  <li class="items-center">
-                    <a
-                      class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                      href="/faculty_landing"
-                      ><i class="fas fa-tv text-blueGray-400 mr-2 text-sm"></i>
-                      Statistics</a
-                    >
-                  </li>
-                  <li class="items-center">
-                    <a
-                      class="text-pink-500 hover:text-pink-600 text-xs uppercase py-3 font-bold block"
-                      href="/faculty_student_view"
-                      ><i class="fab fa-hubspot opacity-75 mr-2 text-sm"></i>
-                      Predictions</a
-                    >
-                  </li>
-                  <li class="items-center">
-                    <a
-                      class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                      href="/faculty_view_faculty"
-                      ><i class="fas fa-users text-blueGray-400 mr-2 text-sm"></i>
-                      Faculty Lists</a
-                    >
-                  </li>
-                  {% if check_admin %}
-                    <li class="items-center">
-                      <a
-                        class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                        href="/register_faculty"
-                        ><i
-                          class="fas fa-user-plus text-blueGray-400 mr-2 text-sm"
-                        ></i>
-                        Register Faculty</a
-                      >
-                    </li>
-                    <li class="items-center">
-                      <a
-                        class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                        href="#"
-                        data-popup-open="popupID"
-                        ><i
-                          class="fas fa-folder-plus text-blueGray-400 mr-2 text-sm"
-                        ></i>
-                        Add Curriculum</a
-                      >
-                    </li>
-                  {% else %}
-  
-                  {% endif %}
-                  <li class="items-center">
-                    <a
-                      class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                      href="/logout"
-                      ><i class="fas fa-sign-out-alt text-blueGray-400 mr-2 text-sm"></i>
-                      Sign Out</a
-                    >
-                  </li>
-                </ul>
-                <hr class="my-4 md:min-w-full" />
-              </div>
             </div>
-          </nav>
-          <div class="relative md:ml-64 bg-blueGray-50">
-            <nav
-              class="absolute top-0 left-0 w-full z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start flex items-center p-4"
+          </li>
+          <li class="inline-block relative">
+            <a
+              class="text-blueGray-500 block"
+              href="#pablo"
+              onclick="openDropdown(event,'user-responsive-dropdown')"
+              ><div class="items-center flex">
+                {% if check_sex == 1 %}
+                  <span
+                    class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
+                    ><img
+                      alt="..."
+                      class="w-full rounded-full align-middle border-none shadow-lg"
+                      src="/static/images/male_staff.png"
+                  /></span>
+                {% elif check_sex == 2 %}
+                  <span
+                  class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
+                  ><img
+                    alt="..."
+                    class="w-full rounded-full align-middle border-none shadow-lg"
+                    src="/static/images/female_staff.png"
+                  /></span>
+                {% elif check_sex == 3 %}
+                  <span
+                  class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
+                  ><img
+                    alt="..."
+                    class="w-full rounded-full align-middle border-none shadow-lg"
+                    src="/static/images/admin.png"
+                  /></span>
+                {% elif check_sex == 4 %}
+                  <span
+                  class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
+                  ><img
+                    alt="..."
+                    class="w-full rounded-full align-middle border-none shadow-lg"
+                    src="/static/images/admin.png"
+                  /></span>
+                {% endif %}
+              </div></a>
+            <div
+              class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
+              style="min-width: 12rem;"
+              id="user-responsive-dropdown"
             >
-              <div
-                class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4 mt-5"
+              <a
+                href="#pablo"
+                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                >Action</a
+              ><a
+                href="#pablo"
+                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                >Another action</a
+              ><a
+                href="#pablo"
+                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                >Something else here</a
               >
+              <div class="h-0 my-2 border border-solid border-blueGray-100"></div>
+              <a
+                href="#pablo"
+                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                >Seprated link</a
+              >
+            </div>
+          </li>
+        </ul>
+        <div
+          class="md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded hidden"
+          id="example-collapse-sidebar"
+        >
+          <div
+            class="md:min-w-full md:hidden block pb-4 mb-4 border-b border-solid border-blueGray-200"
+          >
+            <div class="flex flex-wrap">
+              <div class="w-6/12">
                 <a
-                  class="text-black text-sm uppercase hidden lg:inline-block font-semibold"
-                  href="./index.html"
-                  >Student Predictions</a>
-                <ul
-                  class="flex-col md:flex-row list-none items-center hidden md:flex"
+                  class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
+                  href="javascript:void(0)"
                 >
-                  <a class="text-blueGray-500 block" href="#pablo" onclick="openDropdown(event,'user-dropdown')">
-                    <div class="items-center flex">
-                      {% if check_sex == 1 %}
-                        <span
-                          class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
-                          ><img
-                            alt="..."
-                            class="w-full rounded-full align-middle border-none shadow-lg"
-                            src="/static/images/male_staff.png"
-                        /></span>
-                      {% elif check_sex == 2 %}
-                        <span
-                        class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
-                        ><img
-                          alt="..."
-                          class="w-full rounded-full align-middle border-none shadow-lg"
-                          src="/static/images/female_staff.png"
-                        /></span>
-                      {% elif check_sex == 3 %}
-                        <span
-                        class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
-                        ><img
-                          alt="..."
-                          class="w-full rounded-full align-middle border-none shadow-lg"
-                          src="/static/images/admin.png"
-                        /></span>
-                      {% elif check_sex == 4 %}
-                        <span
-                        class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
-                        ><img
-                          alt="..."
-                          class="w-full rounded-full align-middle border-none shadow-lg"
-                          src="/static/images/admin.png"
-                        /></span>
-                      {% endif %}
-                    </div>
-                  </a>
-                  <div
-                    class="hidden bg-black text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
-                    style="min-width: 12rem;"
-                    id="user-dropdown"
-                  >
-                    <a
-                      href="#pablo"
-                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                      >Action</a
-                    ><a
-                      href="#pablo"
-                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                      >Another action</a
-                    ><a
-                      href="#pablo"
-                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                      >Something else here</a
-                    >
-                    <div class="h-0 my-2 border border-solid border-blueGray-100"></div>
-                    <a
-                      href="#pablo"
-                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                      >Seprated link</a
-                    >
-                  </div>
-                </ul>
+                  Faculty Dashboard
+                </a>
               </div>
-            </nav>
-            <!-- Header -->
-            <div class="relative bg-grey-600 md:pt-20 pb-20 pt-10"
-            style="background-image: url(../../static/assets/img/register_bg_2.png); background-size: 100%; background-repeat: no-repeat;">
-              <div class="px-4 md:px-10 mx-auto w-full">
-                <div>
-                  <!-- Card stats -->
-                  
-                </div>
-                <div class="mt-2 py-4 border-t border-gray-300 text-center">
-                  <h3
-                    class="text-3xl font-semibold leading-normal mb-2 text-black mb-2 mt-10"
-                    >
-                    <i class="fab fa-hubspot text-3xl text-black"></i> Predictions
-                  </h3>
-                    <div class="flex flex-wrap justify-center">
-                      <div class="-m-1.5 overflow-x-auto ">
-                        <div class="p-1.5 min-w-full inline-block align-middle">
-                          <div class="border rounded-lg shadow overflow-hidden dark:border-white dark:shadow-white shadow-lg rounded bg-blueGray-800">
-                            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                              <thead>
-                                <tr class="divide-x divide-white dark:divide-white">
-                                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Full Name</th>
-                                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Desired Career</th>
-                                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Prediction Results</th>
-                                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Date Predicted</th>
-                                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Action</th>
-                                </tr>
-                              </thead>
-                              <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-                                {% if view_pred_result %}
-                                  {% for user, pred_results in view_pred_result.items %}
-                                    <tr >
-                                      <td>
-                                        <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ user.first_name }}</span>
-                                        <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ user.middle_name }}</span>
-                                        <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ user.last_name }} </span>
-                                      </td>
-                                      <td>
-                                        <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ pred_results.desired_job }}</span>
-                                      </td>
-                                      <td>
-                                        <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white"> {{ pred_results.main_rank }} </span>
-                                        <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white"> {{ pred_results.sub_rank1 }} </span>
-                                        <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white"> {{ pred_results.sub_rank2 }} </span>
-                                        <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white"> {{ pred_results.sub_rank3 }} </span>
-                                      </td>
-                                      <td>
-                                        <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ pred_results.date_created }}</span>
-                                      </td>
-                                      <td>
-                                        <div>
-                                            <form action="/delete_results" method="POST">
-                                                <input type="hidden" name="result_id" value="{{ pred_results.result_id }}">
-                                                <input type="hidden" name="user_id" value="{{ pred_results.user_id }}">
-                                                <button
-                                                class="bg-red-500 active:bg-red-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-4 rounded outline-none focus:outline-none sm:mr-2 mt-2"
-                                                style="transition: all 0.15s ease 0s;"
-                                                type="submit"
-                                                >
-                                                <i
-                                                class="fas fa-trash-alt mr-2 text-xs text-white"
-                                                ></i> Delete
-                                                </button>
-                                                <!-- <button type="submit" class="hybridBtn" id="hybridBtn"> Delete</button> -->
-                                            </form>
-                                        </div>
-                                      </td>
-                                    </tr>
-                                  {% endfor %}
-                                {% endif %}
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div class="w-6/12 flex justify-end">
+                <button
+                  type="button"
+                  class="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
+                  onclick="toggleNavbar('example-collapse-sidebar')"
+                >
+                  <i class="fas fa-times"></i>
+                </button>
               </div>
-    
-              <footer class="block py-5">
-                <div class="container mx-auto px-4">
-                  <hr class="mb-4 border-b-1 border-blueGray-200" />
-                </div>
-              </footer>
             </div>
           </div>
+          <ul class="md:flex-col md:min-w-full flex flex-col list-none">
+            <li class="items-center">
+              <a
+                class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                href="/faculty_landing"
+                ><i class="fas fa-tv text-blueGray-400 mr-2 text-sm"></i>
+                Statistics</a
+              >
+            </li>
+            <li class="items-center">
+              <a
+                class="text-pink-500 hover:text-pink-600 text-xs uppercase py-3 font-bold block"
+                href="/faculty_student_view"
+                ><i class="fab fa-hubspot opacity-75 mr-2 text-sm"></i>
+                Predictions</a
+              >
+            </li>
+            <li class="items-center">
+              <a
+                class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                href="/faculty_view_faculty"
+                ><i class="fas fa-users text-blueGray-400 mr-2 text-sm"></i>
+                Faculty Lists</a
+              >
+            </li>
+            {% if check_admin %}
+              <li class="items-center">
+                <a
+                  class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                  href="/register_faculty"
+                  ><i
+                    class="fas fa-user-plus text-blueGray-400 mr-2 text-sm"
+                  ></i>
+                  Register Faculty</a
+                >
+              </li>
+              <li class="items-center">
+                <a
+                  class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                  href="#"
+                  data-popup-open="popupID"
+                  ><i
+                    class="fas fa-folder-plus text-blueGray-400 mr-2 text-sm"
+                  ></i>
+                  Add Curriculum</a
+                >
+              </li>
+            {% else %}
+
+            {% endif %}
+            <li class="items-center">
+              <a
+                class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                href="/logout"
+                ><i class="fas fa-sign-out-alt text-blueGray-400 mr-2 text-sm"></i>
+                Sign Out</a
+              >
+            </li>
+          </ul>
+          <hr class="my-4 md:min-w-full" />
         </div>
-        
-        <div class="popup" id="popupID">
-          <div class="popup__inner">
-            <div class="popup__container">
-              <!-- <div style="position: relative; right: 520px; top: 140px; z-index: 101" class="popup__close popup-close" data-popup-close>
-                <div class="svg-icon">&#10006;</div>
-              </div> -->
-              <div class="popup__content">
-                <!-- your content -->
-                <!-- <div>
-                  <center>
-                    <img style="position: relative; width: 150px; height: auto; z-index: 1; left: 250px; bottom: 115px"src="https://i.ibb.co/hVNnnCf/312968052-2476337182505210-5876316929227327673-n.png" alt="278471092-1030717754212581-5567044845078025126-n-removebg-preview" border="0"></center>
-                </div> -->
-                
-                <div class="pt-6 w-full md:w-5/12 px-4 text-center">
-                  <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                    <div class="px-4 py-5 flex-auto">
-                      <!-- <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
-                      <i class="fas fa-award"></i> -->
-                      <div class="wrap" style="text-align: justify; margin-left: 40px; color: black;">
-                        <div class="user-left">
-                          <span class="popup__close popup-close z-101" data-popup-close><div class="svg-icon">&#10006;</div></span>
-                          <center><h1><div class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-lg uppercase font-bold p-4 px-0">Add Curriculum</div></h1></center>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="flex flex-wrap justify-center">
-                      <div class="-m-1.2 overflow-x-auto ">
-                        <div class="p-1.2 min-w-full inline-block align-middle">
-                          <div class="border rounded-lg shadow overflow-hidden dark:border-white dark:shadow-white shadow-lg rounded bg-blueGray-800 h-64 overflow-y-scroll">
-                            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                              <thead>
-                                <tr class="divide-x divide-white dark:divide-white">
-                                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Created By</th>
-                                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Curriculum Year</th>
-                                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Date Created</th>
-                                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Action</th>
-                                </tr>
-                              </thead>
-                              <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-                                {% if curriculum_record %}
-                                  {% for curriculum_yr in curriculum_record %}
-                                    <tr >
-                                      <td>
-                                        <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ curriculum_yr.created_by }}</span>
-                                      </td>
-                                      <td>
-                                        <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ curriculum_yr.curriculum_year }}</span>
-                                      </td>
-                                      <td>
-                                        <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white"> {{ curriculum_yr.date_created }} </span>
-                                      </td>
-                                      <td>
-                                        <div>
-                                            <form action="{{ url_for('_faculty.delete_curriculum_year') }}" method="POST">
-                                                <input type="hidden" name="curriculum_identity" value="{{ curriculum_yr.curriculum_id }}">
-                                                <button
-                                                class="bg-red-500 active:bg-red-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-4 rounded outline-none focus:outline-none sm:mr-2 mt-2"
-                                                style="transition: all 0.15s ease 0s;"
-                                                type="submit"
-                                                >
-                                                <i
-                                                class="fas fa-trash-alt mr-2 text-xs text-white"
-                                                ></i> Delete
-                                                </button>
-                                                <!-- <button type="submit" class="hybridBtn" id="hybridBtn"> Delete</button> -->
-                                            </form>
-                                        </div>
-                                      </td>
-                                    </tr>
-                                  {% endfor %}
-                                {% endif %}
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="user-right" style="color: #000;">
-                        <div class="relative">
-                          <label for="add_curriculum">Add Curriculum Year: </label>
-                          <form class="flex" action="{{ url_for('_faculty.add_curriculum_year') }}" method="POST">
-                            <input pattern="\d{4} - \d{4}" required="" class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="search" value="{{ search }}" name="add_curriculum" placeholder="Example: 2007 - 2008" autocomplete="off" class="form-input w-3/4">
-                            <button 
-                            class="bg-green-500 active:bg-green-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none m-2"
-                            style="transition: all 0.15s ease 0s;"
-                            type="submit"
-                            >Add</button>
-                          </form>
-                        </div>
-                      </div>
-                      <!-- </form> -->
-                    </div>
+      </div>
+    </nav>
+    <div class="relative md:ml-64 bg-blueGray-50">
+      <nav
+        class="absolute top-0 left-0 w-full z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start flex items-center p-4"
+      >
+        <div
+          class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4 mt-5"
+        >
+          <a
+            class="text-black text-sm uppercase hidden lg:inline-block font-semibold"
+            href="./index.html"
+            >Student Predictions</a>
+          <ul
+            class="flex-col md:flex-row list-none items-center hidden md:flex"
+          >
+            <a class="text-blueGray-500 block" href="#pablo" onclick="openDropdown(event,'user-dropdown')">
+              <div class="items-center flex">
+                {% if check_sex == 1 %}
+                  <span
+                    class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
+                    ><img
+                      alt="..."
+                      class="w-full rounded-full align-middle border-none shadow-lg"
+                      src="/static/images/male_staff.png"
+                  /></span>
+                {% elif check_sex == 2 %}
+                  <span
+                  class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
+                  ><img
+                    alt="..."
+                    class="w-full rounded-full align-middle border-none shadow-lg"
+                    src="/static/images/female_staff.png"
+                  /></span>
+                {% elif check_sex == 3 %}
+                  <span
+                  class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
+                  ><img
+                    alt="..."
+                    class="w-full rounded-full align-middle border-none shadow-lg"
+                    src="/static/images/admin.png"
+                  /></span>
+                {% elif check_sex == 4 %}
+                  <span
+                  class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
+                  ><img
+                    alt="..."
+                    class="w-full rounded-full align-middle border-none shadow-lg"
+                    src="/static/images/admin.png"
+                  /></span>
+                {% endif %}
+              </div>
+            </a>
+            <div
+              class="hidden bg-black text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
+              style="min-width: 12rem;"
+              id="user-dropdown"
+            >
+              <a
+                href="#pablo"
+                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                >Action</a
+              ><a
+                href="#pablo"
+                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                >Another action</a
+              ><a
+                href="#pablo"
+                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                >Something else here</a
+              >
+              <div class="h-0 my-2 border border-solid border-blueGray-100"></div>
+              <a
+                href="#pablo"
+                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                >Seprated link</a
+              >
+            </div>
+          </ul>
+        </div>
+      </nav>
+      <!-- Header -->
+      <div class="relative bg-grey-600 md:pt-20 pb-20 pt-10"
+      style="background-image: url(../../static/assets/img/register_bg_2.png); background-size: 100%; background-repeat: no-repeat;">
+        <div class="px-4 md:px-10 mx-auto w-full">
+          <div>
+            <!-- Card stats -->
+            
+          </div>
+          <div class="mt-2 py-4 border-t border-gray-300 text-center">
+            <h3
+              class="text-3xl font-semibold leading-normal mb-2 text-black mb-2 mt-10"
+              >
+              <i class="fab fa-hubspot text-3xl text-black"></i> Predictions
+            </h3>
+              <div class="flex flex-wrap justify-center">
+                <div class="-m-1.5 overflow-x-auto ">
+                  <div class="p-1.5 min-w-full inline-block align-middle">
+                    <div class="border rounded-lg shadow overflow-hidden dark:border-white dark:shadow-white shadow-lg rounded bg-blueGray-800">
+                      <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead>
+                          <tr class="divide-x divide-white dark:divide-white">
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Full Name</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Desired Career</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Prediction Results</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Date Predicted</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                          {% if view_pred_result %}
+                            {% for user, pred_results in view_pred_result.items %}
+                              <tr >
+                                <td>
+                                  <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ user.first_name }}</span>
+                                  <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ user.middle_name }}</span>
+                                  <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ user.last_name }} </span>
+                                </td>
+                                <td>
+                                  <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ pred_results.desired_job }}</span>
+                                </td>
+                                <td>
+                                  <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white"> {{ pred_results.main_rank }} </span>
+                                  <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white"> {{ pred_results.sub_rank1 }} </span>
+                                  <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white"> {{ pred_results.sub_rank2 }} </span>
+                                  <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white"> {{ pred_results.sub_rank3 }} </span>
+                                </td>
+                                <td>
+                                  <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ pred_results.date_created }}</span>
+                                </td>
+                                <td>
+                                  <div>
+                                      <form action="/delete_results" method="POST">
+                                          <input type="hidden" name="result_id" value="{{ pred_results.result_id }}">
+                                          <input type="hidden" name="user_id" value="{{ pred_results.user_id }}">
+                                          <button
+                                          class="bg-red-500 active:bg-red-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-4 rounded outline-none focus:outline-none sm:mr-2 mt-2"
+                                          style="transition: all 0.15s ease 0s;"
+                                          type="submit"
+                                          >
+                                          <i
+                                          class="fas fa-trash-alt mr-2 text-xs text-white"
+                                          ></i> Delete
+                                          </button>
+                                          <!-- <button type="submit" class="hybridBtn" id="hybridBtn"> Delete</button> -->
+                                      </form>
+                                  </div>
+                                </td>
+                              </tr>
+                            {% endfor %}
+                          {% endif %}
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
@@ -764,156 +656,264 @@
           </div>
         </div>
 
-        <script>
-          function toggleNavbar(collapseID) {
-            document.getElementById(collapseID).classList.toggle("hidden");
-            document.getElementById(collapseID).classList.toggle("block");
-          }
-          class Popup {
-            classPopupShow =  'popup--show';
-            classForBody = 'popup-active';
-            popup = null;
-            closeOnClickOverlay = false;
-        
-            constructor(options = {}) {
-        
-                this.closeOnClickOverlay = options?.closeOnClickOverlay || false;
-            
-                // check if page has vertical scroll
-                this.scrollWidthInit();
-        
-                document.addEventListener('click', e => {
-                
-                // open
-                if (e.target.dataset.popupOpen) {
-                    e.preventDefault();
-                    this.popup = document.getElementById(e.target.dataset.popupOpen);
-                    this.show();
-                }
-        
-                // close
-                if (e.target.hasAttribute('data-popup-close') ||
-                    (e.target.closest('.popup__close') && e.target.closest('.popup__close').hasAttribute('data-popup-close')) ||
-                    (this.closeOnClickOverlay && e.target.classList.contains('popup__content'))
-                ){
-                    e.preventDefault();
-                    this.hide();
-                }
-                })
-            }
-        
-            scrollWidthInit() {
-        
-                function existVerticalScroll() {
-                let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0),
-                    sh =  document.body.scrollHeight;
-        
-                return sh > vh ? true : false;
-                }
-        
-                let div = document.createElement('div');
-            
-                div.style.overflowY = 'scroll';
-                div.style.width = '50px';
-                div.style.height = '50px';
-            
-                document.body.append(div);
-            
-                let scrollWidth = div.offsetWidth - div.clientWidth;
-            
-                div.remove();
-        
-                if (existVerticalScroll()) {
-                document.documentElement.style.setProperty('--scroll-width', scrollWidth + 'px');
-                }
-            }
-        
-            show() {
-                
-                if (this.popup) {
-                this.popup.classList.add(this.classPopupShow);
-                }
-        
-                document.body.classList.add(this.classForBody);
-            }
-        
-            hide() {
-        
-                if (this.popup) {
-                this.popup.classList.remove(this.classPopupShow);
-                }
-        
-                document.body.classList.remove(this.classForBody);
-            }
-            }
-        
-          new Popup({
-          closeOnClickOverlay: true, // if you want popup to be closed after click on overlay (default: false)
-          });
-        </script>
+        <footer class="block py-5">
+          <div class="container mx-auto px-4">
+            <hr class="mb-4 border-b-1 border-blueGray-200" />
+          </div>
+        </footer>
+      </div>
+    </div>
+  </div>
+  
+  <div class="popup" id="popupID">
+    <div class="popup__inner">
+      <div class="popup__container">
+        <!-- <div style="position: relative; right: 520px; top: 140px; z-index: 101" class="popup__close popup-close" data-popup-close>
+          <div class="svg-icon">&#10006;</div>
+        </div> -->
+        <div class="popup__content">
+          <!-- your content -->
+          <!-- <div>
+            <center>
+              <img style="position: relative; width: 150px; height: auto; z-index: 1; left: 250px; bottom: 115px"src="https://i.ibb.co/hVNnnCf/312968052-2476337182505210-5876316929227327673-n.png" alt="278471092-1030717754212581-5567044845078025126-n-removebg-preview" border="0"></center>
+          </div> -->
+          
+          <div class="pt-6 w-full md:w-5/12 px-4 text-center">
+            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+              <div class="px-4 py-5 flex-auto">
+                <!-- <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
+                <i class="fas fa-award"></i> -->
+                <div class="wrap" style="text-align: justify; margin-left: 40px; color: black;">
+                  <div class="user-left">
+                    <span class="popup__close popup-close z-101" data-popup-close><div class="svg-icon">&#10006;</div></span>
+                    <center><h1><div class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-lg uppercase font-bold p-4 px-0">Add Curriculum</div></h1></center>
+                  </div>
+                </div>
+              </div>
+              <div class="flex flex-wrap justify-center">
+                <div class="-m-1.2 overflow-x-auto ">
+                  <div class="p-1.2 min-w-full inline-block align-middle">
+                    <div class="border rounded-lg shadow overflow-hidden dark:border-white dark:shadow-white shadow-lg rounded bg-blueGray-800 h-64 overflow-y-scroll">
+                      <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead>
+                          <tr class="divide-x divide-white dark:divide-white">
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Created By</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Curriculum Year</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Date Created</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                          {% if curriculum_record %}
+                            {% for curriculum_yr in curriculum_record %}
+                              <tr >
+                                <td>
+                                  <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ curriculum_yr.created_by }}</span>
+                                </td>
+                                <td>
+                                  <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ curriculum_yr.curriculum_year }}</span>
+                                </td>
+                                <td>
+                                  <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white"> {{ curriculum_yr.date_created }} </span>
+                                </td>
+                                <td>
+                                  <div>
+                                      <form action="{{ url_for('_faculty.delete_curriculum_year') }}" method="POST">
+                                          <input type="hidden" name="curriculum_identity" value="{{ curriculum_yr.curriculum_id }}">
+                                          <button
+                                          class="bg-red-500 active:bg-red-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-4 rounded outline-none focus:outline-none sm:mr-2 mt-2"
+                                          style="transition: all 0.15s ease 0s;"
+                                          type="submit"
+                                          >
+                                          <i
+                                          class="fas fa-trash-alt mr-2 text-xs text-white"
+                                          ></i> Delete
+                                          </button>
+                                          <!-- <button type="submit" class="hybridBtn" id="hybridBtn"> Delete</button> -->
+                                      </form>
+                                  </div>
+                                </td>
+                              </tr>
+                            {% endfor %}
+                          {% endif %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="user-right" style="color: #000;">
+                  <div class="relative">
+                    <label for="add_curriculum">Add Curriculum Year: </label>
+                    <form class="flex" action="{{ url_for('_faculty.add_curriculum_year') }}" method="POST">
+                      <input pattern="\d{4} - \d{4}" required="" class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="search" value="{{ search }}" name="add_curriculum" placeholder="Example: 2007 - 2008" autocomplete="off" class="form-input w-3/4">
+                      <button 
+                      class="bg-green-500 active:bg-green-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none m-2"
+                      style="transition: all 0.15s ease 0s;"
+                      type="submit"
+                      >Add</button>
+                    </form>
+                  </div>
+                </div>
+                <!-- </form> -->
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        <script>
+  <script>
+    function toggleNavbar(collapseID) {
+      document.getElementById(collapseID).classList.toggle("hidden");
+      document.getElementById(collapseID).classList.toggle("block");
+    }
+    class Popup {
+      classPopupShow =  'popup--show';
+      classForBody = 'popup-active';
+      popup = null;
+      closeOnClickOverlay = false;
+  
+      constructor(options = {}) {
+  
+          this.closeOnClickOverlay = options?.closeOnClickOverlay || false;
+      
+          // check if page has vertical scroll
+          this.scrollWidthInit();
+  
+          document.addEventListener('click', e => {
+          
+          // open
+          if (e.target.dataset.popupOpen) {
+              e.preventDefault();
+              this.popup = document.getElementById(e.target.dataset.popupOpen);
+              this.show();
+          }
+  
+          // close
+          if (e.target.hasAttribute('data-popup-close') ||
+              (e.target.closest('.popup__close') && e.target.closest('.popup__close').hasAttribute('data-popup-close')) ||
+              (this.closeOnClickOverlay && e.target.classList.contains('popup__content'))
+          ){
+              e.preventDefault();
+              this.hide();
+          }
+          })
+      }
+  
+      scrollWidthInit() {
+  
+          function existVerticalScroll() {
+          let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0),
+              sh =  document.body.scrollHeight;
+  
+          return sh > vh ? true : false;
+          }
+  
+          let div = document.createElement('div');
+      
+          div.style.overflowY = 'scroll';
+          div.style.width = '50px';
+          div.style.height = '50px';
+      
+          document.body.append(div);
+      
+          let scrollWidth = div.offsetWidth - div.clientWidth;
+      
+          div.remove();
+  
+          if (existVerticalScroll()) {
+          document.documentElement.style.setProperty('--scroll-width', scrollWidth + 'px');
+          }
+      }
+  
+      show() {
+          
+          if (this.popup) {
+          this.popup.classList.add(this.classPopupShow);
+          }
+  
+          document.body.classList.add(this.classForBody);
+      }
+  
+      hide() {
+  
+          if (this.popup) {
+          this.popup.classList.remove(this.classPopupShow);
+          }
+  
+          document.body.classList.remove(this.classForBody);
+      }
+      }
+  
+    new Popup({
+    closeOnClickOverlay: true, // if you want popup to be closed after click on overlay (default: false)
+    });
+  </script>
 
-          /* Sidebar - Side navigation menu on mobile/responsive mode */
-          function toggleNavbar(collapseID) {
-            document.getElementById(collapseID).classList.toggle("hidden");
-            document.getElementById(collapseID).classList.toggle("bg-white");
-            document.getElementById(collapseID).classList.toggle("m-2");
-            document.getElementById(collapseID).classList.toggle("py-3");
-            document.getElementById(collapseID).classList.toggle("px-6");
-          }
-          /* Function for dropdowns */
-          function openDropdown(event, dropdownID) {
-            let element = event.target;
-            while (element.nodeName !== "A") {
-              element = element.parentNode;
-            }
-            var popper = Popper.createPopper(element, document.getElementById(dropdownID), {
-              placement: "bottom-end"
-            });
-            document.getElementById(dropdownID).classList.toggle("hidden");
-            document.getElementById(dropdownID).classList.toggle("block");
-          }
+  <script>
 
-          $(document).ready(function() {
-            $(".notification-drop .item").on('click',function() {
-              $(this).find('ul').toggle();
-            });
-          });
-        // Modal
-                // Get the modal
-          var modal = document.getElementById("myModal");
-    
-              // Get the button that opens the modal
-          var btn = document.getElementById("myBtn");
-    
-              // Get the <span> element that closes the modal
-          var span = document.getElementsByClassName("close")[0];
-    
-              // When the user clicks on the button, open the modal
-          btn.onclick = function() {
-            modal.style.display = "block";
-          }
-    
-          // When the user clicks on <span> (x), close the modal
-          span.onclick = function() {
-            modal.style.display = "none";
-            }
-    
-              // When the user clicks anywhere outside of the modal, close it
-          window.onclick = function(event) {
-            if (event.target == modal) {
-              modal.style.display = "none";
-            }
-          }
-        </script>
-        <!-- <script
-          src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
-          charset="utf-8"
-        ></script> -->
-        
-          <!-- <script src="../../static/alpine.js"></script> -->
+    /* Sidebar - Side navigation menu on mobile/responsive mode */
+    function toggleNavbar(collapseID) {
+      document.getElementById(collapseID).classList.toggle("hidden");
+      document.getElementById(collapseID).classList.toggle("bg-white");
+      document.getElementById(collapseID).classList.toggle("m-2");
+      document.getElementById(collapseID).classList.toggle("py-3");
+      document.getElementById(collapseID).classList.toggle("px-6");
+    }
+    /* Function for dropdowns */
+    function openDropdown(event, dropdownID) {
+      let element = event.target;
+      while (element.nodeName !== "A") {
+        element = element.parentNode;
+      }
+      var popper = Popper.createPopper(element, document.getElementById(dropdownID), {
+        placement: "bottom-end"
+      });
+      document.getElementById(dropdownID).classList.toggle("hidden");
+      document.getElementById(dropdownID).classList.toggle("block");
+    }
 
-      </body>
-    </html>
+    $(document).ready(function() {
+      $(".notification-drop .item").on('click',function() {
+        $(this).find('ul').toggle();
+      });
+    });
+  // Modal
+          // Get the modal
+    var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+        // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on the button, open the modal
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+      }
+
+        // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+  <!-- <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
+    charset="utf-8"
+  ></script> -->
+  
+    <!-- <script src="../../static/alpine.js"></script> -->
+
+</body>
+</html>
     

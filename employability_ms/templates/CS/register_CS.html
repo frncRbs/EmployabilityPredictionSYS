@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="theme-color" content="#000000" />
     <link rel="shortcut icon" href="../../static/assets/img/favicon.ico" />
     <link
@@ -80,7 +81,7 @@
                         </h3>
                     </div>
                     <hr class="mt-6 border-b-1 border-gray-400 mb-3" />
-                <form action="{{ url_for('_route_cs.signupCS') }}" method="POST">
+                <form action="{{ url_for('_route_cs.signupCS') }}" method="POST" onsubmit="saveForm();">
                     <div class="relative flex flex-row">
                         <div class="relative w-full mb-3">
                             <label
@@ -93,6 +94,7 @@
                                 placeholder="First Name"
                                 style="transition: all 0.15s ease 0s;"
                                 name="first_name"
+                                id="first_name"
                                 required="" autocomplete="off"
                             />
                         </div> 
@@ -107,6 +109,7 @@
                                 placeholder="Middle Name"
                                 style="transition: all 0.15s ease 0s;"
                                 name="middle_name"
+                                id="middle_name"
                                 required="" autocomplete="off"
                             />
                         </div>
@@ -121,6 +124,7 @@
                                 placeholder="Last Name"
                                 style="transition: all 0.15s ease 0s;"
                                 name="last_name"
+                                id="last_name"
                                 required="" autocomplete="off"
                             />
                         </div>
@@ -132,9 +136,11 @@
                                 for="program"
                                 >Status</label
                             >
-                            <select type="text" name="program" id="drop-down" placeholder="Select Status" required="" autocomplete="off"
-                            class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                            <select type="text" name="program" placeholder="Select Status" 
+                            id="program"
+                            class="drop-down border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                             style="transition: all 0.15s ease 0s;"
+                            required="" autocomplete="off"
                             >
                                 <option value="">Status</option>
                                 <option value="Shiftee">Shiftee</option>
@@ -148,9 +154,11 @@
                                 for="sex"
                                 >Sex</label
                             >
-                            <select type="text" name="sex" id="drop-down" placeholder="Sex" required="" autocomplete="off"
-                            class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                            <select type="text" name="sex" placeholder="Select Sex" 
+                            id="sex"
+                            class="drop-down border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                             style="transition: all 0.15s ease 0s;"
+                            required="" autocomplete="off"
                             >
                                 <option value="">Sex</option>
                                 <option value="Male">Male</option>
@@ -224,10 +232,12 @@
                             for="desired_career"
                             >Desired Career</label
                         >
-                        <select type="text" name="desired_career" placeholder="Select career" required="" autocomplete="off"
-                        class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                        <select type="text" name="desired_career" placeholder="Select Career" 
+                        id="desired_career"
+                        class="drop-down border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                         style="transition: all 0.15s ease 0s;"
-                        required="">
+                        required="" autocomplete="off"
+                        >
                             <option value="">Desired Career</option>
                             <option value="Software Engineer / Programmer">Software Engineer / Programmer</option>
                             <option value="Technical Support Specialist">Technical Support Specialist</option>
@@ -242,9 +252,11 @@
                                 for="curriculum_year"
                                 >Curriculum Year</label
                             >
-                            <select type="text" name="curriculum_year" id="drop-down" placeholder="Curriculum Year" required="" autocomplete="off"
-                            class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                            <select type="text" name="curriculum_year" placeholder="Curriculum Year" 
+                            id="curriculum_year"
+                            class="drop-down border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                             style="transition: all 0.15s ease 0s;"
+                            required="" autocomplete="off"
                             >
                                 <option value="">Curriculum Year</option>
                                 {% if curriculum_input %}
@@ -258,15 +270,15 @@
                             <label
                                 class="block uppercase text-gray-700 text-xs font-bold mb-2"
                                 for="contact_number"
-                                >Contact Number</label
+                                >Mobile Number</label
                             ><input
                                 type="text"
                                 class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                                placeholder="Contact Number"
+                                placeholder="Mobile Number"
                                 style="transition: all 0.15s ease 0s;"
                                 name="contact_number"
-                                autocomplete="off"
-                                required=""
+                                id="contact_number"
+                                required="" autocomplete="off"
                                 pattern="\d{11}"
                             />
                         </div>
@@ -283,6 +295,7 @@
                             placeholder="Email"
                             style="transition: all 0.15s ease 0s;"
                             name="email"
+                            id="email"
                             required="" autocomplete="off"
                         />
                         </div>
@@ -297,6 +310,7 @@
                             placeholder="Password"
                             style="transition: all 0.15s ease 0s;"
                             name="password"
+                            id="password"
                             required="" autocomplete="off"
                         />
                         </div>
@@ -306,9 +320,8 @@
                         class="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
                         style="transition: all 0.15s ease 0s;"
                         type="submit"
-                      >
-                        Sign Up
-                      </button>
+                        onclick="saveForm()"
+                        >Sign Up</button>
                     </div>
                   </form>
                 </div>
@@ -319,10 +332,97 @@
       </section>
     </main>
   </body>
-  <script>
-    function toggleNavbar(collapseID) {
-      document.getElementById(collapseID).classList.toggle("hidden");
-      document.getElementById(collapseID).classList.toggle("block");
+<script>
+  const selectProgram = document.getElementById("program");
+  // Retrieve the selected value from local storage
+  const storedValueProgram = localStorage.getItem("selectedOptionProgram");
+  if (storedValueProgram) {
+    selectProgram.value = storedValueProgram;
+  }
+  // Store the selected value in local storage
+  selectProgram.addEventListener("change", function() {
+    localStorage.setItem("selectedOptionProgram", selectProgram.value);
+  });
+
+  const selectSex = document.getElementById("sex");
+  // Retrieve the selected value from local storage
+  const storedValueSex = localStorage.getItem("selectedOptionSex");
+  if (storedValueSex) {
+    selectSex.value = storedValueSex;
+  }
+  // Store the selected value in local storage
+  selectSex.addEventListener("change", function() {
+    localStorage.setItem("selectedOptionSex", selectSex.value);
+  });
+
+  const selectDesiredCareer = document.getElementById("desired_career");
+  // Retrieve the selected value from local storage
+  const storedValueDesiredCareer = localStorage.getItem("selectedOptionDesiredCareer");
+  if (storedValueDesiredCareer) {
+    selectDesiredCareer.value = storedValueDesiredCareer;
+  }
+  // Store the selected value in local storage
+  selectDesiredCareer.addEventListener("change", function() {
+    localStorage.setItem("selectedOptionDesiredCareer", selectDesiredCareer.value);
+  });
+
+  const selectCurriculum = document.getElementById("curriculum_year");
+  // Retrieve the selected value from local storage
+  const storedValueCurriculum = localStorage.getItem("selectedOptionCurriculum");
+  if (storedValueCurriculum) {
+    selectCurriculum.value = storedValueCurriculum;
+  }
+  // Store the selected value in local storage
+  selectCurriculum.addEventListener("change", function() {
+    localStorage.setItem("selectedOptionCurriculum", selectCurriculum.value);
+  });
+</script>
+
+<script>
+  window.onload = function() {
+    var first_name = localStorage.getItem("first_name");
+    if (first_name) {
+      document.getElementById("first_name").value = first_name;
     }
-  </script>
+
+    var middle_name = localStorage.getItem("middle_name");
+    if (middle_name) {
+      document.getElementById("middle_name").value = middle_name;
+    }
+
+    var last_name = localStorage.getItem("last_name");
+    if (last_name) {
+      document.getElementById("last_name").value = last_name;
+    }
+ 
+    var contact_number = localStorage.getItem("contact_number");
+      if (contact_number) {
+        document.getElementById("contact_number").value = contact_number;
+    }
+
+    var email = localStorage.getItem("email");
+    if (email) {
+      document.getElementById("email").value = email;
+    }
+  };
+  
+  function saveForm() {
+    var first_name = document.getElementById("first_name").value;
+    var middle_name = document.getElementById("middle_name").value;
+    var last_name = document.getElementById("last_name").value;
+    var contact_number = document.getElementById("contact_number").value;
+    var email = document.getElementById("email").value;
+
+    localStorage.setItem("first_name", first_name);
+    localStorage.setItem("middle_name", middle_name);
+    localStorage.setItem("last_name", last_name);
+    localStorage.setItem("contact_number", contact_number);
+    localStorage.setItem("email", email);
+  }
+
+  function toggleNavbar(collapseID) {
+    document.getElementsByClassName(collapseID).classList.toggle("hidden");
+    document.getElementsByClassName(collapseID).classList.toggle("block");
+  }
+</script>
 </html>
