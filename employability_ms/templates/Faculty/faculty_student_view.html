@@ -1,941 +1,1050 @@
 <style>
-    /*PopUp Start*/
-    #wrapper {
-      width: 100%;
-      overflow: hidden;
-      display: flex;
-      z-index: 1;
-      min-height: 100vh;
-    }
-    #wrapper main {
-      margin: auto;
-      text-align: center;
-    }
-    
-    ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        }
-        
-    .notification-drop {
-        color: #444;
-    }
-    .notification-drop .item {
-        padding: 10px;
-        font-size: 18px;
-        position: relative;
-        border-bottom: 1px solid #ddd;
-    }
-    .notification-drop .item:hover {
-        cursor: pointer;
-    }
-    .notification-drop .item i {
-        margin-left: 10px;
-    }
-    .notification-drop .item ul {
-        display: none;
-        position: absolute;
-        top: 100%;
-        background: #fff;
-        left: -200px;
-        right: 0;
-        z-index: 1;
-        border-top: 1px solid #ddd;
-    }
-    .notification-drop .item ul li {
-        font-size: 16px;
-        padding: 15px 0 15px 25px;
-    }
-    .notification-drop .item ul li:hover {
-        background: rgba(0, 0, 0, 0.493);
-        color: rgba(0, 0, 0, 0.8);
-    }
-    
-    @media screen and (min-width: 500px) {
-        .notification-drop {
-            display: flex;
-            justify-content: flex-end;
-    }
-        .notification-drop .item {
-            border: none;
-        }
-    }
-    
-    .notification-bell{
-    font-size: 20px;
-    }
-    
-    .hybridBtn{
-      width: 90%;
-      height: auto;
-      margin: 10px;
-      padding: 10px; 
-      margin-left: 3px;
-      justify-content: center;
-      display: block;
-      color: #fff;
-      background: #0d4d12;
-      font-size: 1em;
-      font-weight: bold;
-      outline: none;
-      border: none;
-      border-radius: 5px;
-      transition: .2s ease-in;
-      cursor: pointer;
-    }
-    .hybridBtn:hover{
-      background: #52b844;
-    }
-    
-    .btn__badge {
-        background: #FF5D5D;
-        color: white;
-        font-size: 12px;
-        position: absolute;
-        top: 0;
-        right: 0px;
-        padding:  3px 10px;
-        border-radius: 50%;
-    }
-    
-    .pulse-button {
-    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
-        -webkit-animation: pulse 1.5s infinite;
-    }
-    
-    .pulse-button:hover {
-        -webkit-animation: none;
-    }
-    
-    @-webkit-keyframes pulse {
-    0% {
-        -moz-transform: scale(0.9);
-        -ms-transform: scale(0.9);
-        -webkit-transform: scale(0.9);
-        transform: scale(0.9);
-    }
-    70% {
-        -moz-transform: scale(1);
-        -ms-transform: scale(1);
-        -webkit-transform: scale(1);
-        transform: scale(1);
-        box-shadow: 0 0 0 50px rgba(255, 0, 0, 0);
-    }
-    100% {
-        -moz-transform: scale(0.9);
-        -ms-transform: scale(0.9);
-        -webkit-transform: scale(0.9);
-        transform: scale(0.9);
-        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
-        }
-    }
-    
-    .notification-text{
-        font-size: 14px;
-        font-weight: bold;
-    }
-    
-    .notification-text span{
-        float: right;
-    }
-    
-    
-    .page-content {
-      max-width: 30rem;
-      margin: 10rem auto 0;
-      color: #ddd;
-      text-align: left;
-    }
-    
-    .form {
-      width: 100%;
-      max-width: 30rem;
-      padding: 1.5rem;
-      border-radius: 10px;
-      background: linear-gradient(to bottom, #18290c, #3d632b, #2a3e24);
-      box-shadow: rgba(0, 0, 0, 0.8) 0px 13px 27px -5px, rgba(0, 0, 0, 0.7) 0px 8px 16px -8px;
-      color: #eee;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(50px);
-    }
-    .popup--show .form {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-      transition: all 0.3s ease-in-out;
-    }
-    .form h2 {
-      text-align: center;
-    }
-    
-    .popup {
-      position: fixed;
-      z-index: 100;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      overflow: hidden auto;
-    }
-    .popup--show {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: initial;
-    }
-    .popup__inner {
-      width: inherit;
-      height: inherit;
-    }
-    .popup__container {
-      padding: 2rem 1rem;
-      display: flex;
-      flex-direction: column;
-      min-height: 85%;
-    }
-    .popup__content {
-      flex-grow: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      z-index: 1;
-    }
-    .popup__close {
-      text-align: right;
-      margin-bottom: 1rem;
-      font-size: 1.5rem;
-    }
-    
-    .popup-close {
-      cursor: pointer;
-      opacity: 0.7;
-      transition: opacity 0.3s ease-in-out;
-    }
-    .popup-close:hover {
-      opacity: 1;
-    }
-    
-    .popup-active {
-      overflow: hidden;
-    }
-    @media (any-hover: hover) {
-      .popup-active {
-        padding-right: var(--scroll-width);
-      }
-    }
-    /*PopUp End*/
-    
-    .relative {
-      position: relative;
-    }
-    select:focus + label {
-      transform: translateY(-75%) translateX(-50%) scale(0.75);
-      transform-origin: top left;
-      font-size: 12px;
-      top: -1px;
-      left: 0;
-      background-color: white;
-      padding: 0 4px;
-    }
-    select:focus {
-      padding-top: 6px;
-    }
-    
-    input:focus + label {
-      transform: translateY(-75%) translateX(-50%) scale(0.75);
-      transform-origin: top left;
-      font-size: 12px;
-      top: -1px;
-      left: 0;
-      background-color: white;
-      padding: 0 4px;
-    }
-    input:focus {
-      padding-top: 6px;
-    }
-    </style>
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#000000" />
-        <link rel="shortcut icon" href="../../static/assets/img/favicon.ico" />
-        <link rel="stylesheet" href="../../static/app.css" />
-        <script defer src="../../static/alpine.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <link
-          rel="apple-touch-icon"
-          sizes="76x76"
-          href="../../static/assets/img/apple-icon.png"
-        />
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css"
-        />
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-        />
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/gh/creativetimofficial/tailwind-starter-kit/compiled-tailwind.min.css"
-        />
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <title>Dashboard | Faculty</title>
-      </head>
-      <body class="text-blueGray-700 antialiased">
-        <noscript>You need to enable JavaScript to run this app.</noscript>
-        <div id="root">
-          <nav
-            class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
-          >
-            <div
-              class="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto"
-            >
-              <button
-                class="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
-                type="button"
-                onclick="toggleNavbar('example-collapse-sidebar')"
-              >
-                <i class="fas fa-bars"></i></button
-              >
-              <a
-                class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-                href="javascript:void(0)"
-              >
-                Faculty Dashboard
-              </a>
-              <ul class="md:hidden items-center flex flex-wrap list-none">
-                <li class="inline-block relative">
-                  <!-- <a
-                    class="text-blueGray-500 block py-1 px-3"
-                    href="#pablo"
-                    onclick="openDropdown(event,'notification-dropdown')"
-                    ><i class="fas fa-bell"></i
-                  ></a> -->
-                  <div>
-                    <ul class="notification-drop">
-                      <li class="item mt-3 mr-3">
-                        <i class="fa fa-bell" aria-hidden="true" style="color: black;"></i>{% if unapprove_account %}<span class="btn__badge pulse-button ">{{ count_unapprove }}</span>{% endif %}     
-                        <ul style="background-color: #000000d0; border-radius: 5px; overflow:scroll; height:250px; width: auto; overflow-y: auto; overflow-x: hidden;">
-                          {% if unapprove_account %}
-                            {% for unapprove in unapprove_account %}
-                                <li style="font-size: small; color: white; text-align: left; ">
-                                  {{ unapprove.first_name }}
-                                  {{ unapprove.middle_name }}
-                                  {{ unapprove.last_name }}
-                                  <div style="display: block">{{ unapprove.department }}</div>
-                                  <div style="display: block">{{ unapprove.contact_number }}</div>
-                                  <div style="display: inline-block">
-                                    <form action="/approve_account" method="POST">
-                                      <input type="hidden" name="user_id" value="{{ unapprove.id }}">
-                                      <input type="hidden" name="user_email" value="{{ unapprove.email }}">
-                                      <input type="hidden" name="user_department" value="{{ unapprove.department }}">
-                                      <input type="hidden" name="approve_flag" value="1">
-                                      <!-- <button class="hybridBtn" type="submit"> Approve </button> -->
-                                      <button
-                                        class="bg-green-500 active:bg-green-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-1 py-1 rounded outline-none focus:outline-none sm:mr-1 ml-4"
-                                        style="transition: all 0.15s ease 0s;"
-                                        type="submit"
-                                        > Approve
-                                      </button>
-                                    </form>
-                                  </div>
-                                  <div style="display: inline-block">
-                                    <form action="/approve_account" method="POST">
-                                      <input type="hidden" name="user_id" value="{{ unapprove.id }}">
-                                      <input type="hidden" name="user_email" value="{{ unapprove.email }}">
-                                      <input type="hidden" name="user_department" value="{{ unapprove.department }}">
-                                      <input type="hidden" name="approve_flag" value="0">
-                                      <!-- <button class="hybridBtn" type="submit"> Decline </button> -->
-                                      <button
-                                        class="bg-red-500 active:bg-red-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-1 py-1 rounded outline-none focus:outline-none sm:mr-1 ml-8"
-                                        style="transition: all 0.15s ease 0s;"
-                                        type="submit"
-                                        > Decline
-                                      </button>
-                                    </form>
-                                  </div>
-                              </li>
-                            {% endfor %}
-                          {% else %}
-                                <div style="text-align: center; margin-top: 40%; color: white; font-weight: bold">
-                                  <span>No Registration</span>
-                                </div>
-                          {% endif %}
-                        </li>
-                    </ul>
-                  </div>
-                  <div
-                    class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
-                    style="min-width: 12rem;"
-                    id="notification-dropdown"
-                  >
-                    <a
-                      href="#pablo"
-                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                      >Action</a
-                    ><a
-                      href="#pablo"
-                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                      >Another action</a
-                    ><a
-                      href="#pablo"
-                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                      >Something else here</a
-                    >
-                    <div class="h-0 my-2 border border-solid border-blueGray-100"></div>
-                    <a
-                      href="#pablo"
-                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                      >Seprated link</a
-                    >
-                  </div>
-                </li>
-                <li class="inline-block relative">
-                  <a
-                    class="text-blueGray-500 block"
-                    href="#pablo"
-                    onclick="openDropdown(event,'user-responsive-dropdown')"
-                    ><div class="items-center flex">
-                      {% if check_sex == 1 %}
-                        <span
-                          class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
-                          ><img
-                            alt="..."
-                            class="w-full rounded-full align-middle border-none shadow-lg"
-                            src="/static/images/male_staff.png"
-                        /></span>
-                      {% elif check_sex == 2 %}
-                        <span
-                        class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
-                        ><img
-                          alt="..."
-                          class="w-full rounded-full align-middle border-none shadow-lg"
-                          src="/static/images/female_staff.png"
-                        /></span>
-                      {% elif check_sex == 3 %}
-                        <span
-                        class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
-                        ><img
-                          alt="..."
-                          class="w-full rounded-full align-middle border-none shadow-lg"
-                          src="/static/images/admin.png"
-                        /></span>
-                      {% elif check_sex == 4 %}
-                        <span
-                        class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
-                        ><img
-                          alt="..."
-                          class="w-full rounded-full align-middle border-none shadow-lg"
-                          src="/static/images/admin.png"
-                        /></span>
-                      {% endif %}
-                    </div></a>
-                  <div
-                    class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
-                    style="min-width: 12rem;"
-                    id="user-responsive-dropdown"
-                  >
-                    <a
-                      href="#pablo"
-                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                      >Action</a
-                    ><a
-                      href="#pablo"
-                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                      >Another action</a
-                    ><a
-                      href="#pablo"
-                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                      >Something else here</a
-                    >
-                    <div class="h-0 my-2 border border-solid border-blueGray-100"></div>
-                    <a
-                      href="#pablo"
-                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                      >Seprated link</a
-                    >
-                  </div>
-                </li>
-              </ul>
-              <div
-                class="md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded hidden"
-                id="example-collapse-sidebar"
-              >
-                <div
-                  class="md:min-w-full md:hidden block pb-4 mb-4 border-b border-solid border-blueGray-200"
-                >
-                  <div class="flex flex-wrap">
-                    <div class="w-6/12">
-                      <a
-                        class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-                        href="javascript:void(0)"
-                      >
-                        Faculty Dashboard
-                      </a>
-                    </div>
-                    <div class="w-6/12 flex justify-end">
-                      <button
-                        type="button"
-                        class="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
-                        onclick="toggleNavbar('example-collapse-sidebar')"
-                      >
-                        <i class="fas fa-times"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-                  <li class="items-center">
-                    <a
-                      class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                      href="/faculty_landing"
-                      ><i class="fas fa-tv text-blueGray-400 mr-2 text-sm"></i>
-                      Statistics</a
-                    >
-                  </li>
-                  <li class="items-center">
-                    <a
-                      class="text-pink-500 hover:text-pink-600 text-xs uppercase py-3 font-bold block"
-                      href="/faculty_student_view"
-                      ><i class="fab fa-hubspot opacity-75 mr-2 text-sm"></i>
-                      Predictions</a
-                    >
-                  </li>
-                  <li class="items-center">
-                    <a
-                      class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                      href="/faculty_view_faculty"
-                      ><i class="fas fa-users text-blueGray-400 mr-2 text-sm"></i>
-                      Faculty Lists</a
-                    >
-                  </li>
-                  {% if check_admin %}
-                    <li class="items-center">
-                      <a
-                        class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                        href="/register_faculty"
-                        ><i
-                          class="fas fa-user-plus text-blueGray-400 mr-2 text-sm"
-                        ></i>
-                        Register Faculty</a
-                      >
-                    </li>
-                    <li class="items-center">
-                      <a
-                        class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                        href="#"
-                        data-popup-open="popupID"
-                        ><i
-                          class="fas fa-folder-plus text-blueGray-400 mr-2 text-sm"
-                        ></i>
-                        Add Curriculum</a
-                      >
-                    </li>
-                  {% else %}
+  /*PopUp Start*/
+  #wrapper {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    z-index: 1;
+    min-height: 100vh;
+  }
+  #wrapper main {
+    margin: auto;
+    text-align: center;
+  }
   
-                  {% endif %}
-                  <li class="items-center">
-                    <a
-                      class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                      href="/logout"
-                      ><i class="fas fa-sign-out-alt text-blueGray-400 mr-2 text-sm"></i>
-                      Sign Out</a
-                    >
-                  </li>
+  ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      }
+      
+  .notification-drop {
+      color: #444;
+  }
+  .notification-drop .item {
+      padding: 10px;
+      font-size: 18px;
+      position: relative;
+      border-bottom: 1px solid #ddd;
+  }
+  .notification-drop .item:hover {
+      cursor: pointer;
+  }
+  .notification-drop .item i {
+      margin-left: 10px;
+  }
+  .notification-drop .item ul {
+      display: none;
+      position: absolute;
+      top: 100%;
+      background: #fff;
+      left: -200px;
+      right: 0;
+      z-index: 1;
+      border-top: 1px solid #ddd;
+  }
+  .notification-drop .item ul li {
+      font-size: 16px;
+      padding: 15px 0 15px 25px;
+  }
+  .notification-drop .item ul li:hover {
+      background: rgba(0, 0, 0, 0.493);
+      color: rgba(0, 0, 0, 0.8);
+  }
+  
+  @media screen and (min-width: 500px) {
+      .notification-drop {
+          display: flex;
+          justify-content: flex-end;
+  }
+      .notification-drop .item {
+          border: none;
+      }
+  }
+  
+  .notification-bell{
+  font-size: 20px;
+  }
+  
+  .hybridBtn{
+    width: 90%;
+    height: auto;
+    margin: 10px;
+    justify-content: center;
+    display: block;
+    color: #fff;
+    background: #0d4d12;
+    font-size: 1em;
+    font-weight: bold;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    transition: .2s ease-in;
+    cursor: pointer;
+  }
+  .hybridBtn:hover{
+    background: #52b844;
+  }
+  
+  .btn__badge {
+      background: #FF5D5D;
+      color: white;
+      font-size: 12px;
+      position: absolute;
+      top: 0;
+      right: 0px;
+      padding:  3px 10px;
+      border-radius: 50%;
+  }
+  
+  .pulse-button {
+  box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
+      -webkit-animation: pulse 1.5s infinite;
+  }
+  
+  .pulse-button:hover {
+      -webkit-animation: none;
+  }
+  
+  @-webkit-keyframes pulse {
+  0% {
+      -moz-transform: scale(0.9);
+      -ms-transform: scale(0.9);
+      -webkit-transform: scale(0.9);
+      transform: scale(0.9);
+  }
+  70% {
+      -moz-transform: scale(1);
+      -ms-transform: scale(1);
+      -webkit-transform: scale(1);
+      transform: scale(1);
+      box-shadow: 0 0 0 50px rgba(255, 0, 0, 0);
+  }
+  100% {
+      -moz-transform: scale(0.9);
+      -ms-transform: scale(0.9);
+      -webkit-transform: scale(0.9);
+      transform: scale(0.9);
+      box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+      }
+  }
+  
+  .notification-text{
+      font-size: 14px;
+      font-weight: bold;
+  }
+  
+  .notification-text span{
+      float: right;
+  }
+  
+  
+  .page-content {
+    max-width: 30rem;
+    margin: 10rem auto 0;
+    color: #ddd;
+    text-align: left;
+  }
+  
+  .form {
+    width: 100%;
+    max-width: 30rem;
+    padding: 1.5rem;
+    border-radius: 10px;
+    background: linear-gradient(to bottom, #18290c, #3d632b, #2a3e24);
+    box-shadow: rgba(0, 0, 0, 0.8) 0px 13px 27px -5px, rgba(0, 0, 0, 0.7) 0px 8px 16px -8px;
+    color: #eee;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(50px);
+  }
+  .popup--show .form {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: all 0.3s ease-in-out;
+  }
+  .form h2 {
+    text-align: center;
+  }
+  
+  .popup {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    overflow: hidden auto;
+  }
+  .popup--show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: initial;
+  }
+  .popup__inner {
+    width: inherit;
+    height: inherit;
+  }
+  .popup__container {
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 85%;
+  }
+  .popup__content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+  .popup__close {
+    text-align: right;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+  
+  .popup-close {
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.3s ease-in-out;
+  }
+  .popup-close:hover {
+    opacity: 1;
+  }
+  
+  .popup-active {
+    overflow: hidden;
+  }
+  @media (any-hover: hover) {
+    .popup-active {
+      padding-right: var(--scroll-width);
+    }
+  }
+  /*PopUp End*/
+</style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="shortcut icon" href="../../static/assets/img/favicon.ico" />
+    <link rel="stylesheet" href="../../static/app.css" />
+    <script defer src="../../static/alpine.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+      rel="apple-touch-icon"
+      sizes="76x76"
+      href="../../static/assets/img/apple-icon.png"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/creativetimofficial/tailwind-starter-kit/compiled-tailwind.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <title>Dashboard | Faculty</title>
+  </head>
+  <body class="text-blueGray-700 antialiased">
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root">
+      <nav
+        class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
+      >
+        <div
+          class="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto"
+        >
+          <button
+            class="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
+            type="button"
+            onclick="toggleNavbar('example-collapse-sidebar')"
+          >
+            <i class="fas fa-bars"></i></button
+          >
+          <a
+            class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
+            href="javascript:void(0)"
+          >
+            Faculty Dashboard
+          </a>
+          <ul class="md:hidden items-center flex flex-wrap list-none">
+            <li class="inline-block relative">
+              <!-- <a
+                class="text-blueGray-500 block py-1 px-3"
+                href="#pablo"
+                onclick="openDropdown(event,'notification-dropdown')"
+                ><i class="fas fa-bell"></i
+              ></a> -->
+              <div>
+                <ul class="notification-drop">
+                  <li class="item mt-3 mr-3">
+                    <i class="fa fa-bell" aria-hidden="true" style="color: black;"></i>{% if unapprove_account %}<span class="btn__badge pulse-button ">{{ count_unapprove }}</span>{% endif %}     
+                    <ul style="background-color: #000000d0; border-radius: 5px; overflow:scroll; height:250px; width: auto; overflow-y: auto; overflow-x: hidden;">
+                      {% if unapprove_account %}
+                        {% for unapprove in unapprove_account %}
+                            <li style="font-size: small; color: white; text-align: left; ">
+                              {{ unapprove.first_name }}
+                              {{ unapprove.middle_name }}
+                              {{ unapprove.last_name }}
+                              <div style="display: block">{{ unapprove.department }}</div>
+                              <div style="display: block">{{ unapprove.contact_number }}</div>
+                              <div style="display: inline-block">
+                                <form action="/approve_account" method="POST">
+                                  <input type="hidden" name="user_id" value="{{ unapprove.id }}">
+                                  <input type="hidden" name="user_email" value="{{ unapprove.email }}">
+                                  <input type="hidden" name="user_department" value="{{ unapprove.department }}">
+                                  <input type="hidden" name="approve_flag" value="1">
+                                  <!-- <button class="hybridBtn" type="submit"> Approve </button> -->
+                                  <button
+                                    class="bg-green-500 active:bg-green-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-1 py-1 rounded outline-none focus:outline-none sm:mr-1 ml-4"
+                                    style="transition: all 0.15s ease 0s;"
+                                    type="submit"
+                                    > Approve
+                                  </button>
+                                </form>
+                              </div>
+                              <div style="display: inline-block">
+                                <form action="/approve_account" method="POST">
+                                  <input type="hidden" name="user_id" value="{{ unapprove.id }}">
+                                  <input type="hidden" name="user_email" value="{{ unapprove.email }}">
+                                  <input type="hidden" name="user_department" value="{{ unapprove.department }}">
+                                  <input type="hidden" name="approve_flag" value="0">
+                                  <!-- <button class="hybridBtn" type="submit"> Decline </button> -->
+                                  <button
+                                    class="bg-red-500 active:bg-red-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-1 py-1 rounded outline-none focus:outline-none sm:mr-1 ml-8"
+                                    style="transition: all 0.15s ease 0s;"
+                                    type="submit"
+                                    > Decline
+                                  </button>
+                                </form>
+                              </div>
+                          </li>
+                        {% endfor %}
+                      {% else %}
+                            <div style="text-align: center; margin-top: 40%; color: white; font-weight: bold">
+                              <span>No Registration</span>
+                            </div>
+                      {% endif %}
+                    </li>
                 </ul>
-                <hr class="my-4 md:min-w-full" />
               </div>
-            </div>
-          </nav>
-          <div class="relative md:ml-64 bg-blueGray-50">
-            <nav
-              class="absolute top-0 left-0 w-full z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start flex items-center p-4"
-            >
               <div
-                class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4"
+                class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
+                style="min-width: 12rem;"
+                id="notification-dropdown"
               >
                 <a
-                  class="text-black text-sm uppercase hidden lg:inline-block font-semibold"
-                  href="./index.html"
-                  >Student Predictions</a>
-                  <form
-                    class="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3"
-                  >
-                    <div class="relative flex w-full flex-wrap items-stretch">
-                      <ul class="notification-drop">
-                        <li class="item mt-6">
-                          <i class="fa fa-bell" aria-hidden="true" style="color: black;"></i>{% if unapprove_account %}<span class="btn__badge pulse-button ">{{ count_unapprove }}</span>{% endif %}     
-                          <ul style="background-color: #000000d0; border-radius: 5px; overflow:scroll; height:250px; width: auto; overflow-y: auto; overflow-x: hidden;">
-                            {% if unapprove_account %}
-                              {% for unapprove in unapprove_account %}
-                                  <li style="font-size: small; color: white; text-align: left; ">
-                                    {{ unapprove.first_name }}
-                                    {{ unapprove.middle_name }}
-                                    {{ unapprove.last_name }}
-                                    <div style="display: block">{{ unapprove.department }}</div>
-                                    <div style="display: block">{{ unapprove.contact_number }}</div>
-                                    <div style="display: inline-block">
-                                      <form action="/approve_account" method="POST">
-                                        <input type="hidden" name="user_id" value="{{ unapprove.id }}">
-                                        <input type="hidden" name="user_email" value="{{ unapprove.email }}">
-                                        <input type="hidden" name="user_department" value="{{ unapprove.department }}">
-                                        <input type="hidden" name="approve_flag" value="1">
-                                        <!-- <button class="hybridBtn" type="submit"> Approve </button> -->
-                                        <button
-                                          class="bg-green-500 active:bg-green-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-1 py-1 rounded outline-none focus:outline-none sm:mr-1 ml-4"
-                                          style="transition: all 0.15s ease 0s;"
-                                          type="submit"
-                                          > Approve
-                                        </button>
-                                      </form>
-                                    </div>
-                                    <div style="display: inline-block">
-                                      <form action="/approve_account" method="POST">
-                                        <input type="hidden" name="user_id" value="{{ unapprove.id }}">
-                                        <input type="hidden" name="user_email" value="{{ unapprove.email }}">
-                                        <input type="hidden" name="user_department" value="{{ unapprove.department }}">
-                                        <input type="hidden" name="approve_flag" value="0">
-                                        <!-- <button class="hybridBtn" type="submit"> Decline </button> -->
-                                        <button
-                                          class="bg-red-500 active:bg-red-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-1 py-1 rounded outline-none focus:outline-none sm:mr-1 ml-8"
-                                          style="transition: all 0.15s ease 0s;"
-                                          type="submit"
-                                          > Decline
-                                        </button>
-                                      </form>
-                                    </div>
-                                </li>
-                              {% endfor %}
-                            {% else %}
-                                  <div style="text-align: center; margin-top: 40%; color: white; font-weight: bold">
-                                    <span>No Registration</span>
-                                  </div>
-                            {% endif %}
-                          </li>
-                      </ul>
-                    </div>
-                  </form>
-                <ul
-                  class="flex-col md:flex-row list-none items-center hidden md:flex"
+                  href="#pablo"
+                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                  >Action</a
+                ><a
+                  href="#pablo"
+                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                  >Another action</a
+                ><a
+                  href="#pablo"
+                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                  >Something else here</a
                 >
-                  <a class="text-blueGray-500 block" href="#pablo" onclick="openDropdown(event,'user-dropdown')">
-                    <div class="items-center flex">
-                      {% if check_sex == 1 %}
-                        <span
-                          class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
-                          ><img
-                            alt="..."
-                            class="w-full rounded-full align-middle border-none shadow-lg"
-                            src="/static/images/male_staff.png"
-                        /></span>
-                      {% elif check_sex == 2 %}
-                        <span
-                        class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
-                        ><img
-                          alt="..."
-                          class="w-full rounded-full align-middle border-none shadow-lg"
-                          src="/static/images/female_staff.png"
-                        /></span>
-                      {% elif check_sex == 3 %}
-                        <span
-                        class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
-                        ><img
-                          alt="..."
-                          class="w-full rounded-full align-middle border-none shadow-lg"
-                          src="/static/images/admin.png"
-                        /></span>
-                      {% elif check_sex == 4 %}
-                        <span
-                        class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
-                        ><img
-                          alt="..."
-                          class="w-full rounded-full align-middle border-none shadow-lg"
-                          src="/static/images/admin.png"
-                        /></span>
-                      {% endif %}
-                    </div>
-                  </a>
-                  <div
-                    class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
-                    style="min-width: 12rem;"
-                    id="user-dropdown"
-                  >
-                    <a
-                      href="#pablo"
-                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                      >Action</a
-                    ><a
-                      href="#pablo"
-                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                      >Another action</a
-                    ><a
-                      href="#pablo"
-                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                      >Something else here</a
-                    >
-                    <div class="h-0 my-2 border border-solid border-blueGray-100"></div>
-                    <a
-                      href="#pablo"
-                      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                      >Seprated link</a
-                    >
-                  </div>
-                </ul>
+                <div class="h-0 my-2 border border-solid border-blueGray-100"></div>
+                <a
+                  href="#pablo"
+                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                  >Seprated link</a
+                >
               </div>
-            </nav>
-            <!-- Header -->
-            <div class="relative bg-grey-600 md:pt-20 pb-5 pt-10"
-            style="background-image: url(../../static/assets/img/register_bg_2.png); background-size: 100%; background-repeat: no-repeat;">
-              <div class="px-4 md:px-10 mx-auto w-full ">
-                <div>
-                  <!-- Card stats -->
-                  
+            </li>
+            <li class="inline-block relative">
+              <a
+                class="text-blueGray-500 block"
+                href="#pablo"
+                onclick="openDropdown(event,'user-responsive-dropdown')"
+                ><div class="items-center flex">
+                  {% if check_sex == 1 %}
+                    <span
+                      class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
+                      ><img
+                        alt="..."
+                        class="w-full rounded-full align-middle border-none shadow-lg"
+                        src="/static/images/male_staff.png"
+                    /></span>
+                  {% elif check_sex == 2 %}
+                    <span
+                    class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
+                    ><img
+                      alt="..."
+                      class="w-full rounded-full align-middle border-none shadow-lg"
+                      src="/static/images/female_staff.png"
+                    /></span>
+                  {% elif check_sex == 3 %}
+                    <span
+                    class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
+                    ><img
+                      alt="..."
+                      class="w-full rounded-full align-middle border-none shadow-lg"
+                      src="/static/images/admin.png"
+                    /></span>
+                  {% elif check_sex == 4 %}
+                    <span
+                    class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
+                    ><img
+                      alt="..."
+                      class="w-full rounded-full align-middle border-none shadow-lg"
+                      src="/static/images/admin.png"
+                    /></span>
+                  {% endif %}
+                </div></a>
+              <div
+                class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
+                style="min-width: 12rem;"
+                id="user-responsive-dropdown"
+              >
+                <a
+                  href="#pablo"
+                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                  >Action</a
+                ><a
+                  href="#pablo"
+                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                  >Another action</a
+                ><a
+                  href="#pablo"
+                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                  >Something else here</a
+                >
+                <div class="h-0 my-2 border border-solid border-blueGray-100"></div>
+                <a
+                  href="#pablo"
+                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                  >Seprated link</a
+                >
+              </div>
+            </li>
+          </ul>
+          <div
+            class="md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded hidden"
+            id="example-collapse-sidebar"
+          >
+            <div
+              class="md:min-w-full md:hidden block pb-4 mb-4 border-b border-solid border-blueGray-200"
+            >
+              <div class="flex flex-wrap">
+                <div class="w-6/12">
+                  <a
+                    class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
+                    href="javascript:void(0)"
+                  >
+                    Faculty Dashboard
+                  </a>
                 </div>
-                <div class="mt-2 py-4 border-t border-gray-300 text-center">
-                    <h3
-                      class="text-3xl font-semibold leading-normal mb-2 text-black mb-2"
-                      >
-                      <i class="fab fa-hubspot text-3xl text-black"></i> Predictions
-                    </h3>
-                    <div class="z-10">
-                        {% with messages = get_flashed_messages(with_categories=true) %}
-                            {% if messages %}
-                                {% for category, message in messages %}
-                                    {% if category == 'success_deletion' %}
+                <div class="w-6/12 flex justify-end">
+                  <button
+                    type="button"
+                    class="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
+                    onclick="toggleNavbar('example-collapse-sidebar')"
+                  >
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <ul class="md:flex-col md:min-w-full flex flex-col list-none">
+              <li class="items-center">
+                <a
+                  class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                  href="/faculty_landing"
+                  ><i class="fas fa-tv text-blueGray-400 mr-2 text-sm"></i>
+                  Statistics</a
+                >
+              </li>
+              <li class="items-center">
+                <a
+                  class="text-pink-500 hover:text-pink-600 text-xs uppercase py-3 font-bold block"
+                  href="/faculty_student_view"
+                  ><i class="fab fa-hubspot opacity-75 mr-2 text-sm"></i>
+                  Predictions</a
+                >
+              </li>
+              <li class="items-center">
+                <a
+                  class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                  href="/faculty_view_faculty"
+                  ><i class="fas fa-users text-blueGray-400 mr-2 text-sm"></i>
+                  Faculty Lists</a
+                >
+              </li>
+              {% if check_admin %}
+                <li class="items-center">
+                  <a
+                    class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                    href="/register_faculty"
+                    ><i
+                      class="fas fa-user-plus text-blueGray-400 mr-2 text-sm"
+                    ></i>
+                    Register Faculty</a
+                  >
+                </li>
+                <li class="items-center">
+                  <a
+                    class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                    href="#"
+                    data-popup-open="popupID"
+                    ><i
+                      class="fas fa-folder-plus text-blueGray-400 mr-2 text-sm"
+                    ></i>
+                    Add Curriculum</a
+                  >
+                </li>
+              {% else %}
+
+              {% endif %}
+              <li class="items-center">
+                <a
+                  class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                  href="/logout"
+                  ><i class="fas fa-sign-out-alt text-blueGray-400 mr-2 text-sm"></i>
+                  Sign Out</a
+                >
+              </li>
+            </ul>
+            <hr class="my-4 md:min-w-full" />
+          </div>
+        </div>
+      </nav>
+      <div class="relative md:ml-64 bg-blueGray-50">
+        <nav
+          class="absolute top-0 left-0 w-full z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start flex items-center p-4"
+        >
+          <div
+            class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4"
+          >
+            <a
+              class="text-black text-sm uppercase hidden lg:inline-block font-semibold"
+              href="./index.html"
+              >Student Predictions</a>
+              <form
+                class="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3"
+              >
+                <div class="relative flex w-full flex-wrap items-stretch">
+                  <ul class="notification-drop">
+                    <li class="item mt-6">
+                      <i class="fa fa-bell" aria-hidden="true" style="color: black;"></i>{% if unapprove_account %}<span class="btn__badge pulse-button ">{{ count_unapprove }}</span>{% endif %}     
+                      <ul style="background-color: #000000d0; border-radius: 5px; overflow:scroll; height:250px; width: auto; overflow-y: auto; overflow-x: hidden;">
+                        {% if unapprove_account %}
+                          {% for unapprove in unapprove_account %}
+                              <li style="font-size: small; color: white; text-align: left; ">
+                                {{ unapprove.first_name }}
+                                {{ unapprove.middle_name }}
+                                {{ unapprove.last_name }}
+                                <div style="display: block">{{ unapprove.department }}</div>
+                                <div style="display: block">{{ unapprove.contact_number }}</div>
+                                <div style="display: inline-block">
+                                  <form action="/approve_account" method="POST">
+                                    <input type="hidden" name="user_id" value="{{ unapprove.id }}">
+                                    <input type="hidden" name="user_email" value="{{ unapprove.email }}">
+                                    <input type="hidden" name="user_department" value="{{ unapprove.department }}">
+                                    <input type="hidden" name="approve_flag" value="1">
+                                    <!-- <button class="hybridBtn" type="submit"> Approve </button> -->
+                                    <button
+                                      class="bg-green-500 active:bg-green-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-1 py-1 rounded outline-none focus:outline-none sm:mr-1 ml-4"
+                                      style="transition: all 0.15s ease 0s;"
+                                      type="submit"
+                                      > Approve
+                                    </button>
+                                  </form>
+                                </div>
+                                <div style="display: inline-block">
+                                  <form action="/approve_account" method="POST">
+                                    <input type="hidden" name="user_id" value="{{ unapprove.id }}">
+                                    <input type="hidden" name="user_email" value="{{ unapprove.email }}">
+                                    <input type="hidden" name="user_department" value="{{ unapprove.department }}">
+                                    <input type="hidden" name="approve_flag" value="0">
+                                    <!-- <button class="hybridBtn" type="submit"> Decline </button> -->
+                                    <button
+                                      class="bg-red-500 active:bg-red-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-1 py-1 rounded outline-none focus:outline-none sm:mr-1 ml-8"
+                                      style="transition: all 0.15s ease 0s;"
+                                      type="submit"
+                                      > Decline
+                                    </button>
+                                  </form>
+                                </div>
+                            </li>
+                          {% endfor %}
+                        {% else %}
+                              <div style="text-align: center; margin-top: 40%; color: white; font-weight: bold">
+                                <span>No Registration</span>
+                              </div>
+                        {% endif %}
+                      </li>
+                  </ul>
+                </div>
+              </form>
+            <ul
+              class="flex-col md:flex-row list-none items-center hidden md:flex"
+            >
+              <a class="text-blueGray-500 block" href="#pablo" onclick="openDropdown(event,'user-dropdown')">
+                <div class="items-center flex">
+                  {% if check_sex == 1 %}
+                    <span
+                      class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
+                      ><img
+                        alt="..."
+                        class="w-full rounded-full align-middle border-none shadow-lg"
+                        src="/static/images/male_staff.png"
+                    /></span>
+                  {% elif check_sex == 2 %}
+                    <span
+                    class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
+                    ><img
+                      alt="..."
+                      class="w-full rounded-full align-middle border-none shadow-lg"
+                      src="/static/images/female_staff.png"
+                    /></span>
+                  {% elif check_sex == 3 %}
+                    <span
+                    class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
+                    ><img
+                      alt="..."
+                      class="w-full rounded-full align-middle border-none shadow-lg"
+                      src="/static/images/admin.png"
+                    /></span>
+                  {% elif check_sex == 4 %}
+                    <span
+                    class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
+                    ><img
+                      alt="..."
+                      class="w-full rounded-full align-middle border-none shadow-lg"
+                      src="/static/images/admin.png"
+                    /></span>
+                  {% endif %}
+                </div>
+              </a>
+              <div
+                class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
+                style="min-width: 12rem;"
+                id="user-dropdown"
+              >
+                <a
+                  href="#pablo"
+                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                  >Action</a
+                ><a
+                  href="#pablo"
+                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                  >Another action</a
+                ><a
+                  href="#pablo"
+                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                  >Something else here</a
+                >
+                <div class="h-0 my-2 border border-solid border-blueGray-100"></div>
+                <a
+                  href="#pablo"
+                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                  >Seprated link</a
+                >
+              </div>
+            </ul>
+          </div>
+        </nav>
+        <!-- Header -->
+        <div class="relative bg-grey-600 md:pt-20 pb-5 pt-10"
+        style="background-image: url(../../static/assets/img/register_bg_2.png); background-size: 100%; background-repeat: no-repeat;">
+          <div class="px-4 md:px-10 mx-auto w-full ">
+            <div>
+              <!-- Card stats -->
+              
+            </div>
+            <div class="mt-2 py-4 border-t border-gray-300 text-center">
+                <h3
+                  class="text-3xl font-semibold leading-normal mb-2 text-black mb-2"
+                  >
+                  <i class="fab fa-hubspot text-3xl text-black"></i> Predictions
+                </h3>
+                <div class="z-10">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                {% if category == 'success_deletion' %}
+                                    <div class="">
                                         <div class="">
                                             <div class="">
-                                                <div class="">
-                                                    <div style="padding: 2%; color: rgb(27, 202, 27); font-size: 25px; font-weight: 700">
-                                                        <center>
-                                                            {{ message }}
-                                                        </center>
-                                                        <script>
-                                                            window.setTimeout(function () {
-                                                                window.location.reload();
-                                                              }, 10000);
-                                                        </script>
-                                                    </div>
+                                                <div style="padding: 2%; color: rgb(27, 202, 27); font-size: 25px; font-weight: 700">
+                                                    <center>
+                                                        {{ message }}
+                                                    </center>
+                                                    <script>
+                                                        window.setTimeout(function () {
+                                                            window.location.reload();
+                                                          }, 10000);
+                                                    </script>
                                                 </div>
                                             </div>
                                         </div>
-                                    {% elif category == 'error' %}
+                                    </div>
+                                {% elif category == 'error' %}
+                                    <div class="">
                                         <div class="">
                                             <div class="">
-                                                <div class="">
-                                                    <div style="padding: 2%; color: red; font-size: 25px; font-weight: 700">
-                                                        <center>
-                                                            {{ message }}
-                                                        </center>
-                                                        <script>
-                                                            window.setTimeout(function () {
-                                                                window.location.reload();
-                                                            }, 3000);
-                                                        </script>
-                                                    </div>
+                                                <div style="padding: 2%; color: red; font-size: 25px; font-weight: 700">
+                                                    <center>
+                                                        {{ message }}
+                                                    </center>
+                                                    <script>
+                                                        window.setTimeout(function () {
+                                                            window.location.reload();
+                                                        }, 3000);
+                                                    </script>
                                                 </div>
                                             </div>
                                         </div>
-                                    {% elif category == 'info' %}
+                                    </div>
+                                {% elif category == 'info' %}
+                                    <div class="">
                                         <div class="">
                                             <div class="">
-                                                <div class="">
-                                                    <div style="padding: 2%; color: green; font-size: 25px; font-weight: 700">
-                                                        <center>
-                                                            {{ message }}
-                                                        </center>
-                                                        <script>
-                                                            window.setTimeout(function () {
-                                                                window.location.reload();
-                                                            }, 3000);
-                                                        </script>
-                                                    </div>
+                                                <div style="padding: 2%; color: green; font-size: 25px; font-weight: 700">
+                                                    <center>
+                                                        {{ message }}
+                                                    </center>
+                                                    <script>
+                                                        window.setTimeout(function () {
+                                                            window.location.reload();
+                                                        }, 3000);
+                                                    </script>
                                                 </div>
                                             </div>
                                         </div>
-                                    {% elif category == 'upload_successfully' %}
+                                    </div>
+                                {% elif category == 'upload_successfully' %}
+                                  <div class="">
                                       <div class="">
                                           <div class="">
-                                              <div class="">
-                                                  <div style="padding: 2%; color: green; font-size: 25px; font-weight: 700">
-                                                      <center>
-                                                          {{ message }}
-                                                      </center>
-                                                      <script>
-                                                          window.setTimeout(function () {
-                                                              window.location.reload();
-                                                          }, 3000);
-                                                      </script>
-                                                  </div>
+                                              <div style="padding: 2%; color: green; font-size: 25px; font-weight: 700">
+                                                  <center>
+                                                      {{ message }}
+                                                  </center>
+                                                  <script>
+                                                      window.setTimeout(function () {
+                                                          window.location.reload();
+                                                      }, 3000);
+                                                  </script>
                                               </div>
                                           </div>
                                       </div>
-                                    {% elif category == 'error' %}
+                                  </div>
+                                {% elif category == 'error' %}
+                                  <div class="">
                                       <div class="">
                                           <div class="">
-                                              <div class="">
-                                                  <div style="padding: 2%; color: red; font-size: 25px; font-weight: 700">
-                                                      <center>
-                                                          {{ message }}
-                                                      </center>
-                                                      <script>
-                                                          window.setTimeout(function () {
-                                                              window.location.reload();
-                                                          }, 3000);
-                                                      </script>
-                                                  </div>
+                                              <div style="padding: 2%; color: red; font-size: 25px; font-weight: 700">
+                                                  <center>
+                                                      {{ message }}
+                                                  </center>
+                                                  <script>
+                                                      window.setTimeout(function () {
+                                                          window.location.reload();
+                                                      }, 3000);
+                                                  </script>
                                               </div>
                                           </div>
                                       </div>
-                                    {% endif %}
-                                {% endfor %}
-                            {% endif %}
-                        {% endwith %}
-                      </div>
-                      <div class="flex flex-wrap justify-center">
-                        <div class="flex justify-between ... ">
-                          <div class="flex-1 h-16 p-2 ...">
-                            <form action="{{ url_for('_faculty.faculty_student_view') }}" method="GET">
-                              <select class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" name="curriculum_year" id="drop-down" placeholder="Curriculum Year" required="" onchange="this.form.submit()">
-                                <option value="">Curriculum Year</option>
-                                {% if curriculum_input %}
-                                  {% for curriculum in curriculum_input %}
-                                    <option value="{{ curriculum.curriculum_year }}">{{ curriculum.curriculum_year }}</option>
-                                  {% endfor %}
+                                  </div>
                                 {% endif %}
-                              </select>
-                            </form>
-                          </div>
-                          <div class="flex-1 h-16 p-2 ...">
-                            <form action="{{ url_for('_faculty.faculty_student_view') }}" method="GET">
-                              <select class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" name="program" id="drop-down" placeholder="Program" required="" onchange="this.form.submit()">
-                                <option value="">Program</option>
-                                <option value="Shiftee">Shiftee</option>
-                                <option value="Transferee">Transferee</option>
-                                <option value="Regular">Regular</option>
-                              </select>
-                            </form>
-                          </div>
-                          <div class="flex-1 h-16 p-2 ...">
-                            <form action="{{ url_for('_faculty.faculty_student_view') }}" method="GET">
-                              <select class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" name="sex" id="drop-down" placeholder="Sex" required="" onchange="this.form.submit()">
-                                <option value="">Sex</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                              </select>
-                            </form>
-                          </div>
-                          <div class="flex-1 h-16 p-2 ...">
-                            <form action="{{ url_for('_faculty.faculty_student_view') }}" method="GET">
-                              <select class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" name="department" id="drop-down" placeholder="Department" required="" onchange="this.form.submit()">
-                                <option value="">Department</option>
-                                <option value="information technology">Information Technology</option>
-                                <option value="computer science">Computer Science</option>
-                              </select>
-                            </form>
-                          </div>
-                          <div class="flex-1 h-16 p-2 ...">
-                            <form action="{{ url_for('_faculty.faculty_student_view') }}" method="GET">
-                              <input class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="search" value="{{ search }}" name="search" placeholder="Enter first name, last name, etc." autocomplete="off">
-                            </form>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                  </div>
+                  <div class="flex flex-wrap justify-center">
+                    <div class="flex justify-between ... ">
+                      <div class="flex-1 h-16 p-2 ...">
+                        <form action="{{ url_for('_faculty.faculty_student_view') }}" method="GET">
+                          <select class="drop-down appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" name="curriculum_year" id="curriculum_year" placeholder="Curriculum Year" required="" onchange="this.form.submit()">
+                            <option value="" disabled selected hidden>Curriculum Year</option>
+                            {% if curriculum_input %}
+                              {% for curriculum in curriculum_input %}
+                                <option value="{{ curriculum.curriculum_year }}">{{ curriculum.curriculum_year }}</option>
+                              {% endfor %}
+                            {% endif %}
+                          </select>
+                        </form>
+                      </div>
+                      <div class="flex-1 h-16 p-2 ...">
+                        <form action="{{ url_for('_faculty.faculty_student_view') }}" method="GET">
+                          <select class="drop-down appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" name="program" id="program" placeholder="Program" required="" onchange="this.form.submit()">
+                            {% if program %}
+                              <option value="" disabled selected hidden>{{ program }}</option>
+                            {% else %}
+                              <option value="" disabled selected hidden>Program</option>
+                            {% endif %}
+                            
+                            <option value="Shiftee">Shiftee</option>
+                            <option value="Transferee">Transferee</option>
+                            <option value="Regular">Regular</option>
+                          </select>
+                        </form>
+                      </div>
+                      <div class="flex-1 h-16 p-2 ...">
+                        <form action="{{ url_for('_faculty.faculty_student_view') }}" method="GET">
+                          <select class="drop-down appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" name="sex" id="sex" placeholder="Sex" required="" onchange="this.form.submit()">
+                            <option value="" disabled selected hidden>Sex</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                          </select>
+                        </form>
+                      </div>
+                      <div class="flex-1 h-16 p-2 ...">
+                        <form action="{{ url_for('_faculty.faculty_student_view') }}" method="GET">
+                          <select class="drop-down appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" name="department" id="department" placeholder="Department" required="" onchange="this.form.submit()">
+                            <option value="" disabled selected hidden>Department</option>
+                            <option value="information technology">Information Technology</option>
+                            <option value="computer science" >Computer Science</option>
+                          </select>
+                        </form>
+                      </div>
+                      <div class="flex-1 h-16 p-2 ...">
+                        <form action="{{ url_for('_faculty.faculty_student_view') }}" method="GET">
+                          <input class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="search" value="{{ search }}" name="search" id="search" placeholder="Enter Name" autocomplete="off">
+                        </form>
+                      </div>
+                      <div class="flex-1 h-16 p-2 ...">
+                        <button
+                          class="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-2 py-2 rounded outline-none focus:outline-none sm:mr-2"
+                          style="transition: all 0.15s ease 0s;"
+                          type="button"
+                          id="download_csv_file"
+                        >
+                        <i class="fas fa-file-download mr-2 text-xs text-white"></i> Generate Report
+                        </button>
+                      </div>
+                    </div>
+                    <div class="-m-1.5 overflow-x-auto ">
+                      <div class="p-1.5 min-w-full inline-block align-middle">
+                        <div class="border rounded-lg shadow overflow-hidden dark:border-white dark:shadow-white shadow-lg rounded bg-blueGray-800">
+                          <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                            <thead>
+                              <tr class="divide-x divide-white dark:divide-white">
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Image</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Full Name</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Desired Career</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Top 1 Prediction</th>
+                                <!-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Sex</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Curriculum year</th> -->
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Department</th>
+                                <!-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Status</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Contact Number</th> 
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Email</th> -->
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Action</th>
+                              </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                              {% if students_record %}
+                                {% for user, pred_result in students_record.items %}
+                                  <tr>
+                                    <td class="border px-4 py-2">
+                                      <span class="px-4 py-2"><img alt="..." 
+                                        class="w-full rounded-full align-middle border-none shadow-lg" style="width: 80px; height:auto"
+                                        src="/static/images/{{user.img}}"></span>
+                                    </td>
+                                    
+                                    <td>
+                                      {% if pred_result.desired_job == pred_result.top_rank %}
+                                        <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-400">{{ user.first_name }}</span>
+                                        <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-400">{{ user.middle_name }}</span>
+                                        <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-400">{{ user.last_name }} </span>
+                                      {% else %}
+                                        <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-red-400">{{ user.first_name }}</span>
+                                        <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-red-400">{{ user.middle_name }}</span>
+                                        <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-red-400">{{ user.last_name }} </span>
+                                      {% endif %}
+                                      
+                                    </td>
+                                    <td>
+                                      <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ pred_result.desired_job }}</span>
+                                    </td>
+                                    <td>
+                                      <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ pred_result.main_rank }}</span>
+                                    </td>
+                                    <!-- <td>
+                                      <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ user.sex }}</span>
+                                    </td>
+                                    <td>
+                                      <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ user.curriculum_year }}</span>
+                                    </td> -->
+                                    <td>
+                                      <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ user.department }}</span>
+                                    </td>
+                                    <!-- <td>
+                                      <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ user.program }}</span>
+                                    </td> 
+                                    <td>
+                                      <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ user.contact_number }}</span>
+                                    </td> 
+                                    <td>
+                                      <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ user.email }}</span>
+                                    </td> -->
+                                    <td>
+                                      <!-- 
+                                        class should be inline
+                                      -->
+                                      <div style="display: flex">
+                                        <form action="/view_results" method="POST">
+                                          <input type="hidden" name="user_id" value="{{ user.id }}">
+                                          <button
+                                            class="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-4 rounded outline-none focus:outline-none sm:mr-2 mt-2"
+                                            style="transition: all 0.15s ease 0s;"
+                                            type="submit"
+                                          >
+                                          <i
+                                          class="fas fa-folder-open mr-2 text-xs text-white"
+                                          ></i> View
+                                          </button>
+                                          <!-- <button type="submit" style="padding: 10px; margin: 5px" class="hybridBtn"> View </button> -->
+                                        </form>
+                                        <form action="/delete_student" method="POST">
+                                          <input type="hidden" name="user_id" value="{{ user.id }}">
+                                          <!-- <button type="submit" style="padding: 10px; margin: 5px" class="hybridBtn"> Delete </button> -->
+                                          <button
+                                            class="bg-red-500 active:bg-red-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-4 rounded outline-none focus:outline-none sm:mr-2 mt-2"
+                                            style="transition: all 0.15s ease 0s;"
+                                            type="submit"
+                                          >
+                                          <i
+                                          class="fas fa-trash-alt mr-2 text-xs text-white"
+                                          ></i> Delete
+                                          </button>
+                                        </form>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                {% endfor %}
+                              {% endif %}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="mx-auto" style="color: black; font-weight: bolder">
+                        {% if students_record %}
+                            {% for page_num in students_record.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                                {% if page_num  %}
+                                    {% if students_record.page == page_num  %}
+                                      {% if search  %}
+                                        <a class="" href="{{ url_for('_faculty.faculty_student_view', page=page_num, search=search) }}">{{ page_num }}</a>
+                                      {% elif department %}
+                                        <a class="" href="{{ url_for('_faculty.faculty_student_view', page=page_num, department=department) }}">{{ page_num }}</a>
+                                      {% elif sex %}
+                                        <a class="" href="{{ url_for('_faculty.faculty_student_view', page=page_num, sex=sex) }}">{{ page_num }}</a>
+                                      {% elif curriculum_year %}
+                                        <a class="" href="{{ url_for('_faculty.faculty_student_view', page=page_num, curriculum_year=curriculum_year) }}">{{ page_num }}</a>
+                                      {% else %}
+                                        <a class="" href="{{ url_for('_faculty.faculty_student_view', page=page_num) }}">{{ page_num }}</a>
+                                      {% endif %}
+      
+                                      {% else %}
+                                        {% if search  %}
+                                          <a class="" href="{{ url_for('_faculty.faculty_student_view', page=page_num, search=search) }}">{{ page_num }}</a>
+                                        {% elif department %}
+                                          <a class="" href="{{ url_for('_faculty.faculty_student_view', page=page_num, department=department) }}">{{ page_num }}</a>
+                                        {% elif sex %}
+                                          <a class="" href="{{ url_for('_faculty.faculty_student_view', page=page_num, sex=sex) }}">{{ page_num }}</a>
+                                        {% elif curriculum_year %}
+                                          <a class="" href="{{ url_for('_faculty.faculty_student_view', page=page_num, curriculum_year=curriculum_year) }}">{{ page_num }}</a>
+                                        {% else %}
+                                          <a class="" href="{{ url_for('_faculty.faculty_student_view', page=page_num) }}">{{ page_num }}</a>
+                                        {% endif %}
+                                      {% endif %}
+                                  {% else %}
+                                    ...
+                                {% endif %}
+                            {% endfor %}
+                          {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+          
+          <div class="popup" id="popupID">
+            <div class="popup__inner">
+              <div class="popup__container">
+                <!-- <div style="position: relative; right: 520px; top: 140px; z-index: 101" class="popup__close popup-close" data-popup-close>
+                  <div class="svg-icon">&#10006;</div>
+                </div> -->
+                <div class="popup__content">
+                  <!-- your content -->
+                  <!-- <div>
+                    <center>
+                      <img style="position: relative; width: 150px; height: auto; z-index: 1; left: 250px; bottom: 115px"src="https://i.ibb.co/hVNnnCf/312968052-2476337182505210-5876316929227327673-n.png" alt="278471092-1030717754212581-5567044845078025126-n-removebg-preview" border="0"></center>
+                  </div> -->
+                  
+                  <div class="pt-6 w-full md:w-5/12 px-4 text-center">
+                    <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+                      <div class="px-4 py-5 flex-auto">
+                        <!-- <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
+                        <i class="fas fa-award"></i> -->
+                        <div class="wrap" style="text-align: justify; margin-left: 40px; color: black;">
+                          <div class="user-left">
+                            <span class="popup__close popup-close z-101" data-popup-close><div class="svg-icon">&#10006;</div></span>
+                            <center><h1><div class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-lg uppercase font-bold p-4 px-0">Add Curriculum</div></h1></center>
                           </div>
                         </div>
-                        <div class="-m-1.5 overflow-x-auto ">
-                          <div class="p-1.5 min-w-full inline-block align-middle">
-                            <div class="border rounded-lg shadow overflow-hidden dark:border-white dark:shadow-white shadow-lg rounded bg-blueGray-800">
+                      </div>
+                      <div class="flex flex-wrap justify-center">
+                        <div class="-m-1.2 overflow-x-auto ">
+                          <div class="p-1.2 min-w-full inline-block align-middle">
+                            <div class="border rounded-lg shadow overflow-hidden dark:border-white dark:shadow-white shadow-lg rounded bg-blueGray-800 h-64 overflow-y-scroll">
                               <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                                 <thead>
                                   <tr class="divide-x divide-white dark:divide-white">
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Image</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Full Name</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Desired Career</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Top 1 Prediction</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Sex</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Curriculum year</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Department</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Status</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Contact Number</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Email</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Created By</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Curriculum Year</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Date Created</th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Action</th>
                                   </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-                                  {% if students_record %}
-                                    {% for user, pred_result in students_record.items %}
-                                      <tr>
-                                        <td class="border px-4 py-2">
-                                          <span class="px-4 py-2"><img alt="..." 
-                                            class="w-full rounded-full align-middle border-none shadow-lg"
-                                            src="/static/images/{{user.img}}"></span>
+                                  {% if curriculum_record %}
+                                    {% for curriculum_yr in curriculum_record %}
+                                      <tr >
+                                        <td>
+                                          <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ curriculum_yr.created_by }}</span>
                                         </td>
                                         <td>
-                                          <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ user.first_name }}</span>
-                                          <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ user.middle_name }}</span>
-                                          <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ user.last_name }} </span>
+                                          <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ curriculum_yr.curriculum_year }}</span>
                                         </td>
                                         <td>
-                                          <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ pred_result.desired_job }}</span>
+                                          <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white"> {{ curriculum_yr.date_created }} </span>
                                         </td>
                                         <td>
-                                          <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ pred_result.main_rank }}</span>
-                                        </td>
-                                        <td>
-                                          <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ user.sex }}</span>
-                                        </td>
-                                        <td>
-                                          <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ user.curriculum_year }}</span>
-                                        </td>
-                                        <td>
-                                          <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ user.department }}</span>
-                                        </td>
-                                        <td>
-                                          <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ user.program }}</span>
-                                        </td>
-                                        <td>
-                                          <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ user.contact_number }}</span>
-                                        </td>
-                                        <td>
-                                          <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ user.email }}</span>
-                                        </td>
-                                        <td>
-                                          <!-- 
-                                            class should be inline
-                                          -->
-                                          <div style="display: flex">
-                                            <form action="/view_results" method="POST">
-                                              <input type="hidden" name="user_id" value="{{ user.id }}">
-                                              <button
-                                                class="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-4 rounded outline-none focus:outline-none sm:mr-2 mt-2"
-                                                style="transition: all 0.15s ease 0s;"
-                                                type="submit"
-                                              >
-                                              <i
-                                              class="fas fa-folder-open mr-2 text-xs text-white"
-                                              ></i> View
-                                              </button>
-                                              <!-- <button type="submit" style="padding: 10px; margin: 5px" class="hybridBtn"> View </button> -->
-                                            </form>
-                                            <form action="/delete_student" method="POST">
-                                              <input type="hidden" name="user_id" value="{{ user.id }}">
-                                              <!-- <button type="submit" style="padding: 10px; margin: 5px" class="hybridBtn"> Delete </button> -->
-                                              <button
-                                                class="bg-red-500 active:bg-red-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-4 rounded outline-none focus:outline-none sm:mr-2 mt-2"
-                                                style="transition: all 0.15s ease 0s;"
-                                                type="submit"
-                                              >
-                                              <i
-                                              class="fas fa-trash-alt mr-2 text-xs text-white"
-                                              ></i> Delete
-                                              </button>
-                                            </form>
+                                          <div>
+                                              <form action="{{ url_for('_faculty.delete_curriculum_year') }}" method="POST">
+                                                  <input type="hidden" name="curriculum_identity" value="{{ curriculum_yr.curriculum_id }}">
+                                                  <button
+                                                  class="bg-red-500 active:bg-red-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-4 rounded outline-none focus:outline-none sm:mr-2 mt-2"
+                                                  style="transition: all 0.15s ease 0s;"
+                                                  type="submit"
+                                                  >
+                                                  <i
+                                                  class="fas fa-trash-alt mr-2 text-xs text-white"
+                                                  ></i> Delete
+                                                  </button>
+                                                  <!-- <button type="submit" class="hybridBtn" id="hybridBtn"> Delete</button> -->
+                                              </form>
                                           </div>
                                         </td>
                                       </tr>
@@ -945,305 +1054,296 @@
                               </table>
                             </div>
                           </div>
-                          <div class="mx-auto" style="color: black; font-weight: bolder">
-                            {% if students_record %}
-                                {% for page_num in students_record.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-                                    {% if page_num  %}
-                                        {% if students_record.page == page_num  %}
-                                          {% if search  %}
-                                            <a class="" href="{{ url_for('_faculty.faculty_student_view', page=page_num, search=search) }}">{{ page_num }}</a>
-                                          {% elif department %}
-                                            <a class="" href="{{ url_for('_faculty.faculty_student_view', page=page_num, department=department) }}">{{ page_num }}</a>
-                                          {% elif sex %}
-                                            <a class="" href="{{ url_for('_faculty.faculty_student_view', page=page_num, sex=sex) }}">{{ page_num }}</a>
-                                          {% elif curriculum_year %}
-                                            <a class="" href="{{ url_for('_faculty.faculty_student_view', page=page_num, curriculum_year=curriculum_year) }}">{{ page_num }}</a>
-                                          {% else %}
-                                            <a class="" href="{{ url_for('_faculty.faculty_student_view', page=page_num) }}">{{ page_num }}</a>
-                                          {% endif %}
-          
-                                          {% else %}
-                                            {% if search  %}
-                                              <a class="" href="{{ url_for('_faculty.faculty_student_view', page=page_num, search=search) }}">{{ page_num }}</a>
-                                            {% elif department %}
-                                              <a class="" href="{{ url_for('_faculty.faculty_student_view', page=page_num, department=department) }}">{{ page_num }}</a>
-                                            {% elif sex %}
-                                              <a class="" href="{{ url_for('_faculty.faculty_student_view', page=page_num, sex=sex) }}">{{ page_num }}</a>
-                                            {% elif curriculum_year %}
-                                              <a class="" href="{{ url_for('_faculty.faculty_student_view', page=page_num, curriculum_year=curriculum_year) }}">{{ page_num }}</a>
-                                            {% else %}
-                                              <a class="" href="{{ url_for('_faculty.faculty_student_view', page=page_num) }}">{{ page_num }}</a>
-                                            {% endif %}
-                                          {% endif %}
-                                      {% else %}
-                                        ...
-                                    {% endif %}
-                                {% endfor %}
-                              {% endif %}
+                        </div>
+                        <div class="user-right" style="color: #000;">
+                          <div class="relative">
+                            <label for="add_curriculum">Add Curriculum Year: </label>
+                            <form class="flex" action="{{ url_for('_faculty.add_curriculum_year') }}" method="POST">
+                              <input pattern="\d{4} - \d{4}" required="" class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="search" value="{{ search }}" name="add_curriculum" placeholder="Example: 2007 - 2008" autocomplete="off" class="form-input w-3/4">
+                              <button 
+                              class="bg-green-500 active:bg-green-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none m-2"
+                              style="transition: all 0.15s ease 0s;"
+                              type="submit"
+                              >Add</button>
+                            </form>
                           </div>
                         </div>
+                        <!-- </form> -->
                       </div>
-                    </div>
-                </div>
-              </div>
-              
-              <div class="popup" id="popupID">
-                <div class="popup__inner">
-                  <div class="popup__container">
-                    <!-- <div style="position: relative; right: 520px; top: 140px; z-index: 101" class="popup__close popup-close" data-popup-close>
-                      <div class="svg-icon">&#10006;</div>
-                    </div> -->
-                    <div class="popup__content">
-                      <!-- your content -->
-                      <!-- <div>
-                        <center>
-                          <img style="position: relative; width: 150px; height: auto; z-index: 1; left: 250px; bottom: 115px"src="https://i.ibb.co/hVNnnCf/312968052-2476337182505210-5876316929227327673-n.png" alt="278471092-1030717754212581-5567044845078025126-n-removebg-preview" border="0"></center>
-                      </div> -->
-                      
-                      <div class="pt-6 w-full md:w-5/12 px-4 text-center">
-                        <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                          <div class="px-4 py-5 flex-auto">
-                            <!-- <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
-                            <i class="fas fa-award"></i> -->
-                            <div class="wrap" style="text-align: justify; margin-left: 40px; color: black;">
-                              <div class="user-left">
-                                <span class="popup__close popup-close z-101" data-popup-close><div class="svg-icon">&#10006;</div></span>
-                                <center><h1><div class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-lg uppercase font-bold p-4 px-0">Add Curriculum</div></h1></center>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="flex flex-wrap justify-center">
-                            <div class="-m-1.2 overflow-x-auto ">
-                              <div class="p-1.2 min-w-full inline-block align-middle">
-                                <div class="border rounded-lg shadow overflow-hidden dark:border-white dark:shadow-white shadow-lg rounded bg-blueGray-800 h-64 overflow-y-scroll">
-                                  <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                                    <thead>
-                                      <tr class="divide-x divide-white dark:divide-white">
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Created By</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Curriculum Year</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Date Created</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Action</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-                                      {% if curriculum_record %}
-                                        {% for curriculum_yr in curriculum_record %}
-                                          <tr >
-                                            <td>
-                                              <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ curriculum_yr.created_by }}</span>
-                                            </td>
-                                            <td>
-                                              <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white">{{ curriculum_yr.curriculum_year }}</span>
-                                            </td>
-                                            <td>
-                                              <span class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-white"> {{ curriculum_yr.date_created }} </span>
-                                            </td>
-                                            <td>
-                                              <div>
-                                                  <form action="{{ url_for('_faculty.delete_curriculum_year') }}" method="POST">
-                                                      <input type="hidden" name="curriculum_identity" value="{{ curriculum_yr.curriculum_id }}">
-                                                      <button
-                                                      class="bg-red-500 active:bg-red-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-4 rounded outline-none focus:outline-none sm:mr-2 mt-2"
-                                                      style="transition: all 0.15s ease 0s;"
-                                                      type="submit"
-                                                      >
-                                                      <i
-                                                      class="fas fa-trash-alt mr-2 text-xs text-white"
-                                                      ></i> Delete
-                                                      </button>
-                                                      <!-- <button type="submit" class="hybridBtn" id="hybridBtn"> Delete</button> -->
-                                                  </form>
-                                              </div>
-                                            </td>
-                                          </tr>
-                                        {% endfor %}
-                                      {% endif %}
-                                    </tbody>
-                                  </table>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="user-right" style="color: #000;">
-                              <div class="relative">
-                                <label for="add_curriculum">Add Curriculum Year: </label>
-                                <form class="flex" action="{{ url_for('_faculty.add_curriculum_year') }}" method="POST">
-                                  <input pattern="\d{4} - \d{4}" required="" class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="search" value="{{ search }}" name="add_curriculum" placeholder="Example: 2007 - 2008" autocomplete="off" class="form-input w-3/4">
-                                  <button 
-                                  class="bg-green-500 active:bg-green-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none m-2"
-                                  style="transition: all 0.15s ease 0s;"
-                                  type="submit"
-                                  >Add</button>
-                                </form>
-                              </div>
-                            </div>
-                            <!-- </form> -->
-                          </div>
-                          </div>
-                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-
-              <footer class="block py-5">
-                <div class="container mx-auto px-4">
-                  <hr class="mb-4 border-b-1 border-blueGray-200" />
-                </div>
-              </footer>
             </div>
           </div>
+
+          <footer class="block py-5">
+            <div class="container mx-auto px-4">
+              <hr class="mb-4 border-b-1 border-blueGray-200" />
+            </div>
+          </footer>
         </div>
+      </div>
+    </div>
+    <script>
+      function download_csv(csv, filename) {
+        var csvFile;
+        var downloadLink;
+      
+        // CSV FILE
+        csvFile = new Blob([csv], {type: "text/csv"});
+      
+        // Download link
+        downloadLink = document.createElement("a");
+      
+        // File name
+        downloadLink.download = filename;
+      
+        // We have to create a link to the file
+        downloadLink.href = window.URL.createObjectURL(csvFile);
+      
+        // Make sure that the link is not displayed
+        downloadLink.style.display = "none";
+      
+        // Add the link to your DOM
+        document.body.appendChild(downloadLink);
+      
+        // Lanzamos
+        downloadLink.click();
+    }
+      
+    function export_table_to_csv(html, filename) {
+        var csv = [];
+        var rows = document.querySelectorAll("table");
+        
+        for (var i = 0; i < rows.length; i++) {
+            var row = [], cols = rows[i].querySelectorAll("td, th");
+            
+            for (var j = 0; j < cols.length; j++)
+                row.push(cols[j].innerText);
+            
+            csv.push(row.join(","));        
+        }
+      
+        // Download CSV
+        download_csv(csv.join("\n"), filename);
+        
+    }
+      
+    document.getElementById("download_csv_file").addEventListener("click", function () {
+        var html = document.querySelector("table").outerHTML;
+        export_table_to_csv(html, "table.csv");
+    });
+    </script>
+    <!-- <script>
+      const selectProgram = document.getElementById("program");
+      // Retrieve the selected value from local storage
+      const storedValueProgram = localStorage.getItem("selectedOptionProgram");
+      if (storedValueProgram) {
+        selectProgram.value = storedValueProgram;
+      }
+      // Store the selected value in local storage
+      selectProgram.addEventListener("change", function() {
+        localStorage.setItem("selectedOptionProgram", selectProgram.value);
+      });
+    
+      const selectSex = document.getElementById("sex");
+      // Retrieve the selected value from local storage
+      const storedValueSex = localStorage.getItem("selectedOptionSex");
+      if (storedValueSex) {
+        selectSex.value = storedValueSex;
+      }
+      // Store the selected value in local storage
+      selectSex.addEventListener("change", function() {
+        localStorage.setItem("selectedOptionSex", selectSex.value);
+      });
+    
+      const selectDepartment = document.getElementById("department");
+      // Retrieve the selected value from local storage
+      const storedValueDepartment = localStorage.getItem("selectedOptionDepartment");
+      if (storedValueDepartment) {
+        selectDepartment.value = storedValueDepartment;
+      }
+      // Store the selected value in local storage
+      selectDepartment.addEventListener("change", function() {
+        localStorage.setItem("selectedOptionDepartment", selectDepartment.value);
+      });
+    
+      const selectCurriculum = document.getElementById("curriculum_year");
+      // Retrieve the selected value from local storage
+      const storedValueCurriculum = localStorage.getItem("selectedOptionCurriculum");
+      if (storedValueCurriculum) {
+        selectCurriculum.value = storedValueCurriculum;
+      }
+      // Store the selected value in local storage
+      selectCurriculum.addEventListener("change", function() {
+        localStorage.setItem("selectedOptionCurriculum", selectCurriculum.value);
+      });
+      
+      var search = localStorage.getItem("search");
+      if (search) {
+        document.getElementById("search").value = search;
+      }
+      var search = document.getElementById("search").value;
+      localStorage.setItem("search", search);
 
-        <script>
-          function toggleNavbar(collapseID) {
-            document.getElementById(collapseID).classList.toggle("hidden");
-            document.getElementById(collapseID).classList.toggle("block");
-          }
-          class Popup {
-            classPopupShow =  'popup--show';
-            classForBody = 'popup-active';
-            popup = null;
-            closeOnClickOverlay = false;
-        
-            constructor(options = {}) {
-        
-                this.closeOnClickOverlay = options?.closeOnClickOverlay || false;
-            
-                // check if page has vertical scroll
-                this.scrollWidthInit();
-        
-                document.addEventListener('click', e => {
-                
-                // open
-                if (e.target.dataset.popupOpen) {
-                    e.preventDefault();
-                    this.popup = document.getElementById(e.target.dataset.popupOpen);
-                    this.show();
-                }
-        
-                // close
-                if (e.target.hasAttribute('data-popup-close') ||
-                    (e.target.closest('.popup__close') && e.target.closest('.popup__close').hasAttribute('data-popup-close')) ||
-                    (this.closeOnClickOverlay && e.target.classList.contains('popup__content'))
-                ){
-                    e.preventDefault();
-                    this.hide();
-                }
-                })
-            }
-        
-            scrollWidthInit() {
-        
-                function existVerticalScroll() {
-                let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0),
-                    sh =  document.body.scrollHeight;
-        
-                return sh > vh ? true : false;
-                }
-        
-                let div = document.createElement('div');
-            
-                div.style.overflowY = 'scroll';
-                div.style.width = '50px';
-                div.style.height = '50px';
-            
-                document.body.append(div);
-            
-                let scrollWidth = div.offsetWidth - div.clientWidth;
-            
-                div.remove();
-        
-                if (existVerticalScroll()) {
-                document.documentElement.style.setProperty('--scroll-width', scrollWidth + 'px');
-                }
-            }
-        
-            show() {
-                
-                if (this.popup) {
-                this.popup.classList.add(this.classPopupShow);
-                }
-        
-                document.body.classList.add(this.classForBody);
-            }
-        
-            hide() {
-        
-                if (this.popup) {
-                this.popup.classList.remove(this.classPopupShow);
-                }
-        
-                document.body.classList.remove(this.classForBody);
-            }
-            }
-        
-          new Popup({
-          closeOnClickOverlay: true, // if you want popup to be closed after click on overlay (default: false)
-          });
-        </script>
+      window.addEventListener("load", function () {
+        localStorage.clear();
+      });
 
-        <script>
-          /* Sidebar - Side navigation menu on mobile/responsive mode */
-          function toggleNavbar(collapseID) {
-            document.getElementById(collapseID).classList.toggle("hidden");
-            document.getElementById(collapseID).classList.toggle("bg-white");
-            document.getElementById(collapseID).classList.toggle("m-2");
-            document.getElementById(collapseID).classList.toggle("py-3");
-            document.getElementById(collapseID).classList.toggle("px-6");
-          }
-          /* Function for dropdowns */
-          function openDropdown(event, dropdownID) {
-            let element = event.target;
-            while (element.nodeName !== "A") {
-              element = element.parentNode;
-            }
-            var popper = Popper.createPopper(element, document.getElementById(dropdownID), {
-              placement: "bottom-end"
-            });
-            document.getElementById(dropdownID).classList.toggle("hidden");
-            document.getElementById(dropdownID).classList.toggle("block");
-          }
+    </script> -->
 
-          $(document).ready(function() {
-            $(".notification-drop .item").on('click',function() {
-              $(this).find('ul').toggle();
-            });
-          });
-        // Modal
-                // Get the modal
-          var modal = document.getElementById("myModal");
+    <script>
+      function toggleNavbar(collapseID) {
+        document.getElementsByClassName(collapseID).classList.toggle("hidden");
+        document.getElementsByClassName(collapseID).classList.toggle("block");
+      }
+      class Popup {
+        classPopupShow =  'popup--show';
+        classForBody = 'popup-active';
+        popup = null;
+        closeOnClickOverlay = false;
     
-              // Get the button that opens the modal
-          var btn = document.getElementById("myBtn");
+        constructor(options = {}) {
     
-              // Get the <span> element that closes the modal
-          var span = document.getElementsByClassName("close")[0];
-    
-              // When the user clicks on the button, open the modal
-          btn.onclick = function() {
-            modal.style.display = "block";
-          }
-    
-          // When the user clicks on <span> (x), close the modal
-          span.onclick = function() {
-            modal.style.display = "none";
-            }
-    
-              // When the user clicks anywhere outside of the modal, close it
-          window.onclick = function(event) {
-            if (event.target == modal) {
-              modal.style.display = "none";
-            }
-          }
-        </script>
-        <!-- <script
-          src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
-          charset="utf-8"
-        ></script> -->
+            this.closeOnClickOverlay = options?.closeOnClickOverlay || false;
         
-          <!-- <script src="../../static/alpine.js"></script> -->
+            // check if page has vertical scroll
+            this.scrollWidthInit();
+    
+            document.addEventListener('click', e => {
+            
+            // open
+            if (e.target.dataset.popupOpen) {
+                e.preventDefault();
+                this.popup = document.getElementById(e.target.dataset.popupOpen);
+                this.show();
+            }
+    
+            // close
+            if (e.target.hasAttribute('data-popup-close') ||
+                (e.target.closest('.popup__close') && e.target.closest('.popup__close').hasAttribute('data-popup-close')) ||
+                (this.closeOnClickOverlay && e.target.classList.contains('popup__content'))
+            ){
+                e.preventDefault();
+                this.hide();
+            }
+            })
+        }
+    
+        scrollWidthInit() {
+    
+            function existVerticalScroll() {
+            let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0),
+                sh =  document.body.scrollHeight;
+    
+            return sh > vh ? true : false;
+            }
+    
+            let div = document.createElement('div');
+        
+            div.style.overflowY = 'scroll';
+            div.style.width = '50px';
+            div.style.height = '50px';
+        
+            document.body.append(div);
+        
+            let scrollWidth = div.offsetWidth - div.clientWidth;
+        
+            div.remove();
+    
+            if (existVerticalScroll()) {
+            document.documentElement.style.setProperty('--scroll-width', scrollWidth + 'px');
+            }
+        }
+    
+        show() {
+            
+            if (this.popup) {
+            this.popup.classList.add(this.classPopupShow);
+            }
+    
+            document.body.classList.add(this.classForBody);
+        }
+    
+        hide() {
+    
+            if (this.popup) {
+            this.popup.classList.remove(this.classPopupShow);
+            }
+    
+            document.body.classList.remove(this.classForBody);
+        }
+        }
+    
+      new Popup({
+      closeOnClickOverlay: true, // if you want popup to be closed after click on overlay (default: false)
+      });
+    </script>
 
-      </body>
+    <script>
+      /* Sidebar - Side navigation menu on mobile/responsive mode */
+      function toggleNavbar(collapseID) {
+        document.getElementById(collapseID).classList.toggle("hidden");
+        document.getElementById(collapseID).classList.toggle("bg-white");
+        document.getElementById(collapseID).classList.toggle("m-2");
+        document.getElementById(collapseID).classList.toggle("py-3");
+        document.getElementById(collapseID).classList.toggle("px-6");
+      }
+      /* Function for dropdowns */
+      function openDropdown(event, dropdownID) {
+        let element = event.target;
+        while (element.nodeName !== "A") {
+          element = element.parentNode;
+        }
+        var popper = Popper.createPopper(element, document.getElementById(dropdownID), {
+          placement: "bottom-end"
+        });
+        document.getElementById(dropdownID).classList.toggle("hidden");
+        document.getElementById(dropdownID).classList.toggle("block");
+      }
+
+      $(document).ready(function() {
+        $(".notification-drop .item").on('click',function() {
+          $(this).find('ul').toggle();
+        });
+      });
+    // Modal
+            // Get the modal
+      var modal = document.getElementById("myModal");
+
+          // Get the button that opens the modal
+      var btn = document.getElementById("myBtn");
+
+          // Get the <span> element that closes the modal
+      var span = document.getElementsByClassName("close")[0];
+
+          // When the user clicks on the button, open the modal
+      btn.onclick = function() {
+        modal.style.display = "block";
+      }
+
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function() {
+        modal.style.display = "none";
+        }
+
+          // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+
+    </script>
+    <!-- <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
+      charset="utf-8"
+    ></script> -->
+    
+      <!-- <script src="../../static/alpine.js"></script> -->
+
+  </body>
     </html>
     

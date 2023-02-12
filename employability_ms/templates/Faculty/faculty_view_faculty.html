@@ -804,7 +804,7 @@
                         <div class="flex justify-between ... ">
                           <div class="flex-1 h-16 p-2 ...">
                             <form action="{{ url_for('_faculty.faculty_view_faculty') }}" method="GET">
-                              <select class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" name="sex" id="drop-down" placeholder="Sex" required="" onchange="this.form.submit()">
+                              <select class="drop-down appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" name="sex" id="sex" placeholder="Sex" required="" onchange="this.form.submit()">
                                 <option value="">Sex</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
@@ -813,7 +813,7 @@
                           </div>
                           <div class="flex-1 h-16 p-2 ...">
                             <form action="{{ url_for('_faculty.faculty_view_faculty') }}" method="GET">
-                              <input class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="search" value="{{ search }}" name="search" placeholder="Enter first name, last name, etc." autocomplete="off">
+                              <input class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="search" value="{{ search }}" name="search" id="search" placeholder="Enter first name, last name, etc." autocomplete="off">
                             </form>
                           </div>
                         </div>
@@ -1030,9 +1030,33 @@
         </div>
 
         <script>
+          const selectSex = document.getElementById("sex");
+          // Retrieve the selected value from local storage
+          const storedValueSex = localStorage.getItem("selectedOptionSex");
+          if (storedValueSex) {
+            selectSex.value = storedValueSex;
+          }
+          // Store the selected value in local storage
+          selectSex.addEventListener("change", function() {
+            localStorage.setItem("selectedOptionSex", selectSex.value);
+          });
+          
+          var search = localStorage.getItem("search");
+          if (search) {
+            document.getElementById("search").value = search;
+          }
+          var search = document.getElementById("search").value;
+          localStorage.setItem("search", search);
+
+          window.addEventListener("load", function () {
+            localStorage.clear();
+          });
+        </script>
+
+        <script>
           function toggleNavbar(collapseID) {
-            document.getElementById(collapseID).classList.toggle("hidden");
-            document.getElementById(collapseID).classList.toggle("block");
+            document.getElementsByClassName(collapseID).classList.toggle("hidden");
+            document.getElementsByClassName(collapseID).classList.toggle("block");
           }
           class Popup {
             classPopupShow =  'popup--show';

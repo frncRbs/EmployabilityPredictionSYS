@@ -255,9 +255,10 @@ def faculty_student_view():
             
             curriculum_year = request.args.getlist('curriculum_year')
             curriculum_year = (','.join(curriculum_year))
-            print(search, department, sex, curriculum_year)
+            print(search, department, sex, curriculum_year, program)
             # Data for filter department
             # Return Data for template
+            
             if auth_user.user_type == -1:
                 check_admin = True
             else:
@@ -271,6 +272,9 @@ def faculty_student_view():
                 check_sex = 3
             elif auth_user.user_type == -1 and auth_user.sex == "Female":
                 check_sex = 4
+            
+            # check_match = db.session.query(User, PredictionResult).filter(User.is_approve == 1, PredictionResult.desired_job, User.predict_no >=1).all()
+            # check_match = db.session.query(User, PredictionResult).filter(User.is_approve == 1, PredictionResult.desired_job == PredictionResult.top_rank, User.predict_no >=1)
             
             if auth_user.user_type == -1 or auth_user.user_type == 0:
                 
@@ -309,6 +313,7 @@ def faculty_student_view():
                 curriculum_record = db.session.query(CurriculumResult).all()
                 unapprove_account = User.query.filter_by(is_approve = False, user_type = 1).all()
                 count_unapprove = User.query.filter_by(is_approve = False, user_type = 1).count()
+                
             else:
                 return redirect(url_for('_auth.index'))
             
@@ -317,9 +322,10 @@ def faculty_student_view():
         
         return render_template("Faculty/faculty_student_view.html", auth_user=auth_user, check_sex=check_sex,
                                 students_record=students_record, check_admin=check_admin,
-                                unapprove_account=unapprove_account, 
+                                unapprove_account=unapprove_account,
                                 count_unapprove=count_unapprove, search=search, curriculum_input=curriculum_input,
-                                department=department, sex=sex, curriculum_year=curriculum_year, curriculum_record=curriculum_record
+                                department=department, sex=sex, curriculum_year=curriculum_year, curriculum_record=curriculum_record,
+                                program=program
                                 )
     except:
         flash('Server error 500', category='error')

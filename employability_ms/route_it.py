@@ -232,7 +232,7 @@ def signupIT():
                 new_user = User(request.form['first_name'], request.form['middle_name'], request.form['last_name'], request.form['sex'], request.form['curriculum_year'], request.form['contact_number'], request.form['email'], request.form['desired_career'],  'Information Technology', request.form['program'], (generate_password_hash(request.form['password'], method="sha256")), False, 0, 1)
                 db.session.add(new_user)
                 db.session.commit()
-                flash('Account successfully created. Registration feedback will be sent soon via email -support@wetechsupport.online', category='success_register_it')
+                flash('Account successfully created. We have successfully received your registration request, Kindly check your email sent by -support@wetechsupport.online', category='success_register_it')
                 return redirect(url_for('.login_IT'))
             except:
                 flash('Invalid credentials', category='error')
