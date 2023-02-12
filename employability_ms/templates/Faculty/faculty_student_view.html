@@ -482,9 +482,17 @@
               <li class="items-center">
                 <a
                   class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  href="/faculty_view_faculty"
+                  href="/faculty_view_student"
                   ><i class="fas fa-users text-blueGray-400 mr-2 text-sm"></i>
-                  Faculty Lists</a
+                  Students List</a
+                >
+              </li>
+              <li class="items-center">
+                <a
+                  class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                  href="/faculty_view_faculty"
+                  ><i class="fas fa-user-friends text-blueGray-400 mr-2 text-sm"></i>
+                  Faculty List</a
                 >
               </li>
               {% if check_admin %}
@@ -774,7 +782,12 @@
                       <div class="flex-1 h-16 p-2 ...">
                         <form action="{{ url_for('_faculty.faculty_student_view') }}" method="GET">
                           <select class="drop-down appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" name="curriculum_year" id="curriculum_year" placeholder="Curriculum Year" required="" onchange="this.form.submit()">
-                            <option value="" disabled selected hidden>Curriculum Year</option>
+                            {% if curriculum_year %}
+                              <option value="" disabled selected hidden>{{ curriculum_year }}</option>
+                            {% else %}
+                              <option value="" disabled selected hidden>Curriculum Year</option>
+                            {% endif %}
+
                             {% if curriculum_input %}
                               {% for curriculum in curriculum_input %}
                                 <option value="{{ curriculum.curriculum_year }}">{{ curriculum.curriculum_year }}</option>
@@ -801,7 +814,12 @@
                       <div class="flex-1 h-16 p-2 ...">
                         <form action="{{ url_for('_faculty.faculty_student_view') }}" method="GET">
                           <select class="drop-down appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" name="sex" id="sex" placeholder="Sex" required="" onchange="this.form.submit()">
-                            <option value="" disabled selected hidden>Sex</option>
+                            {% if sex %}
+                              <option value="" disabled selected hidden>{{ sex }}</option>
+                            {% else %}
+                              <option value="" disabled selected hidden>Sex</option>
+                            {% endif %}
+
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                           </select>
@@ -810,9 +828,13 @@
                       <div class="flex-1 h-16 p-2 ...">
                         <form action="{{ url_for('_faculty.faculty_student_view') }}" method="GET">
                           <select class="drop-down appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" name="department" id="department" placeholder="Department" required="" onchange="this.form.submit()">
-                            <option value="" disabled selected hidden>Department</option>
-                            <option value="information technology">Information Technology</option>
-                            <option value="computer science" >Computer Science</option>
+                            {% if department %}
+                              <option value="" disabled selected hidden>{{ department }}</option>
+                            {% else %}
+                              <option value="" disabled selected hidden>Department</option>
+                            {% endif %}
+                            <option value="Information Technology">Information Technology</option>
+                            <option value="Computer Science">Computer Science</option>
                           </select>
                         </form>
                       </div>
@@ -841,7 +863,7 @@
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Image</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Full Name</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Desired Career</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Top 1 Prediction</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Top Prediction</th>
                                 <!-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Sex</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Curriculum year</th> -->
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase">Department</th>

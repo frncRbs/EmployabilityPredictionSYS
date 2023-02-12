@@ -228,14 +228,6 @@ box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5);
   }
 }
 /*PopUp End*/
-th {
-  text-align: left;
-  color: #4679bd;
-}
-
-tbody > tr:nth-of-type(even) {
-  background-color: #daeaff;
-}
 </style>
 <!DOCTYPE html>
 <html>
@@ -480,9 +472,17 @@ tbody > tr:nth-of-type(even) {
                 <li class="items-center">
                   <a
                     class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                    href="/faculty_view_faculty"
+                    href="/faculty_view_student"
                     ><i class="fas fa-users text-blueGray-400 mr-2 text-sm"></i>
-                    Faculty Lists</a
+                    Students List</a
+                  >
+                </li>
+                <li class="items-center">
+                  <a
+                    class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                    href="/faculty_view_faculty"
+                    ><i class="fas fa-user-friends text-blueGray-400 mr-2 text-sm"></i>
+                    Faculty List</a
                   >
                 </li>
                 {% if check_admin %}
@@ -773,7 +773,7 @@ tbody > tr:nth-of-type(even) {
                       <div class="flex flex-wrap">
                         <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
                           <h5 class="text-blueGray-400 uppercase font-bold text-xs">
-                            Number of Registered Students
+                            Number of Students with Prediction
                           </h5>
                           <span class="font-semibold text-xl text-blueGray-700">
                             {{ registered_students }}
