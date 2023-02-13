@@ -186,25 +186,25 @@ def faculty_landing():
                     (User.department.like('%' + search + '%'))    |
                     (User.curriculum_year.like('%' + search + '%'))    |
                     (User.email.like('%' + search + '%')))\
-                    .paginate(page=page, per_page=5)# fetch user students only
+                    .paginate(page=page, per_page=10)# fetch user students only
             elif department:
                 students_record = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', User.predict_no >=1, PredictionResult.user_id == User.id).group_by(User.id).order_by(asc(PredictionResult.date_created))\
                     .filter((User.department.like('%' + department + '%')))\
-                    .paginate(page=page, per_page=5)# fetch department only
+                    .paginate(page=page, per_page=10)# fetch department only
             elif program:
                 students_record = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', User.predict_no >=1, PredictionResult.user_id == User.id).group_by(User.id).order_by(asc(PredictionResult.date_created))\
                     .filter((User.program.like('%' + program + '%')))\
-                    .paginate(page=page, per_page=5)# fetch program only
+                    .paginate(page=page, per_page=10)# fetch program only
             elif sex:
                 students_record = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', User.predict_no >=1, PredictionResult.user_id == User.id).group_by(User.id).order_by(asc(PredictionResult.date_created))\
                     .filter((User.sex==sex))\
-                    .paginate(page=page, per_page=5)# fetch sex only
+                    .paginate(page=page, per_page=10)# fetch sex only
             elif curriculum_year:
                 students_record = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', User.predict_no >=1, PredictionResult.user_id == User.id).group_by(User.id).order_by(asc(PredictionResult.date_created))\
                     .filter((User.curriculum_year.like('%' + curriculum_year + '%')))\
-                    .paginate(page=page, per_page=5)# fetch curriculum year only
+                    .paginate(page=page, per_page=10)# fetch curriculum year only
             else:
-                students_record = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', User.predict_no >=1, PredictionResult.user_id == User.id).group_by(PredictionResult.user_id).order_by(asc(PredictionResult.date_created)).paginate(page=page, per_page=5)# fetch user students only
+                students_record = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', User.predict_no >=1, PredictionResult.user_id == User.id).group_by(PredictionResult.user_id).order_by(asc(PredictionResult.date_created)).paginate(page=page, per_page=10)# fetch user students only
         
             curriculum_input = db.session.query(CurriculumResult).all()
             curriculum_record = db.session.query(CurriculumResult).all()
@@ -280,7 +280,7 @@ def faculty_student_view():
             if auth_user.user_type == -1 or auth_user.user_type == 0:
                 
                 if search:
-                    students_record = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', User.predict_no >=1, PredictionResult.user_id == User.id).group_by(User.id).order_by(asc(PredictionResult.date_created))\
+                    students_record = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', User.predict_no >=1, PredictionResult.user_id == User.id).group_by(User.id).order_by(desc(PredictionResult.date_created))\
                         .filter((User.first_name.like('%' + search + '%'))      |
                         (User.middle_name.like('%' + search + '%'))     |
                         (User.last_name.like('%' + search + '%'))       |
@@ -289,25 +289,25 @@ def faculty_student_view():
                         (User.department.like('%' + search + '%'))    |
                         (User.curriculum_year.like('%' + search + '%'))    |
                         (User.email.like('%' + search + '%')))\
-                        .paginate(page=page, per_page=5)# fetch user students only
+                        .paginate(page=page, per_page=10)# fetch user students only
                 elif department:
-                    students_record = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', User.predict_no >=1, PredictionResult.user_id == User.id).group_by(User.id).order_by(asc(PredictionResult.date_created))\
+                    students_record = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', User.predict_no >=1, PredictionResult.user_id == User.id).group_by(User.id).order_by(desc(PredictionResult.date_created))\
                         .filter((User.department.like('%' + department + '%')))\
-                        .paginate(page=page, per_page=5)# fetch department only
+                        .paginate(page=page, per_page=10)# fetch department only
                 elif program:
-                    students_record = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', User.predict_no >=1, PredictionResult.user_id == User.id).group_by(User.id).order_by(asc(PredictionResult.date_created))\
+                    students_record = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', User.predict_no >=1, PredictionResult.user_id == User.id).group_by(User.id).order_by(desc(PredictionResult.date_created))\
                         .filter((User.program.like('%' + program + '%')))\
-                        .paginate(page=page, per_page=5)# fetch program only
+                        .paginate(page=page, per_page=10)# fetch program only
                 elif sex:
-                    students_record = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', User.predict_no >=1, PredictionResult.user_id == User.id).group_by(User.id).order_by(asc(PredictionResult.date_created))\
+                    students_record = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', User.predict_no >=1, PredictionResult.user_id == User.id).group_by(User.id).order_by(desc(PredictionResult.date_created))\
                         .filter((User.sex==sex))\
-                        .paginate(page=page, per_page=5)# fetch sex only
+                        .paginate(page=page, per_page=10)# fetch sex only
                 elif curriculum_year:
-                    students_record = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', User.predict_no >=1, PredictionResult.user_id == User.id).group_by(User.id).order_by(asc(PredictionResult.date_created))\
+                    students_record = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', User.predict_no >=1, PredictionResult.user_id == User.id).group_by(User.id).order_by(desc(PredictionResult.date_created))\
                         .filter((User.curriculum_year.like('%' + curriculum_year + '%')))\
-                        .paginate(page=page, per_page=5)# fetch curriculum year only
+                        .paginate(page=page, per_page=10)# fetch curriculum year only
                 else:
-                    students_record = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', User.predict_no >=1, PredictionResult.user_id == User.id).group_by(PredictionResult.user_id).order_by(asc(PredictionResult.date_created)).paginate(page=page, per_page=5)# fetch user students only
+                    students_record = db.session.query(User, PredictionResult).filter(User.is_approve == 1, User.department != 'Faculty', User.predict_no >=1, PredictionResult.user_id == User.id).group_by(PredictionResult.user_id).order_by(desc(PredictionResult.date_created)).paginate(page=page, per_page=10)# fetch user students only
                 
                 auth_user=current_user
                 curriculum_input = db.session.query(CurriculumResult).all()
@@ -375,13 +375,13 @@ def faculty_view_faculty():
                         (User.contact_number.like('%' + search + '%'))  |
                         (User.department.like('%' + search + '%'))    |
                         (User.email.like('%' + search + '%')))\
-                        .paginate(page=page, per_page=5)# fetch user students only
+                        .paginate(page=page, per_page=10)# fetch user students only
                 elif sex:
                     students_record = db.session.query(User).filter(User.is_approve == 1, User.department == 'Faculty').order_by(desc(User.date_created))\
                         .filter((User.sex==sex))\
-                        .paginate(page=page, per_page=5)# fetch sex only
+                        .paginate(page=page, per_page=10)# fetch sex only
                 else:
-                    students_record = db.session.query(User).filter(User.is_approve == 1, User.department == 'Faculty').order_by(desc(User.date_created)).paginate(page=page, per_page=5)# fetch user students only
+                    students_record = db.session.query(User).filter(User.is_approve == 1, User.department == 'Faculty').order_by(desc(User.date_created)).paginate(page=page, per_page=10)# fetch user students only
                 
                 curriculum_input = db.session.query(CurriculumResult).all()
                 curriculum_record = db.session.query(CurriculumResult).all()
@@ -454,25 +454,25 @@ def faculty_view_student():
                         (User.department.like('%' + search + '%'))    |
                         (User.curriculum_year.like('%' + search + '%'))    |
                         (User.email.like('%' + search + '%')))\
-                        .paginate(page=page, per_page=5)# fetch user students only
+                        .paginate(page=page, per_page=10)# fetch user students only
                 elif department:
                     students_record = db.session.query(User).filter(User.is_approve == 1, User.user_type == 1, User.predict_no == 0).order_by(desc(User.date_created))\
                         .filter((User.department.like('%' + department + '%')))\
-                        .paginate(page=page, per_page=5)# fetch department only
+                        .paginate(page=page, per_page=10)# fetch department only
                 elif program:
                     students_record = db.session.query(User).filter(User.is_approve == 1, User.user_type == 1, User.predict_no == 0).order_by(desc(User.date_created))\
                         .filter((User.program.like('%' + program + '%')))\
-                        .paginate(page=page, per_page=5)# fetch program only
+                        .paginate(page=page, per_page=10)# fetch program only
                 elif sex:
                     students_record = db.session.query(User).filter(User.is_approve == 1, User.user_type == 1, User.predict_no == 0).order_by(desc(User.date_created))\
                         .filter((User.sex==sex))\
-                        .paginate(page=page, per_page=5)# fetch sex only
+                        .paginate(page=page, per_page=10)# fetch sex only
                 elif curriculum_year:
                     students_record = db.session.query(User).filter(User.is_approve == 1, User.user_type == 1, User.predict_no == 0).order_by(desc(User.date_created))\
                         .filter((User.curriculum_year.like('%' + curriculum_year + '%')))\
-                        .paginate(page=page, per_page=5)# fetch curriculum year only
+                        .paginate(page=page, per_page=10)# fetch curriculum year only
                 else:
-                    students_record = db.session.query(User).filter(User.is_approve == 1, User.user_type == 1, User.predict_no == 0).order_by(desc(User.date_created)).paginate(page=page, per_page=5)# fetch user students only
+                    students_record = db.session.query(User).filter(User.is_approve == 1, User.user_type == 1, User.predict_no == 0).order_by(desc(User.date_created)).paginate(page=page, per_page=10)# fetch user students only
                 
                 auth_user=current_user
                 curriculum_input = db.session.query(CurriculumResult).all()
@@ -522,7 +522,7 @@ def view_results():
     try:
         auth_user=current_user
         page = request.args.get('page', 1, type=int)
-        view_pred_result = db.session.query(User, PredictionResult).filter(User.id == int(request.form['user_id'])).filter(PredictionResult.user_id == int(request.form['user_id'])).group_by(PredictionResult.result_id).order_by(asc(PredictionResult.date_created)).paginate(page=page, per_page=5)
+        view_pred_result = db.session.query(User, PredictionResult).filter(User.id == int(request.form['user_id'])).filter(PredictionResult.user_id == int(request.form['user_id'])).group_by(PredictionResult.result_id).order_by(desc(PredictionResult.date_created)).paginate(page=page, per_page=5)
     except:
         flash('System error cannot delete data', category='error')
         return redirect(url_for('.faculty_student_view'))
@@ -623,6 +623,19 @@ def approve_account():
 def delete_curriculum_year():
     try:
         delete_result = delete(CurriculumResult).where(CurriculumResult.curriculum_id == request.form['curriculum_identity'])
+        db.session.execute(delete_result)
+        db.session.commit()
+        flash('Curriculum Year successfully deleted', category='success_deletion')
+
+    except:
+        flash('Failed to deleted Curriculum Year', category='error')
+
+    return redirect(url_for('_faculty.faculty_landing'))
+
+@_faculty.route("/curriculum_record/<int:curriculum_id>", methods=["DELETE"])
+def delete_item(curriculum_id):
+    try:
+        delete_result = delete(CurriculumResult).where(CurriculumResult.curriculum_id == curriculum_id)
         db.session.execute(delete_result)
         db.session.commit()
         flash('Curriculum Year successfully deleted', category='success_deletion')
